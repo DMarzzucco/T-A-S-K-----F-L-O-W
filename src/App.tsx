@@ -1,13 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home } from "./pages";
+import { Footer, HeaderLR } from "./components/Common";
+import Register from "./pages/Auth/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<>
-        <h1 className="text-xl text-blue-400 font-bold">Prueba</h1>
+          <HeaderLR />
+          <Home />
+          <Footer />
         </>}>
         </Route>
+        {/*  */}
+        <Route path="/Register" element={<>
+          <HeaderLR />
+          <Register />
+          <Footer />
+        </>}></Route>
       </Routes>
     </Router>
   )
