@@ -1,57 +1,52 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { RegisterRequest } from "../../api/api";
+import { useForm } from "react-hook-form";
 import { User } from "../../ts/interfaces";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useAuth } from "../../context/Auth.context";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ErrorFormRegister } from "../../components/assets/assets";
+
 function Register() {
-    const { register, handleSubmit } = useForm<User>();
-    const [registerFull, setRegisterFull] = useState<boolean>(false);
-    const [errorPass, setErrorPass] = useState<boolean>(false);
+    const { register, handleSubmit, formState: { errors } } = useForm<User>();
+    const { signUp, isAuth, fails } = useAuth()
+    const nave = useNavigate();
 
-    const onSubmit: SubmitHandler<User> = async (data: User) => {
-        console.log(data)
-        if (data.password.length < 6) {
-            setErrorPass(true)
-            setTimeout(() => setErrorPass(false), 1000);
-            return;
+    useEffect(() => {
+        if (isAuth) {
+            nave("/");
         }
-        else {
-            try {
-                const res = await RegisterRequest(data);
-                setRegisterFull(true);
-                console.log(res)
-            }
-            catch (error) {
-                console.error("Submit Error", error)
-            }
-        }
+    }, [isAuth])
 
-    }
+    const onSubmit = handleSubmit(async (value) => {
+        signUp(value)
+    })
     return (
         <>
             <section className="flex flex-col justify-center items-center w-full h-screen">
                 <h1>Register</h1>
-                <form onSubmit={handleSubmit(onSubmit)}
+                {fails.map((fails, index) => (
+                    <p key={index} className="p-2 bg-red-500 text-white font-bold">
+                        {fails}
+                    </p>
+                ))}
+                <form onSubmit={onSubmit}
                     className="flex flex-col justify-center items-center">
+                    {/* username  */}
                     <input type="text" {...register("username", { required: true })}
                         placeholder="UserName "
                         className="text-white"
                     />
+                    {errors.username && <ErrorFormRegister title="Username is Required" />}
+                    {/* Email */}
                     <input type="email" {...register("email", { required: true })}
                         placeholder="Email" />
+                    {errors.email && <ErrorFormRegister title="Email is Required" />}
+                    {/* Password */}
                     <input type="password" {...register("password", { required: true })}
                         placeholder="Password" />
-                    {errorPass ?
-                        <div className="flex justify-center items-center w-full bg-red-500 text-white ">
-                            <h1>La contraseña debe ser de mas de 6 digitos</h1>
-                        </div> : null}
+                    {errors.password && <ErrorFormRegister title="Password is Required" />}
+
                     <button type="submit"> Sing Up</button>
                 </form>
-                {registerFull ?
-                    <div className="flex flex-col justify-center items-center">
-                        <h1>Registro con existo <br /> ahora puede iniciar seccion</h1>
-                        <Link to={"/login"} > Login </Link>
-                    </div> : null}
             </section>
         </>
     )

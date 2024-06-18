@@ -11,5 +11,6 @@ export const RegisterRequest = (user: User) => {
         })
         .catch(error => {
             console.error('There was an error', error)
+            throw error.response.data
         })
 } 
