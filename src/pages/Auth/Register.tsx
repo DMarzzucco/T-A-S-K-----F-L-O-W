@@ -24,13 +24,15 @@ function Register() {
         <>
             <section className="flex flex-col justify-center items-center w-full h-screen">
                 <h1>Register</h1>
-                {fails.length > 0 && (<div className=" my-4">
-                    {fails.map((error, index) => (
-                        <p key={index} className="p-2 bg-red-500 text-white font-bold">
-                            {error.message}
-                        </p>
-                    ))}
-                </div>
+
+                {fails.length > 0 && (
+                    <div className=" my-4">
+                        {fails.map((error, index) => (
+                            <p key={index} className="p-2 bg-red-500 text-white font-bold">
+                                {error.message}
+                            </p>
+                        ))}
+                    </div>
                 )}
                 <form onSubmit={onSubmit}
                     className="flex flex-col justify-center items-center">

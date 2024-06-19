@@ -1,3 +1,4 @@
+
 export interface User {
     username: string,
     email: string,
@@ -17,3 +18,18 @@ export interface AuthContextType {
 }
 export interface ErrorResponse { response: { data: string; } }
 export interface TitleType { title: string }
+
+export interface ValidationError { message: string; }
+export interface ApiErrorResponse {
+    errors?: ValidationError[];
+    error?: string;
+}
+export interface ApiError {
+    response?: {
+        data: ApiErrorResponse;
+        status: number;
+        statusText: string;
+        header: any
+        config: any
+    }
+}

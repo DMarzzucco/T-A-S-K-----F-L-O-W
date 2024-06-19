@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "../ts/interfaces";
+import { ApiErrorResponse, User } from "../ts/interfaces";
 
 const API = "http://localhost:3000/api";
 
@@ -12,9 +12,11 @@ export const RegisterRequest = (user: User) => {
         .catch(error => {
             console.error('There was an error', error)
             if (axios.isAxiosError(error) && error.response) {
-                throw error.response.data;
+                // throw error.response.data as ApiError;
+                const apiError: ApiErrorResponse = error.response.data;
+                throw { response: { data: apiError, status: error.response.status } };
             } else {
-                throw { errors: [{ message: "Unexpected Error" }] }
+                throw { errors: [{ message: "Unexpected Error" }] };
             }
         })
 } 
