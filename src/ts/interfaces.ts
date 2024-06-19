@@ -13,11 +13,7 @@ export interface AuthContextType {
     signUp: (user: User) => Promise<void>;
     user: string;
     isAuth: boolean;
-    fails: string[];
+    fails: { message: string }[];
 }
-export interface ErrorResponse {
-    response: {
-        data: string;
-    }
-}
+export interface ErrorResponse { response: { data: string; } }
 export interface TitleType { title: string }

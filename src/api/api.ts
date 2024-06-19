@@ -11,6 +11,10 @@ export const RegisterRequest = (user: User) => {
         })
         .catch(error => {
             console.error('There was an error', error)
-            throw error.response.data
+            if (axios.isAxiosError(error) && error.response) {
+                throw error.response.data;
+            } else {
+                throw { errors: [{ message: "Unexpected Error" }] }
+            }
         })
 } 
