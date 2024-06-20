@@ -28,7 +28,7 @@ function Register() {
                 {fails.length > 0 && (
                     <div className=" my-4">
                         {fails.map((error, index) => (
-                            <p key={index} className="p-2 bg-red-500 text-white font-bold">
+                            <p key={index} className="p-2 my-2 bg-red-500 text-white font-bold">
                                 {error.message}
                             </p>
                         ))}

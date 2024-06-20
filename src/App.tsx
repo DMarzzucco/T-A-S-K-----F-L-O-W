@@ -3,6 +3,7 @@ import { Home } from "./pages";
 import { Footer, HeaderLR } from "./components/Common";
 import Register from "./pages/Auth/Register";
 import { AuthProvider } from "./context/Auth.context";
+import Login from "./pages/Auth/Login";
 
 function App() {
   return (
@@ -13,14 +14,21 @@ function App() {
             <HeaderLR />
             <Home />
             <Footer />
-          </>}>
-          </Route>
-          {/*  */}
+          </>} />
+          {/* Register */}
           <Route path="/Register" element={<>
             <HeaderLR />
             <Register />
             <Footer />
-          </>}></Route>
+          </>} />
+          {/* Login */}
+          <Route path="/Login" element={
+            <>
+              <HeaderLR />
+              <Login />
+              <Footer />
+            </>
+          } />
         </Routes>
       </Router>
     </AuthProvider>

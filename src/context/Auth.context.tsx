@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { RegisterRequest } from "../api/api";
+import { createContext, useContext, useEffect, useState } from "react";
+import { LoginRequest, RegisterRequest } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -34,17 +34,47 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
                     setFails([{ message: responseData.error }])
                 }
                 else {
-                    setFails([{ message: "Error al registrar" }])
+                    setFails([{ message: "Validation Error" }])
                 }
             }
             else {
-                setFails([{ message: "error del servidor" }])
+                setFails([{ message: "Server Error" }])
             }
         }
     }
-
+    const signIn = async (user: User) => {
+        try {
+            const res = await LoginRequest(user);
+            setUser(res.data)
+            setIsAuth(true)
+            setFails([])
+        } catch (error) {
+            console.error(error)
+            if ((error as ApiError).response?.status === 400) {
+                const axiosError = error as ApiError;
+                const responseData = axiosError.response?.data;
+                if (responseData?.errors) {
+                    setFails(responseData?.errors);
+                } else if (responseData?.error) {
+                    setFails([{ message: responseData.error }])
+                } else {
+                    setFails([{ message: "Problem of Validation the count" }])
+                }
+            } else {
+                setFails([{ message: "Server Error" }])
+            }
+        }
+    }
+    useEffect(() => {
+        if (fails.length > 0) {
+            const timer = setTimeout(() => {
+                setFails([])
+            }, 2000)
+            return () => clearTimeout(timer)
+        }
+    }, [fails])
     return (
-        <AuthContext.Provider value={{ signUp, user, isAuth, fails }}>
+        <AuthContext.Provider value={{ signUp, signIn, user, isAuth, fails }}>
             {children}
         </AuthContext.Provider>
 
