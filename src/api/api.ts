@@ -1,10 +1,9 @@
 import axios, { AxiosError } from "axios";
+import instance from "./instances";
 import { ApiErrorResponse, User } from "../ts/interfaces";
 
-const API = "http://localhost:3000/api";
-
 export const RegisterRequest = (user: User) => {
-    return axios.post(`${API}/Register`, user)
+    return instance.post(`/Register`, user)
         .then(response => {
             console.log('Response', response.data)
             return response.data;
@@ -21,7 +20,7 @@ export const RegisterRequest = (user: User) => {
 }
 
 export const LoginRequest = (user: User) => {
-    return axios.post(`${API}/Login`, user)
+    return instance.post(`/Login`, user)
         .then(response => {
             console.log('Response', response.data)
             return response.data;

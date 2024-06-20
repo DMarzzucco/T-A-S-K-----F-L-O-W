@@ -12,11 +12,12 @@ function Login() {
     const nave = useNavigate();
     useEffect(() => {
         if (isAuth) {
-            nave("/")
+            nave("/task")
         }
     }, [isAuth])
+
+
     const onSubmit = handleSubmit(async (data) => {
-        // console.log(data)
         signIn(data)
     })
     return (

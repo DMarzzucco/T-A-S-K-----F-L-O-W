@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { LoginRequest, RegisterRequest } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
+import Cookies from "js-cookie"
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
@@ -73,6 +74,15 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
             return () => clearTimeout(timer)
         }
     }, [fails])
+
+    useEffect(() => {
+        const cookies = Cookies.get()
+        console.log (cookies)
+        if (cookies.token) {
+            console.log(cookies.token);
+        }
+    }, [])
+
     return (
         <AuthContext.Provider value={{ signUp, signIn, user, isAuth, fails }}>
             {children}

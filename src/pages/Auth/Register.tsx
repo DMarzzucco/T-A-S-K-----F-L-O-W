@@ -13,7 +13,7 @@ function Register() {
 
     useEffect(() => {
         if (isAuth) {
-            nave("/");
+            nave("/task");
         }
     }, [isAuth])
 
