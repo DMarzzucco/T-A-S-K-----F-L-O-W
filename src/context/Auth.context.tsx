@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LoginRequest, RegisterRequest } from "../api/api";
+import { LoginRequest, RegisterRequest, veryToken } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
 import Cookies from "js-cookie"
 
@@ -13,7 +13,7 @@ export const useAuth = () => {
     return context;
 }
 export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
-    const [user, setUser] = useState<string>("")
+    const [user, setUser] = useState<string | null | User >("")
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [fails, setFails] = useState<ValidationError[]>([])
 
@@ -76,11 +76,28 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     }, [fails])
 
     useEffect(() => {
-        const cookies = Cookies.get()
-        console.log (cookies)
-        if (cookies.token) {
-            console.log(cookies.token);
+        const verifyToken = async () => {
+            const cookies = Cookies.get()
+            if (cookies && cookies.token) {
+                console.log(cookies.token);
+                try {
+                    const res = await veryToken();
+                    console.log("User data", res)
+                    if (res.response && res.response.data){
+                        setIsAuth (true)
+                        setUser(res)
+                    }
+  
+                } catch (error) {
+                    setIsAuth(false)
+                    setUser(null);
+                }
+            } else {
+                setIsAuth(false);
+                setUser(null);
+            }
         }
+        verifyToken();
     }, [])
 
     return (

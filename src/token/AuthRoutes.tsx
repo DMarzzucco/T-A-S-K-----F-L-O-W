@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/Auth.context";
 
 function AuthRoutes() {
-    const { user, isAuth } = useAuth()
+    const { isAuth } = useAuth()
     if (!isAuth) {
         return <Navigate to={"/login"} replace />
     }

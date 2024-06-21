@@ -13,7 +13,7 @@ export interface AuthProvI {
 export interface AuthContextType {
     signUp: (user: User) => Promise<void>;
     signIn: (user: User) => Promise<void>;
-    user: string;
+    user: string | null | User;
     isAuth: boolean;
     fails: { message: string }[];
 }
