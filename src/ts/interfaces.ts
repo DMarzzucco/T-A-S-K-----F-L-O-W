@@ -16,6 +16,7 @@ export interface AuthContextType {
     user: string | null | User;
     isAuth: boolean;
     fails: { message: string }[];
+    loading: boolean;
 }
 export interface ErrorResponse { response: { data: string; } }
 export interface TitleType { title: string }
@@ -34,3 +35,4 @@ export interface ApiError {
         config: any
     }
 }
+export interface HeaderLinksProps { path: string, title: string };

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages";
-import { Footer, HeaderLR } from "./components/Common";
+import { Footer, Header, HeaderLR } from "./components/Common";
 import Register from "./pages/Auth/Register";
 import { AuthProvider } from "./context/Auth.context";
 import { Form, Profile, Task } from "./pages/Tasks";
@@ -32,9 +32,10 @@ function App() {
             </>
           } />
           {/* AuthTask*/}
-          <Route element={<AuthRoutes/>}>
+          <Route element={<AuthRoutes />}>
             <Route path="/task" element={
               <>
+                <Header />
                 <Task />
                 <Footer />
               </>

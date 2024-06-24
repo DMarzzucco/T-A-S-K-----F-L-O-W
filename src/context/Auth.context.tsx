@@ -13,9 +13,10 @@ export const useAuth = () => {
     return context;
 }
 export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
-    const [user, setUser] = useState<string | null | User >("")
+    const [user, setUser] = useState<string | null | User>("")
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [fails, setFails] = useState<ValidationError[]>([])
+    const [loading, setLoading] = useState<boolean>(true);
 
     const signUp = async (user: User) => {
         try {
@@ -78,30 +79,39 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     useEffect(() => {
         const verifyToken = async () => {
             const cookies = Cookies.get()
+            if (!cookies) {
+                setIsAuth(false);
+                setUser(null)
+                setLoading(false);
+                return
+            }
             if (cookies && cookies.token) {
-                console.log(cookies.token);
                 try {
                     const res = await veryToken();
                     console.log("User data", res)
-                    if (res.response && res.response.data){
-                        setIsAuth (true)
+                    if (res.response && res.response.data) {
+                        setIsAuth(true)
+                        setLoading(false)
                         setUser(res)
+                        return
                     }
-  
+
                 } catch (error) {
                     setIsAuth(false)
                     setUser(null);
+                    setLoading(false)
                 }
             } else {
                 setIsAuth(false);
                 setUser(null);
+                setLoading(false)
             }
         }
         verifyToken();
     }, [])
 
     return (
-        <AuthContext.Provider value={{ signUp, signIn, user, isAuth, fails }}>
+        <AuthContext.Provider value={{ signUp, signIn, user, isAuth, fails, loading }}>
             {children}
         </AuthContext.Provider>
 
