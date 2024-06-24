@@ -9,12 +9,12 @@ function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
     const { signIn, isAuth, fails } = useAuth()
 
-    // const nave = useNavigate();
-    // useEffect(() => {
-    //     if (isAuth) {
-    //         nave("/task")
-    //     }
-    // }, [isAuth])
+    const nave = useNavigate();
+    useEffect(() => {
+        if (isAuth) {
+            nave("/task")
+        }
+    }, [isAuth])
 
 
     const onSubmit = handleSubmit(async (data) => {

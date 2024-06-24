@@ -9,10 +9,12 @@ export const ErrorFormRegister: React.FC<TitleType> = ({ title }) => {
     )
 }
 
-export const HeaderLinks: React.FC<HeaderLinksProps> = ({path, title}) =>{
+export const HeaderLinks: React.FC<HeaderLinksProps> = ({ path, title, click }) => {
     return (
-        <Link to={path}>
-            <p>{title}</p>
-        </Link>
+        <li>
+            <Link to={path} onClick={click}>
+                <p>{title}</p>
+            </Link>
+        </li>
     )
 }

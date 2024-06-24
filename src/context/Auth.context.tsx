@@ -13,7 +13,7 @@ export const useAuth = () => {
     return context;
 }
 export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
-    const [user, setUser] = useState<string | null | User>("")
+    const [user, setUser] = useState<string | null | User>(null)
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [fails, setFails] = useState<ValidationError[]>([])
     const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +21,8 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signUp = async (user: User) => {
         try {
             const res = await RegisterRequest(user);
-            setUser(res.data)
+            // setUser(res.data)
+            setUser(res)
             setIsAuth(true)
             setFails([])
 
@@ -47,7 +48,8 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signIn = async (user: User) => {
         try {
             const res = await LoginRequest(user);
-            setUser(res.data)
+            // setUser(res.data)
+            setUser(res)
             setIsAuth(true)
             setFails([])
         } catch (error) {
@@ -67,6 +69,12 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
             }
         }
     }
+    const logOut = async () => {
+        Cookies.remove("token");
+        setIsAuth(false)
+        setUser(null)
+    }
+
     useEffect(() => {
         if (fails.length > 0) {
             const timer = setTimeout(() => {
@@ -90,9 +98,9 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
                     const res = await veryToken();
                     console.log("User data", res)
                     if (res.response && res.response.data) {
+                        setUser(res)
                         setIsAuth(true)
                         setLoading(false)
-                        setUser(res)
                         return
                     }
 
@@ -111,7 +119,7 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ signUp, signIn, user, isAuth, fails, loading }}>
+        <AuthContext.Provider value={{ signUp, signIn, logOut, user, isAuth, fails, loading }}>
             {children}
         </AuthContext.Provider>
 

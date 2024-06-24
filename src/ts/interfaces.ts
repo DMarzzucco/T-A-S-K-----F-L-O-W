@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 
 export interface User {
     username: string,
@@ -13,6 +14,7 @@ export interface AuthProvI {
 export interface AuthContextType {
     signUp: (user: User) => Promise<void>;
     signIn: (user: User) => Promise<void>;
+    logOut: () => Promise<void>;
     user: string | null | User;
     isAuth: boolean;
     fails: { message: string }[];
@@ -35,4 +37,8 @@ export interface ApiError {
         config: any
     }
 }
-export interface HeaderLinksProps { path: string, title: string };
+export interface HeaderLinksProps {
+    path: string,
+    title: string,
+    click?: MouseEventHandler<HTMLAnchorElement>;
+};
