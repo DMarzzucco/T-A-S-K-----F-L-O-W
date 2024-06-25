@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signUp = async (user: User) => {
         try {
             const res = await RegisterRequest(user);
-            // setUser(res.data)
+            setUser(res.data)
             setUser(res)
             setIsAuth(true)
             setFails([])
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signIn = async (user: User) => {
         try {
             const res = await LoginRequest(user);
-            // setUser(res.data)
+            setUser(res.data)
             setUser(res)
             setIsAuth(true)
             setFails([])
@@ -98,8 +98,8 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
                     const res = await veryToken();
                     console.log("User data", res)
                     if (res.response && res.response.data) {
-                        setUser(res)
                         setIsAuth(true)
+                        setUser(res)
                         setLoading(false)
                         return
                     }

@@ -11,7 +11,7 @@ export const ErrorFormRegister: React.FC<TitleType> = ({ title }) => {
 
 export const HeaderLinks: React.FC<HeaderLinksProps> = ({ path, title, click }) => {
     return (
-        <li>
+        <li className="list-none flex justify-center items-center m-2 border rounded-xl p-1 hover:bg-slate-300 hover:text-slate-900">
             <Link to={path} onClick={click}>
                 <p>{title}</p>
             </Link>

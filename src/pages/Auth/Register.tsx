@@ -36,6 +36,13 @@ function Register() {
                 )}
                 <form onSubmit={onSubmit}
                     className="flex flex-col justify-center items-center">
+                    {/* fullname */}
+                    <input type="text" {...register("fullname", { required: true })}
+                        placeholder="Complete Name "
+                        className="text-white"
+                    />
+                    {errors.username && <ErrorFormRegister title="Username is Required" />}
+
                     {/* username  */}
                     <input type="text" {...register("username", { required: true })}
                         placeholder="UserName "
