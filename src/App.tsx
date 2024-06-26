@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages";
 import { Footer, Header } from "./components/Common";
 import Register from "./pages/Auth/Register";
-import { AuthProvider } from "./context/Auth.context";
 import { Form, Profile, Task } from "./pages/Tasks";
 import Login from "./pages/Auth/Login";
 import AuthRoutes from "./token/AuthRoutes";
+import { AuthProvider } from "./context";
 
 function App() {
   return (

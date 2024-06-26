@@ -52,3 +52,18 @@ export const veryToken = (): Promise<User> => {
             }
         })
 }
+export const getProfile = () => {
+    return instance.get('/profile')
+        .then(response => {
+            return response.data
+        })
+        .catch((error) => {
+            console.error("Error verifying token", error)
+            if (axios.isAxiosError(error) && error.response) {
+                const apiError: ApiErrorResponse = error.response.data;
+                throw { response: { data: apiError, status: error.response.status } }
+            } else {
+                throw { errors: [{ message: "Unexpected error" }] }
+            }
+        })
+}

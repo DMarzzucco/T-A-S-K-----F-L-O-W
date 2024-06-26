@@ -12,7 +12,7 @@ export const useAuth = () => {
     }
     return context;
 }
-export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
+const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const [user, setUser] = useState<string | null | User>(null)
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [fails, setFails] = useState<ValidationError[]>([])
@@ -125,3 +125,5 @@ export const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
 
     )
 }
+
+export default AuthProvider

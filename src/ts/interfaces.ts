@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
 
 export interface User {
+    id: string;
     username: string,
     fullname: string,
     email: string,
@@ -20,6 +21,9 @@ export interface AuthContextType {
     isAuth: boolean;
     fails: { message: string }[];
     loading: boolean;
+}
+export interface TaskContextType {
+    user?: string | null | User;
 }
 export interface ErrorResponse { response: { data: string; } }
 export interface TitleType { title: string }
