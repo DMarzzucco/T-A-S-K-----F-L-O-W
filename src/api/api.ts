@@ -36,7 +36,7 @@ export const LoginRequest = (user: User) => {
         })
 }
 
-export const veryToken = (): Promise<User> => {
+export const veryTokenResponse = (): Promise<User> => {
     return instance.get(`/very`)
         .then((response: AxiosResponse<User>) => {
             console.log("Token Verifacation", response.data)
@@ -65,5 +65,13 @@ export const getProfile = () => {
             } else {
                 throw { errors: [{ message: "Unexpected error" }] }
             }
+        })
+}
+export const logOutResponse = () => {
+    return instance.post('/task')
+        .then(response => { return response.data })
+        .catch((error) => {
+            console.error("Error", error)
+            throw error
         })
 }

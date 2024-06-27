@@ -3,8 +3,7 @@ import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
 
 function AuthRoutes() {
-    const { user, isAuth, loading } = useAuth()
-    console.log(user)
+    const { isAuth, loading } = useAuth()
 
     const nav = useNavigate();
 
@@ -16,11 +15,13 @@ function AuthRoutes() {
         }
     }, [loading])
 
+
     if (!loading && !isAuth) {
         return (
             <Navigate to={"/login"} replace />
         )
     }
+
     return (<Outlet />)
 }
 export default AuthRoutes;

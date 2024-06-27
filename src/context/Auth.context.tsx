@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LoginRequest, RegisterRequest, veryToken } from "../api/api";
+import { LoginRequest, RegisterRequest, logOutResponse, veryTokenResponse } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
 import Cookies from "js-cookie"
 
@@ -13,7 +13,7 @@ export const useAuth = () => {
     return context;
 }
 const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
-    const [user, setUser] = useState<string | null | User>(null)
+    const [user, setUser] = useState<User | null>(null)
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [fails, setFails] = useState<ValidationError[]>([])
     const [loading, setLoading] = useState<boolean>(true);
@@ -69,10 +69,17 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
             }
         }
     }
+
     const logOut = async () => {
-        Cookies.remove("token");
-        setIsAuth(false)
-        setUser(null)
+        const res = await logOutResponse();
+        try {
+            if (res) {
+                setUser(null)
+                setIsAuth(false);
+            }
+        } catch (error) {
+            console.error("Logout failed", error)
+        }
     }
 
     useEffect(() => {
@@ -84,34 +91,48 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
         }
     }, [fails])
 
+    // if (cookies && cookies.token) {
+    //     try {
+    //         const res = await veryToken();
+    //         console.log("User data", res)
+    //         if (res.response && res.response.data) {
+    //             setIsAuth(true)
+    //             setUser(res)
+    //             setLoading(false)
+    //             return
+    //         }
+
+    //     } catch (error) {
+    //         setIsAuth(false)
+    //         setUser(null);
+    //         setLoading(false)
+    //     }
+    // } else {
+    //     setIsAuth(false);
+    //     setUser(null);
+    //     setLoading(false)
+    // }
     useEffect(() => {
         const verifyToken = async () => {
             const cookies = Cookies.get()
-            if (!cookies) {
+            if (!cookies.token) {
                 setIsAuth(false);
                 setUser(null)
                 setLoading(false);
                 return
             }
-            if (cookies && cookies.token) {
-                try {
-                    const res = await veryToken();
-                    console.log("User data", res)
-                    if (res.response && res.response.data) {
-                        setIsAuth(true)
-                        setUser(res)
-                        setLoading(false)
-                        return
-                    }
-
-                } catch (error) {
-                    setIsAuth(false)
-                    setUser(null);
-                    setLoading(false)
+            try {
+                const res = await veryTokenResponse();
+                if (!res) {
+                    setIsAuth(false);
+                    setUser(null)
                 }
-            } else {
-                setIsAuth(false);
-                setUser(null);
+                setIsAuth(true)
+                setUser(res);
+            } catch (error) {
+                setIsAuth(false)
+                setUser(null)
+            } finally {
                 setLoading(false)
             }
         }
