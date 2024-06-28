@@ -91,27 +91,6 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
         }
     }, [fails])
 
-    // if (cookies && cookies.token) {
-    //     try {
-    //         const res = await veryToken();
-    //         console.log("User data", res)
-    //         if (res.response && res.response.data) {
-    //             setIsAuth(true)
-    //             setUser(res)
-    //             setLoading(false)
-    //             return
-    //         }
-
-    //     } catch (error) {
-    //         setIsAuth(false)
-    //         setUser(null);
-    //         setLoading(false)
-    //     }
-    // } else {
-    //     setIsAuth(false);
-    //     setUser(null);
-    //     setLoading(false)
-    // }
     useEffect(() => {
         const verifyToken = async () => {
             const cookies = Cookies.get()
@@ -124,7 +103,7 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
             try {
                 const res = await veryTokenResponse();
                 if (!res) {
-                    setIsAuth(false);
+                    setIsAuth(false)
                     setUser(null)
                 }
                 setIsAuth(true)

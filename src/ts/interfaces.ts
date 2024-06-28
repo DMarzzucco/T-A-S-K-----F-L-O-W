@@ -1,15 +1,21 @@
 import { MouseEventHandler } from "react";
 
 export interface User {
-    id: string;
-    username: string,
-    fullname: string,
-    email: string,
-    // password: string;
+    user: {
+        _id: string;
+        username: string,
+        fullname: string,
+        email: string,
+    },
     response: {
         data: string;
     }
 }
+
+export interface UserCredential {
+    user: User
+}
+
 export interface AuthProvI {
     children: JSX.Element
 }

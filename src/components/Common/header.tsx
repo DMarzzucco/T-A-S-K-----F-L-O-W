@@ -10,10 +10,8 @@ function Header() {
             <ul className=" flex flex-row justify-center items-center">
                 {isAuth ? (
                     <>
-                        {typeof user !== 'string' && user ? (
-                            <HeaderLinks path={"/profile"} title={user.username}/>
-                        ) : (
-                            <h1>Undefined</h1>
+                        {typeof user !== 'string' && user && user.user && (
+                            <HeaderLinks path={"/profile"} title={user.user.username} />
                         )}
                         <HeaderLinks path={"/"} click={() => { logOut() }} title="Logout" />
                     </>

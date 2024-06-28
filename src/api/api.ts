@@ -39,7 +39,7 @@ export const LoginRequest = (user: User) => {
 export const veryTokenResponse = (): Promise<User> => {
     return instance.get(`/very`)
         .then((response: AxiosResponse<User>) => {
-            console.log("Token Verifacation", response.data)
+            console.log("Token Verifacation", response.data.user.username)
             return response.data
         })
         .catch((error) => {
@@ -47,11 +47,14 @@ export const veryTokenResponse = (): Promise<User> => {
             if (axios.isAxiosError(error) && error.response) {
                 const apiError: ApiErrorResponse = error.response.data;
                 throw { response: { data: apiError, status: error.response.status } };
-            } else {
-                throw { errors: [{ message: "Unexpected error" }] }
             }
+            throw { errors: [{ message: "Unexpected error" }] }
+
         })
 }
+
+
+
 export const getProfile = () => {
     return instance.get('/profile')
         .then(response => {

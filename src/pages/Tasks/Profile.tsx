@@ -6,8 +6,8 @@ function Profile() {
         <>
             <section className="flex flex-col justify-center items-center w-full h-screen">
                 <div className="flex flex-row justify-between w-full p-2 items-center">
-                    {typeof user !== 'string' && user ? (
-                        <h1>{user.fullname}</h1>
+                    {typeof user !== 'string' && user && user.user ? (
+                        <h1>{user.user.fullname}</h1>
                     ) : (
                         <span>Undefined</span>
                     )}
