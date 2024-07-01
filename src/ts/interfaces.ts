@@ -7,13 +7,9 @@ export interface User {
         fullname: string,
         email: string,
     },
-    response: {
+    response?: {
         data: string;
     }
-}
-
-export interface UserCredential {
-    user: User
 }
 
 export interface AuthProvI {

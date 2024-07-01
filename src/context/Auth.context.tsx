@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LoginRequest, RegisterRequest, logOutResponse, veryTokenResponse } from "../api/api";
+import { LoginRequest, RegisterRequest, logOutResponse, updateUserResponse, veryTokenResponse } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
 import Cookies from "js-cookie"
 
@@ -48,8 +48,12 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signIn = async (user: User) => {
         try {
             const res = await LoginRequest(user);
-            setUser(res.data)
-            setUser(res)
+            // setUser(res.data)
+            // setUser(res)
+            setUser({
+                user: res.user,
+                response: { data: "" }
+            });
             setIsAuth(true)
             setFails([])
         } catch (error) {
@@ -91,36 +95,48 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
         }
     }, [fails])
 
-    useEffect(() => {
-        const verifyToken = async () => {
-            const cookies = Cookies.get()
-            if (!cookies.token) {
-                setIsAuth(false);
-                setUser(null)
-                setLoading(false);
-                return
-            }
-            try {
-                const res = await veryTokenResponse();
-                if (!res) {
-                    setIsAuth(false)
-                    setUser(null)
-                }
-                setIsAuth(true)
-                setUser(res);
-            } catch (error) {
+    const verifyToken = async () => {
+        const cookies = Cookies.get()
+        if (!cookies.token) {
+            setIsAuth(false);
+            setUser(null)
+            setLoading(false);
+            return
+        }
+        try {
+            const res = await veryTokenResponse();
+            console.log("respuesta del token", res)
+            if (!res) {
                 setIsAuth(false)
                 setUser(null)
-            } finally {
-                setLoading(false)
             }
+            setIsAuth(true)
+            setUser({
+                user: res.user,
+                response: { data: "" }
+            });
+        } catch (error) {
+            setIsAuth(false)
+            setUser(null)
+        } finally {
+            setLoading(false)
         }
-        verifyToken();
-    }, [])
+    }
+    useEffect(() => { verifyToken(); }, [])
+
+
+    //  const updateUser = async () => {
+    //     const res = await updateUserResponse()
+    //     if (!res) {
+    //         console.log("fallo la respuesta")
+    //     }
+    //     setUser(res)
+    // }
 
     return (
         <AuthContext.Provider value={{ signUp, signIn, logOut, user, isAuth, fails, loading }}>
-            {children}
+            {/* {!loading && children} */}
+            {!loading ? children : <div>Esta cargando weon ...</div>}
         </AuthContext.Provider>
 
     )

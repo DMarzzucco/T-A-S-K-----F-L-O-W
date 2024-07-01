@@ -2,8 +2,11 @@ import { useAuth } from "../../context/Auth.context";
 import { HeaderLinks } from "../assets/assets";
 
 function Header() {
-    const { isAuth, logOut, user } = useAuth()
-
+    const { isAuth, logOut, user, loading } = useAuth()
+    
+    if (loading) {
+        return (<div>Loading...</div>)
+    }
     return (
         <nav className="px-1 flex w-full flex-row justify-between items-center">
             {isAuth ? (<HeaderLinks path={"/task"} title="Home " />) : (<HeaderLinks path={"/"} title="Page " />)}

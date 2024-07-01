@@ -78,3 +78,11 @@ export const logOutResponse = () => {
             throw error
         })
 }
+export const updateUserResponse = () => {
+    return instance.put('/update/:id')
+        .then(response => { return response.data.id })
+        .catch((error) => {
+            console.error(error)
+            throw error;
+        })
+}

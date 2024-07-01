@@ -1,7 +1,14 @@
+import { HeaderLinks } from "../../components/assets/assets"
 import { useAuth } from "../../context/Auth.context"
 
 function Profile() {
-    const { user } = useAuth()
+    const { user, loading } = useAuth()
+
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        )
+    }
     return (
         <>
             <section className="flex flex-col justify-center items-center w-full h-screen">
@@ -12,6 +19,17 @@ function Profile() {
                         <span>Undefined</span>
                     )}
                     <p>Task</p>
+                </div>
+                <div className="grid grid-cols-2 justify-center items-center">
+                    <details className="flex flex-col justify-center items-center">
+                        <summary>
+                            Options
+                        </summary>
+                        <div className="flex flex-col justify-center items-center ">
+                            <HeaderLinks path={"/delete"} title={"delete count"} />
+                            <HeaderLinks path={"/update"} title={"edit count"} />
+                        </div>
+                    </details>
                 </div>
             </section>
         </>

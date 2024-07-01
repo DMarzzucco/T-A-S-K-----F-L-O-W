@@ -6,6 +6,7 @@ import { Form, Profile, Task } from "./pages/Tasks";
 import Login from "./pages/Auth/Login";
 import AuthRoutes from "./token/AuthRoutes";
 import { AuthProvider } from "./context";
+import { DeleteUser, UpdateUser } from "./pages/Tasks/User";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
             <Route path="/add-task" element={<><Form /></>} />
             <Route path="/tasks/:id" element={<><Form /></>} />
             <Route path="/profile" element={<><Profile /></>} />
+            <Route path="/delete/:id" element={<><DeleteUser /></>} />
+            <Route path="/update/:id" element={<><UpdateUser /></>} />
           </Route>
           {/*  */}
         </Routes>
