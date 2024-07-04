@@ -1,13 +1,19 @@
-import { HeaderLinks } from "../../components/assets/assets"
+import { ButtonProms, HeaderLinks } from "../../components/assets/assets"
 import { useAuth } from "../../context/Auth.context"
 
 function Profile() {
-    const { user, loading } = useAuth()
+    const { user, loading, deleteUser } = useAuth()
 
     if (loading) {
         return (
             <div>Loading...</div>
         )
+    }
+    const HandlerDeleteUser = () => {
+        if (user && typeof user !== 'string') {
+            deleteUser(user)
+        }
+        console.log('User not valid')
     }
     return (
         <>
@@ -26,8 +32,8 @@ function Profile() {
                             Options
                         </summary>
                         <div className="flex flex-col justify-center items-center ">
-                            <HeaderLinks path={"/delete"} title={"delete count"} />
                             <HeaderLinks path={"/update"} title={"edit count"} />
+                            <ButtonProms title={"Delete count"} click={HandlerDeleteUser} />
                         </div>
                     </details>
                 </div>

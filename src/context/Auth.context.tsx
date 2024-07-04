@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LoginRequest, RegisterRequest, logOutResponse, updateUserResponse, veryTokenResponse } from "../api/api";
+import { AllesUsersRequest, LoginRequest, RegisterRequest, deleteUserResponse, logOutResponse, veryTokenResponse } from "../api/api";
 import { ApiError, AuthContextType, AuthProvI, User, ValidationError } from "../ts/interfaces";
 import Cookies from "js-cookie"
 
@@ -18,6 +18,12 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const [fails, setFails] = useState<ValidationError[]>([])
     const [loading, setLoading] = useState<boolean>(true);
 
+    const showUsers = async () => {
+        const res = await AllesUsersRequest()
+        try {
+            setUser(res);
+        } catch (error) { }
+    }
     const signUp = async (user: User) => {
         try {
             const res = await RegisterRequest(user);
@@ -48,12 +54,8 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     const signIn = async (user: User) => {
         try {
             const res = await LoginRequest(user);
-            // setUser(res.data)
-            // setUser(res)
-            setUser({
-                user: res.user,
-                response: { data: "" }
-            });
+            setUser(res.data)
+            setUser(res)
             setIsAuth(true)
             setFails([])
         } catch (error) {
@@ -78,11 +80,28 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
         const res = await logOutResponse();
         try {
             if (res) {
+                Cookies.remove('token')
                 setUser(null)
                 setIsAuth(false);
             }
         } catch (error) {
             console.error("Logout failed", error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const deleteUser = async (user: User) => {
+        const res = await deleteUserResponse(user);
+        try {
+            if (!res) {
+                console.log("Problem")
+            }
+            Cookies.remove('token')
+            setUser(null)
+            setIsAuth(false)
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -99,22 +118,20 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
         const cookies = Cookies.get()
         if (!cookies.token) {
             setIsAuth(false);
-            setUser(null)
             setLoading(false);
+            setUser(null)
             return
         }
         try {
             const res = await veryTokenResponse();
-            console.log("respuesta del token", res)
             if (!res) {
                 setIsAuth(false)
+                setLoading(false)
                 setUser(null)
+                return;
             }
             setIsAuth(true)
-            setUser({
-                user: res.user,
-                response: { data: "" }
-            });
+            setUser(res);
         } catch (error) {
             setIsAuth(false)
             setUser(null)
@@ -134,9 +151,8 @@ const AuthProvider: React.FC<AuthProvI> = ({ children }) => {
     // }
 
     return (
-        <AuthContext.Provider value={{ signUp, signIn, logOut, user, isAuth, fails, loading }}>
-            {/* {!loading && children} */}
-            {!loading ? children : <div>Esta cargando weon ...</div>}
+        <AuthContext.Provider value={{ showUsers, signUp, signIn, logOut, deleteUser, user, isAuth, fails, loading }}>
+            {children}
         </AuthContext.Provider>
 
     )

@@ -3,7 +3,7 @@ import { HeaderLinks } from "../assets/assets";
 
 function Header() {
     const { isAuth, logOut, user, loading } = useAuth()
-    
+
     if (loading) {
         return (<div>Loading...</div>)
     }
@@ -14,12 +14,14 @@ function Header() {
                 {isAuth ? (
                     <>
                         {typeof user !== 'string' && user && user.user && (
-                            <HeaderLinks path={"/profile"} title={user.user.username} />
+                            <HeaderLinks path={`/Profile/${user.user._id}`} title={user.user.username} />
                         )}
+                        <HeaderLinks path={"/add-task"} title="New task" />
                         <HeaderLinks path={"/"} click={() => { logOut() }} title="Logout" />
                     </>
                 ) : (
                     <>
+                        <HeaderLinks path={"/Users"} title="Alles Users" />
                         <HeaderLinks path={"/Login"} title="Login" />
                         <HeaderLinks path={"/Register"} title="Sign Up" />
                     </>

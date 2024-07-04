@@ -6,19 +6,31 @@ export interface User {
         username: string,
         fullname: string,
         email: string,
+        password?: string,
     },
     response?: {
         data: string;
     }
 }
-
+export interface Task {
+    task: {
+        _id: string;
+        title: string;
+        description: string;
+    },
+    response?: {
+        data: string;
+    }
+}
 export interface AuthProvI {
     children: JSX.Element
 }
 export interface AuthContextType {
+    showUsers: () => Promise<void>;
     signUp: (user: User) => Promise<void>;
     signIn: (user: User) => Promise<void>;
     logOut: () => Promise<void>;
+    deleteUser: (id: User) => Promise<void>
     user: string | null | User;
     isAuth: boolean;
     fails: { message: string }[];
@@ -26,6 +38,7 @@ export interface AuthContextType {
 }
 export interface TaskContextType {
     user?: string | null | User;
+    task?: string | [] | Task;
 }
 export interface ErrorResponse { response: { data: string; } }
 export interface TitleType { title: string }
@@ -49,3 +62,7 @@ export interface HeaderLinksProps {
     title: string,
     click?: MouseEventHandler<HTMLAnchorElement>;
 };
+export interface ButtonProps {
+    title: string,
+    click?: () => void;
+}

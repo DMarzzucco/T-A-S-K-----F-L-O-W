@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import { AuthProvI, TaskContextType } from "../ts/interfaces";
+import { createContext, useContext, useState } from "react";
+import { AuthProvI, Task, TaskContextType } from "../ts/interfaces";
 
 export const taskContext = createContext<TaskContextType | undefined>(undefined);
 
@@ -12,8 +12,9 @@ export const useTask = () => {
 }
 
 const TaskProvider: React.FC<AuthProvI> = ({ children }) => {
+    const [task, setTask ] = useState< Task |[]>([])
     return (
-        <taskContext.Provider value={{}}>
+        <taskContext.Provider value={{task}}>
             {children}
         </taskContext.Provider>
     )

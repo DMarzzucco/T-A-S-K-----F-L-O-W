@@ -1,41 +1,23 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth.context";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function AuthRoutes() {
     const { isAuth, loading } = useAuth()
-    const [showLoading, setShowLoading] = useState<boolean>(true)
 
     const nav = useNavigate();
 
     useEffect(() => {
-        let timeoutID: NodeJS.Timeout | undefined;
-        if (!loading) {
-            setShowLoading(true)
+        if (loading) {
+            return (nav("/task"))
         }
-        console.log("Loading:", loading, "isAuth:", isAuth)
-        timeoutID = setTimeout(() => {
-            nav("/task");
-            nav("/profile")
-            setShowLoading(false);
-        }, 500);
-        return () => {
-            if (timeoutID) {
-                clearInterval(timeoutID)
-            }
-        };
-    }, [loading, isAuth, nav])
+    }, [loading])
 
-    if (!isAuth) {
+    if (!isAuth && !loading) {
         return (
             <Navigate to={"/login"} replace />
         )
     }
-
-    if (showLoading) {
-        return (<div>esta cargando perfectamente...</div>)
-    }
-
 
     return (<Outlet />)
 }

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-import { HeaderLinksProps, TitleType } from "../../ts/interfaces"
+import { ButtonProps, HeaderLinksProps, TitleType } from "../../ts/interfaces"
+import React from "react"
 
 export const ErrorFormRegister: React.FC<TitleType> = ({ title }) => {
     return (
@@ -16,5 +17,14 @@ export const HeaderLinks: React.FC<HeaderLinksProps> = ({ path, title, click }) 
                 <p>{title}</p>
             </Link>
         </li>
+    )
+}
+
+export const ButtonProms: React.FC<ButtonProps> = ({ title, click }) => {
+    return (
+        <button className="list-none flex justify-center items-center m-2 border rounded-xl p-1 hover:bg-slate-300 hover:text-slate-900"
+            onClick={click}>
+            {title}
+        </button>
     )
 }

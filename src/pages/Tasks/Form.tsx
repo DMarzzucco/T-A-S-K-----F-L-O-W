@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form"
+import { useTask } from "../../context/Task.context"
 
 function Form() {
     const { register, handleSubmit } = useForm()
+    const { task } = useTask()
+    console.log(task)
+    
     const onSubmit = handleSubmit(async (data) => {
         console.log(data)
     })
