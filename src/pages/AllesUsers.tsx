@@ -32,9 +32,9 @@ function AllesUsers() {
                                     <li>{user.user.email}</li>
                                 </ul>
                             </div>
-                        ) : (<></>)
+                        ) : null
                     ))
-                ) : (<></>)}
+                ) : null}
             </div>
         </section>
     )
