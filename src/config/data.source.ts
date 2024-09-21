@@ -6,12 +6,13 @@ ConfigModule.forRoot({ envFilePath: `.${process.env.NODE_ENV}.env` })
 
 const configureService = new ConfigService()
 
+
 export const DataSourceConfig: DataSourceOptions = {
     type: 'postgres',
     host: configureService.get<string>('DB_HOST'),
     port: parseInt(configureService.get<string>('DB_PORT')),
     username: configureService.get<string>('DB_USER'),
-    password: configureService.get<string>('DB_PASSWORD'),
+    password: String(configureService.get<string>('DB_PASSWORD')),
     database: configureService.get<string>('DB_NAME'),
     entities: [__dirname + '/../**/**/*.entity.ts,.js]'],
     migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
@@ -19,7 +20,6 @@ export const DataSourceConfig: DataSourceOptions = {
     migrationsRun: true,
     logging: false,
     namingStrategy: new SnakeNamingStrategy(),
-
 }
 
 export const AppDS = new DataSource(DataSourceConfig)
