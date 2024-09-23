@@ -5,19 +5,23 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UpdateUserDTO, UserDTO, UserToProjectDTO } from '../dto/user.dto';
 import { ErrorManager } from 'src/utils/error.manager';
 import { UsersProjectsEntity } from '../entities/usersProjects.entity';
+import * as bcrypt from "bcrypt"
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
         @InjectRepository(UsersProjectsEntity) private readonly userProject: Repository<UsersProjectsEntity>
-    ) { }
+    ) {
+        // process.env.
+    }
 
     public async createUser(body: UserDTO): Promise<UsersEntity> {
         try {
+            body.password = await bcrypt.hash(body.password, 10)
             return await this.userRepository.save(body);
         } catch (error) {
-            throw  ErrorManager.createSignatureError(error.message)
+            throw ErrorManager.createSignatureError(error.message)
         }
     }
     public async findUsers(): Promise<UsersEntity[]> {
@@ -28,7 +32,7 @@ export class UsersService {
             }
             return user
         } catch (error) {
-            throw  ErrorManager.createSignatureError(error.message)
+            throw ErrorManager.createSignatureError(error.message)
         }
     }
     public async findUsersById(id: string): Promise<UsersEntity> {
@@ -44,7 +48,18 @@ export class UsersService {
             }
             return user
         } catch (error) {
-            throw  ErrorManager.createSignatureError(error.message)
+            throw ErrorManager.createSignatureError(error.message)
+        }
+    }
+    public async findBy({ key, value }: { key: keyof UserDTO; value: any }) {
+        try {
+            const user: UsersEntity = await this.userRepository.createQueryBuilder("user")
+                .addSelect('user.password')
+                .where({ [key]: value })
+                .getOne()
+            return user
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
         }
     }
     public async updateUser(body: UpdateUserDTO, id: string): Promise<UpdateResult | undefined> {
@@ -66,13 +81,13 @@ export class UsersService {
             }
             return user
         } catch (error) {
-            throw  ErrorManager.createSignatureError(error.manager)
+            throw ErrorManager.createSignatureError(error.manager)
         }
     }
-    public async realtionProject(body:UserToProjectDTO):Promise<UsersProjectsEntity>{
-        try{
+    public async realtionProject(body: UserToProjectDTO): Promise<UsersProjectsEntity> {
+        try {
             return await this.userProject.save(body)
-        }catch(error){
+        } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
     }

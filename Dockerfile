@@ -24,7 +24,7 @@ EXPOSE 3001
 
 CMD /usr/local/bin/wait-for-it db:5432 --timeout=60 --strict -- \
     # migrate generate
-    npm run m:gen && \
+    npm run m:gen -- ./migrations/init && \
     # run init migrate
     npm run m:run && \  
     npm run start:prod

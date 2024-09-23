@@ -1,8 +1,8 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as morgan from "morgan"
 import { CORS } from './constants';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 // import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
@@ -14,6 +14,9 @@ async function bootstrap() {
       enableImplicitConversion: true,
     }
   }))
+  const reflector = app.get(Reflector)
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector))
+  
   app.enableCors(CORS);
   app.setGlobalPrefix("api")
   // 
