@@ -27,6 +27,7 @@ export class AuthService {
     public async signJWT({ payload, secret, expire }: singProps) {
         return jwt.sign(payload, secret, { expiresIn: expire })
     }
+
     public async generateToken(user: UsersEntity): Promise<any> {
         const getUser = await this.userService.findUsersById(user.id);
 
@@ -34,13 +35,11 @@ export class AuthService {
             role: getUser.role,
             sub: getUser.id
         }
-        return {
-            accessToken: this.signJWT({
-                payload,
-                secret: process.env.AUTH_KEY || "token_key",
-                expire: "1h"
-            }),
-            user
-        }
+        const accessToken = await this.signJWT({
+            payload,
+            secret: process.env.AUTH_KEY || "token_key",
+            expire: "1h"
+        })
+        return { accessToken, user }
     }
 }

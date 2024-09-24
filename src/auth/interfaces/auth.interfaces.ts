@@ -15,3 +15,12 @@ export interface singProps {
     secret: string;
     expire: number | string
 }
+export interface AuthTokenResult {
+    role: string;
+    sub: string;
+    iat: number;
+    exp: number;
+}
+export interface IUseToken extends Omit<AuthTokenResult, "iat" | "exp"> {
+    isExpire: boolean
+}
