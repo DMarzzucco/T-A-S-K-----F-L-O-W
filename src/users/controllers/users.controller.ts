@@ -13,6 +13,7 @@ export class UsersController {
 
     constructor(private readonly service: UsersService) { }
 
+    @PublicAcces()
     @Post('register')
     public async registerUser(@Body() body: UserDTO) {
         return await this.service.createUser(body)

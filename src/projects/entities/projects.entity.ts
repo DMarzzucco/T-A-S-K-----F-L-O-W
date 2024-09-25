@@ -1,3 +1,4 @@
+import { TasksEntity } from "../../tasks/entities/tasks.entity";
 import { BaseEntity } from "../../config/base.entity";
 import { IProject } from "../../interfaces/projects.interface";
 import { UsersProjectsEntity } from "../../users/entities/usersProjects.entity";
@@ -12,4 +13,7 @@ export class ProjectsEntity extends BaseEntity implements IProject {
 
     @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.project)
     usersInludes: UsersProjectsEntity[]
+
+    @OneToMany(() => TasksEntity, (task) => task.project)
+    task: TasksEntity[]
 }

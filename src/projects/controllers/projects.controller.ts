@@ -5,15 +5,18 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AccesLevelGuard } from 'src/auth/guards/acces-level.guard';
 import { AccessLevel } from 'src/auth/decorators/acces-level.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { PublicAcces } from 'src/auth/decorators/public.decorator';
 
 @Controller('projects')
 @UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
 export class ProjectsController {
     constructor(private readonly service: ProjectsService) { }
 
-    @Post()
-    public async createProject(@Body() body: ProjectDTO) {
-        return await this.service.create(body)
+    @Roles('CREATOR')
+    @Post(':UserId')
+    public async createProject(@Body() body: ProjectDTO, @Param('UserId') UserId: string) {
+        return await this.service.create(body, UserId)
     }
 
     @Get()
@@ -26,6 +29,7 @@ export class ProjectsController {
         return await this.service.getById(ProjectId)
     }
 
+    // @Roles('ADMIN', 'BASIC')
     @AccessLevel(50)
     @Put(':ProjectId')
     public async updateProject(@Body() body: UpdateProjectDTO, @Param("ProjectId") ProjectId: string) {

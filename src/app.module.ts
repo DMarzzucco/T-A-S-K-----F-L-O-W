@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceConfig } from './config/data.source';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot({...DataSourceConfig}),
     UsersModule,
     ProjectsModule,
-    AuthModule
+    AuthModule,
+    TasksModule
   ],
   controllers: [],
   providers: [],

@@ -4,15 +4,28 @@ import { ProjectsEntity } from '../entities/projects.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectDTO, UpdateProjectDTO } from '../dto/project.dto';
 import { ErrorManager } from 'src/utils/error.manager';
+import { UsersProjectsEntity } from 'src/users/entities/usersProjects.entity';
+import { ACCES_LEVEL } from 'src/constants/roles';
+import { UsersService } from 'src/users/services/users.service';
 
 @Injectable()
 export class ProjectsService {
     constructor(
-        @InjectRepository(ProjectsEntity) private readonly project: Repository<ProjectsEntity>
+        @InjectRepository(ProjectsEntity) private readonly project: Repository<ProjectsEntity>,
+        @InjectRepository(UsersProjectsEntity) private readonly userRepository: Repository<UsersProjectsEntity>,
+        private readonly user: UsersService
+
     ) { }
-    public async create(body: ProjectDTO): Promise<ProjectsEntity> {
+
+    public async create(body: ProjectDTO, UserId: string): Promise<any> {
         try {
-            return await this.project.save(body)
+            const user = await this.user.findUsersById(UserId)
+            const project = await this.project.save(body);
+            return await this.userRepository.save({
+                accessLevel: ACCES_LEVEL.OWNER,
+                user: user,
+                project: project
+            })
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
@@ -33,8 +46,8 @@ export class ProjectsService {
             const project = await this.project
                 .createQueryBuilder('project')
                 .where({ id })
-                .leftJoinAndSelect("project.usersInludes","usersInludes")
-                .leftJoinAndSelect("usersInludes.user","user")
+                .leftJoinAndSelect("project.usersInludes", "usersInludes")
+                .leftJoinAndSelect("usersInludes.user", "user")
                 .getOne()
             if (!project) {
                 throw new ErrorManager({ type: "NOT_FOUND", message: "Project not found" })
