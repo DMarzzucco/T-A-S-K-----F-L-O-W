@@ -30,6 +30,7 @@ export class UsersController {
         return await this.service.findUsersById(UserId)
     }
 
+    @Roles('ADMIN')
     @Post('addProject')
     public async addProject(@Body() body: UserToProjectDTO) {
         return await this.service.realtionProject(body)

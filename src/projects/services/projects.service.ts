@@ -20,6 +20,9 @@ export class ProjectsService {
     public async create(body: ProjectDTO, UserId: string): Promise<any> {
         try {
             const user = await this.user.findUsersById(UserId)
+            if (!user){
+                throw new ErrorManager({type:"NOT_FOUND", message:"User not found"})
+            }
             const project = await this.project.save(body);
             return await this.userRepository.save({
                 accessLevel: ACCES_LEVEL.OWNER,

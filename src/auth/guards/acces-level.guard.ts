@@ -31,7 +31,7 @@ export class AccesLevelGuard implements CanActivate {
     if (userExistInProject === undefined) {
       throw new UnauthorizedException('Not belong to the project')
     }
-    if (acces_level !== userExistInProject.accessLevel) {
+    if (acces_level < userExistInProject.accessLevel) {
       throw new UnauthorizedException('Not get the level acces for this operation')
     }
 

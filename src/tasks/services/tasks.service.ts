@@ -22,7 +22,7 @@ export class TasksService {
             }
             return await this.task.save({
                 ...body,
-                project: project
+                project
             })
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
