@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { TasksEntity } from '../entities/tasks.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { ErrorManager } from 'src/utils/error.manager';
-import { ProjectsService } from 'src/projects/services/projects.service';
+import { ErrorManager } from '../../utils/error.manager';
+import { ProjectsService } from '../../projects/services/projects.service';
 import { TaskDTO, UpdateTaskDTO } from '../dto/task.dto';
 
 @Injectable()

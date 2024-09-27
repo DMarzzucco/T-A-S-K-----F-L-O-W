@@ -6,7 +6,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 @Entity({ name: 'task' })
 export class TasksEntity extends BaseEntity {
     @Column()
-    tasName: string;
+    taskName: string;
 
     @Column()
     taskDescription: string;

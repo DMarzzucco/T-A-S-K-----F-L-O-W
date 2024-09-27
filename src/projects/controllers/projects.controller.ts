@@ -7,7 +7,9 @@ import { AccesLevelGuard } from 'src/auth/guards/acces-level.guard';
 import { AccessLevel } from 'src/auth/decorators/acces-level.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { PublicAcces } from 'src/auth/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('ProjectPoint')
 @Controller('projects')
 @UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
 export class ProjectsController {
@@ -30,7 +32,7 @@ export class ProjectsController {
     }
 
     // @Roles('ADMIN', 'BASIC')
-    @AccessLevel(50)
+    @AccessLevel('OWNER')
     @Put(':ProjectId')
     public async updateProject(@Body() body: UpdateProjectDTO, @Param("ProjectId") ProjectId: string) {
         return await this.service.update(body, ProjectId)
