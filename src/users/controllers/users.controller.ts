@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { UpdateUserDTO, UserDTO, UserToProjectDTO } from '../dto/user.dto';
-import { PublicAcces } from 'src/auth/decorators/public.decorator';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { Roles } from 'src/auth/decorators/roles.decorator';
+import { PublicAcces } from '../../auth/decorators/public.decorator';
+import { AuthGuard } from '../../auth/guards/auth.guard';
+import { Roles } from '../../auth/decorators/roles.decorator';
 // import { AdminAccess } from 'src/auth/decorators/admin.decorator';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { RolesGuard } from '../../auth/guards/roles.guard';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('UserPoint')

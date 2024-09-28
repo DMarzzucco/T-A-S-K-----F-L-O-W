@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsEnum, IsOptional, IsUUID } from "class-validator";
-import { ACCES_LEVEL, ROLES } from "src/constants/roles";
+import { ACCES_LEVEL, ROLES } from "../../constants/roles";
 import { UsersEntity } from "../entities/users.entity";
-import { ProjectsEntity } from "src/projects/entities/projects.entity";
+import { ProjectsEntity } from "../../projects/entities/projects.entity";
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 
 export class UserDTO {
