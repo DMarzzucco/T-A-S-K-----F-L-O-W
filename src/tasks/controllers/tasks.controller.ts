@@ -2,11 +2,11 @@ import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nes
 import { TasksService } from '../services/tasks.service';
 import { TaskDTO, UpdateTaskDTO } from '../dto/task.dto';
 
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { AccesLevelGuard } from 'src/auth/guards/acces-level.guard';
+import { AuthGuard } from '../../auth/guards/auth.guard';
+import { RolesGuard } from '../../auth/guards/roles.guard';
+import { AccesLevelGuard } from '../../auth/guards/acces-level.guard';
 
-import { AccessLevel } from 'src/auth/decorators/acces-level.decorator';
+import { AccessLevel } from '../../auth/decorators/acces-level.decorator';
 import { ApiHeader, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('TaskPoint')

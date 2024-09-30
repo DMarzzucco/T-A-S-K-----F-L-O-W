@@ -44,37 +44,37 @@ export class UpdateUserDTO extends PartialType(UserDTO) {
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    firstName: string;
+    firstName?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    lastName: string;
+    lastName?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    age: string;
+    age?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    username: string;
+    username?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    email: string;
+    email?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    password: string;
+    password?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsEnum(ROLES)
-    role: ROLES;
+    role?: ROLES;
 }
 export class UserToProjectDTO {
 

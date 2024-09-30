@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { STATUS_TASK } from "src/constants/status-task";
-import { ProjectDTO } from "src/projects/dto/project.dto";
+import { STATUS_TASK } from "../../constants/status-task";
+import { ProjectDTO } from "../../projects/dto/project.dto";
 
 export class TaskDTO {
     @ApiProperty({ name: "Task Name", example: "Task Number 1" })

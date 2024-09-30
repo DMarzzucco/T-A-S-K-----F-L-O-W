@@ -1,9 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
-import { ACCES_LEVEL_KEY, PUBLIC_KEY } from 'src/constants/key-decorators';
-import { ACCES_LEVEL, ROLES } from 'src/constants/roles';
-import { UsersService } from 'src/users/services/users.service';
+import { ACCES_LEVEL_KEY, PUBLIC_KEY } from '../../constants/key-decorators';
+import { ACCES_LEVEL, ROLES } from '../../constants/roles';
+import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class AccesLevelGuard implements CanActivate {

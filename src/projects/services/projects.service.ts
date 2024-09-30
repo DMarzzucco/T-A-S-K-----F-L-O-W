@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectsEntity } from '../entities/projects.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectDTO, UpdateProjectDTO } from '../dto/project.dto';
-import { ErrorManager } from 'src/utils/error.manager';
-import { UsersProjectsEntity } from 'src/users/entities/usersProjects.entity';
-import { ACCES_LEVEL } from 'src/constants/roles';
-import { UsersService } from 'src/users/services/users.service';
+import { ErrorManager } from '../../utils/error.manager';
+import { UsersProjectsEntity } from '../../users/entities/usersProjects.entity';
+import { ACCES_LEVEL } from '../../constants/roles';
+import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class ProjectsService {
