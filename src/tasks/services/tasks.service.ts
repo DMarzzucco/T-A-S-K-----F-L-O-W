@@ -36,20 +36,19 @@ export class TasksService {
             throw ErrorManager.createSignatureError(error.message)
         }
     }
-    public async getById(TaskId: string): Promise<TasksEntity> {
+    public async getById(id: string): Promise<TasksEntity> {
         try {
             return await this.task
                 .createQueryBuilder('task')
-                .where(TaskId)
+                .where({id})
                 .getOne()
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
     }
-    public async update(body: UpdateTaskDTO, TaskId: string): Promise<UpdateResult> {
+    public async update(body: UpdateTaskDTO, id: string): Promise<UpdateResult> {
         try {
-            const user = await this.getById(TaskId)
-            const data: UpdateResult = await this.task.update(body, user)
+            const data: UpdateResult = await this.task.update(id, body)
             if (!data) {
                 throw new ErrorManager({ type: 'BAD_REQUEST', message: "Bad Request" })
             }
@@ -58,13 +57,13 @@ export class TasksService {
             throw ErrorManager.createSignatureError(error.message)
         }
     }
-    public async delete(TaskId: string): Promise<DeleteResult> {
+    public async delete(TaskId: string): Promise<DeleteResult | undefined> {
         try {
-            const task = await this.getById(TaskId)
-            if (!task) {
+            const del = await this.task.delete(TaskId)
+            if (!del) {
                 throw new ErrorManager({ type: "NOT_FOUND", message: "Task not found" })
             }
-            return await this.task.delete(task)
+            return del
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }

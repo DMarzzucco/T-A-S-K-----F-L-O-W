@@ -16,10 +16,10 @@ export class UpdateProjectDTO extends PartialType(ProjectDTO) {
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    name: string;
+    name?: string;
 
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    description: string;
+    description?: string;
 }

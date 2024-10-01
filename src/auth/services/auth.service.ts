@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/services/users.service';
+import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken"
-import { UsersEntity } from 'src/users/entities/users.entity';
+import { UsersEntity } from '../../users/entities/users.entity';
 import { PayloadToken, singProps } from '../interfaces/auth.interfaces';
-
 
 @Injectable()
 export class AuthService {
@@ -23,11 +22,9 @@ export class AuthService {
         }
         return null
     }
-
     public async signJWT({ payload, secret, expire }: singProps) {
         return jwt.sign(payload, secret, { expiresIn: expire })
     }
-
     public async generateToken(user: UsersEntity): Promise<any> {
         const getUser = await this.userService.findUsersById(user.id);
 

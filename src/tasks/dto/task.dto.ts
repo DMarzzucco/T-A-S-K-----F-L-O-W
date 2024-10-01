@@ -29,26 +29,26 @@ export class TaskDTO {
 }
 
 export class UpdateTaskDTO extends PartialType(TaskDTO) {
-    @ApiProperty({required:false})
+    @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    tasName: string;
+    tasName?: string;
 
-    @ApiProperty({required:false})
+    @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    taskDescription: string;
+    taskDescription?: string;
 
-    @ApiProperty({required:false})
+    @ApiProperty({ required: false })
     @IsOptional()
     @IsEnum(STATUS_TASK)
-    status: STATUS_TASK;
+    status?: STATUS_TASK;
 
-    @ApiProperty({required:false})
+    @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    responsable_name: string;
+    responsable_name?: string;
 
     @IsOptional()
-    project: ProjectDTO;
+    project?: ProjectDTO;
 }
