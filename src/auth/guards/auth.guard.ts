@@ -5,14 +5,16 @@ import { PUBLIC_KEY } from '../../constants/key-decorators';
 import { UsersService } from '../../users/services/users.service';
 import { useToken } from '../../utils/use.token';
 import { IUseToken } from '../interfaces/auth.interfaces';
+import { BaseGuardGuard } from './base-guard.guard';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+// export class AuthGuard implements CanActivate {
+export class AuthGuard extends BaseGuardGuard {
 
   constructor(
     private readonly userService: UsersService,
-    private readonly reflector: Reflector
-  ) { }
+    reflector: Reflector
+  ) { super(reflector) }
 
   async canActivate(
     context: ExecutionContext,
@@ -22,6 +24,7 @@ export class AuthGuard implements CanActivate {
 
     const req = context.switchToHttp().getRequest<Request>()
 
+    // 
     const token = req.headers['das_token']
     if (!token || Array.isArray(token)) {
       throw new UnauthorizedException('Invalid token')
@@ -35,6 +38,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('token is expired')
     }
     const { sub } = manageToken;
+
     const user = await this.userService.findUsersById(sub);
     if (!user) {
       throw new UnauthorizedException('user invalid')

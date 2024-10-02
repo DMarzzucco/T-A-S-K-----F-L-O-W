@@ -20,6 +20,8 @@ export class AccesLevelGuard implements CanActivate {
     const acces_level = this.reflector.get<keyof typeof ACCES_LEVEL>(ACCES_LEVEL_KEY, context.getHandler())
 
     const req = context.switchToHttp().getRequest<Request>();
+
+    // 
     const { roleUser, idUser } = req
 
     if (roleUser === ROLES.ADMIN || roleUser === ROLES.CREATOR) return true;
