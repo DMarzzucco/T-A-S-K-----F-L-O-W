@@ -1,26 +1,25 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Request } from 'express';
-import { ACCES_LEVEL_KEY, PUBLIC_KEY } from '../../constants/key-decorators';
 import { ACCES_LEVEL, ROLES } from '../../constants/roles';
 import { UsersService } from '../../users/services/users.service';
+import { BaseGuardGuard } from './base-guard.guard';
 
 @Injectable()
-export class AccesLevelGuard implements CanActivate {
+export class AccesLevelGuard extends BaseGuardGuard {
+
   constructor(
     private readonly userService: UsersService,
-    private readonly reflector: Reflector,
-  ) { }
+    reflector: Reflector,
+  ) { super(reflector) }
+
   async canActivate(
     context: ExecutionContext,
   ) {
-    const isPublic = this.reflector.get<boolean>(PUBLIC_KEY, context.getHandler())
-    if (isPublic) return true;
+    if (this.isPublic(context)) return true;
 
-    const acces_level = this.reflector.get<keyof typeof ACCES_LEVEL>(ACCES_LEVEL_KEY, context.getHandler())
+    const acces_level = this.acces_level(context)
 
-    const req = context.switchToHttp().getRequest<Request>();
-
+    const req = this.getRequest(context);
     // 
     const { roleUser, idUser } = req
 
@@ -36,7 +35,6 @@ export class AccesLevelGuard implements CanActivate {
     if (ACCES_LEVEL[acces_level] > userExistInProject.accessLevel) {
       throw new UnauthorizedException('Not get the level acces for this operation')
     }
-
     return true;
   }
 }

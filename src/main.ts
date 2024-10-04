@@ -4,6 +4,7 @@ import * as morgan from "morgan"
 import { CORS } from './constants';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { GlobalExceptionFilter } from './utils/error.manager';
 // import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
@@ -15,6 +16,9 @@ async function bootstrap() {
       enableImplicitConversion: true,
     }
   }))
+
+  app.useGlobalFilters(new GlobalExceptionFilter())
+
   const reflector = app.get(Reflector)
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector))
 

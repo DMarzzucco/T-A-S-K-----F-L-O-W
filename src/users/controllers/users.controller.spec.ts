@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { UsersProjectsEntity } from '../entities/usersProjects.entity';
 import { mockUser, mockUserProject } from '../../constants/mockEnties';
 import { UpdateUserDTO } from '../dto/user.dto';
+import { ConflictException } from '@nestjs/common';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -16,6 +17,7 @@ describe('UsersController', () => {
 
   const mockUserEntityRepo = {
     find: jest.fn(() => Promise.resolve([])),
+    findOne: jest.fn(),
     createQueryBuilder: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
     leftJoinAndSelect: jest.fn().mockReturnThis(),
@@ -54,11 +56,20 @@ describe('UsersController', () => {
   });
 
   describe('create', () => {
-    it('shpuld create a user ', async () => {
-      mockUserEntityRepo.save.mockResolvedValue(mockUser)
+    it("should throw a ConflictException if user already exists", async () => {
+      mockUserEntityRepo.findOne.mockResolvedValue(mockUser)
+      await expect(service.createUser(mockUser)).rejects.toThrow(ConflictException)
+      expect(mockUserEntityRepo.findOne).toHaveBeenCalledWith({ where: [{ email: mockUser.email }, { username: mockUser.username }] })
+    });
+    
+    it('should create a user ', async () => {
+      mockUserEntityRepo.findOne.mockResolvedValueOnce(null)
+      mockUserEntityRepo.save.mockResolvedValueOnce(mockUser)
+
       const result = await service.createUser(mockUser)
+
       expect(result).toEqual(expect.objectContaining(mockUser))
-      expect(mockUserEntityRepo.save).toHaveBeenCalledWith(mockUser)
+      expect(mockUserEntityRepo.save).toHaveBeenCalledWith(expect.objectContaining(mockUser))
     })
   })
   describe('realtionProject', () => {
