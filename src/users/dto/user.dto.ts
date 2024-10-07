@@ -78,17 +78,17 @@ export class UpdateUserDTO extends PartialType(UserDTO) {
 }
 export class UserToProjectDTO {
 
-    @ApiProperty({name:"user id", example:"58a94e82-a87b-485b-bc42-647ec5c62b93"})
+    @ApiProperty({name:"user", example:"58a94e82-a87b-485b-bc42-647ec5c62b93"})
     @IsNotEmpty()
     @IsUUID()
     user: UsersEntity;
 
-    @ApiProperty({name:"project id", example:"5994dff5-9d66-4642-82cb-eee21b702241"})
+    @ApiProperty({name:"project", example:"5994dff5-9d66-4642-82cb-eee21b702241"})
     @IsNotEmpty()
     @IsUUID()
     project: ProjectsEntity;
 
-    @ApiProperty({name:"accesLevel", example:"OWNER"})
+    @ApiProperty({name:"accessLevel", example:"OWNER"})
     @IsNotEmpty()
     @IsEnum(ACCES_LEVEL)
     accessLevel: ACCES_LEVEL;

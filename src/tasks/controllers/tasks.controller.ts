@@ -7,9 +7,14 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 import { AccesLevelGuard } from '../../auth/guards/acces-level.guard';
 
 import { AccessLevel } from '../../auth/decorators/acces-level.decorator';
-import { ApiHeader, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {  ApiHeader, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('TaskPoint')
+@ApiHeader({
+    name: "das_token",
+    description: "put the token here",
+    required: true
+})
 @Controller('tasks')
 @UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
 export class TasksController {
@@ -17,7 +22,6 @@ export class TasksController {
 
     @AccessLevel('DEVELOPER')
     @ApiParam({ name: "ProjectId" })
-    @ApiHeader({ name: 'das_token' })
     @Post(':ProjectId')
     public async CreateTask(@Body() body: TaskDTO, @Param('ProjectId') ProjectId: string) {
         return await this.service.create(body, ProjectId)
@@ -28,7 +32,6 @@ export class TasksController {
     }
 
     @ApiParam({ name: "TaskId" })
-    @ApiHeader({ name: 'das_token' })
     @ApiResponse({ status: 201, description: 'Task Created' })
     @ApiResponse({ status: 404, description: 'Task not found' })
     @Get(':TaskId')

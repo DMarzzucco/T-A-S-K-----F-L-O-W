@@ -23,7 +23,7 @@ export class AuthGuard extends BaseGuardGuard {
     const token = req.headers['das_token']
 
     if (!token || Array.isArray(token)) {
-      throw new UnauthorizedException('Invalid token')
+      throw new UnauthorizedException('Invalid token key')
     }
 
     const manageToken: IUseToken | string = useToken(token)

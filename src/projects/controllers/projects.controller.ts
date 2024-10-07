@@ -6,10 +6,14 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 import { AccesLevelGuard } from '../../auth/guards/acces-level.guard';
 import { AccessLevel } from '../../auth/decorators/acces-level.decorator';
 import { Roles } from '../../auth/decorators/roles.decorator';
-import { PublicAcces } from '../../auth/decorators/public.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('ProjectPoint')
+@ApiHeader({
+    name: "das_token",
+    description: "put the token here",
+    required: true
+})
 @Controller('projects')
 @UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
 export class ProjectsController {

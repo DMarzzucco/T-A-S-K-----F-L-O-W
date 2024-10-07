@@ -30,8 +30,8 @@ async function bootstrap() {
   // console.log(configureService.get('ND'))
   // 
   const config = new DocumentBuilder()
-    .setTitle('R O L E S / / A P P')
-    .setDescription('Api REST with roles and auth')
+    .setTitle('T A S K / / F L O W')
+    .setDescription('Task management application designed to optimize collaboration and access control between users.')
     .setVersion("1.0")
     .build()
   const document = SwaggerModule.createDocument(app, config)

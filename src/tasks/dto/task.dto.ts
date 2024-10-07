@@ -4,22 +4,22 @@ import { STATUS_TASK } from "../../constants/status-task";
 import { ProjectDTO } from "../../projects/dto/project.dto";
 
 export class TaskDTO {
-    @ApiProperty({ name: "Task Name", example: "Task Number 1" })
+    @ApiProperty({ name: "taskName", example: "Task Number 1" })
     @IsNotEmpty()
     @IsString()
     taskName: string;
 
-    @ApiProperty({ name: "Task Description", example: "This is the first task" })
+    @ApiProperty({ name: "taskDescription", example: "This is the first task" })
     @IsNotEmpty()
     @IsString()
     taskDescription: string;
 
-    @ApiProperty({ name: "Status Task", example: "CREATED" })
+    @ApiProperty({ name: "status", example: "CREATED" })
     @IsNotEmpty()
     @IsEnum(STATUS_TASK)
     status: STATUS_TASK;
 
-    @ApiProperty({ name: "Responsable name", example: "Ozkar Strhazzi" })
+    @ApiProperty({ name: "responsable_name", example: "Ozkar Strhazzi" })
     @IsNotEmpty()
     @IsString()
     responsable_name: string;

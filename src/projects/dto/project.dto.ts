@@ -2,12 +2,12 @@ import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class ProjectDTO {
-    @ApiProperty({ name: "Project Name", example: "Project 1" })
+    @ApiProperty({ name: "name", example: "Project 1" })
     @IsNotEmpty()
     @IsString()
     name: string;
 
-    @ApiProperty({ name: "Project Description", example: "This is my first project" })
+    @ApiProperty({ name: "description", example: "This is my first project" })
     @IsNotEmpty()
     @IsString()
     description: string;
