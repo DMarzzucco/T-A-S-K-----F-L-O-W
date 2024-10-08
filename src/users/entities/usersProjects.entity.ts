@@ -13,7 +13,7 @@ export class UsersProjectsEntity extends BaseEntity {
     @ManyToOne(() => UsersEntity, (user) => user.projectsIncludes)
     user: UsersEntity;
 
-    @ManyToOne(() => ProjectsEntity, (project) => project.usersInludes)
+    @ManyToOne(() => ProjectsEntity, (project) => project.usersInludes, { onDelete: "CASCADE" })
     project: ProjectsEntity;
 
 }

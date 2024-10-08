@@ -51,6 +51,9 @@ export class UsersService {
     }
     public async updateUser(body: UpdateUserDTO, id: string): Promise<UpdateResult | undefined> {
         const user: UpdateResult = await this.userRepository.update(id, body)
+        if (!user){
+            throw new NotFoundException("User not found")
+        }
         if (user.affected === 0) {
             throw new BadRequestException("Could not update")
         }

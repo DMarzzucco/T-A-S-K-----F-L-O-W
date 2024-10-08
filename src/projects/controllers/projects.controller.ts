@@ -1,4 +1,5 @@
 import { Controller, Post, Get, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from '../services/projects.service';
 import { ProjectDTO, UpdateProjectDTO } from '../dto/project.dto';
 import { AuthGuard } from '../../auth/guards/auth.guard';
@@ -6,7 +7,6 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 import { AccesLevelGuard } from '../../auth/guards/acces-level.guard';
 import { AccessLevel } from '../../auth/decorators/acces-level.decorator';
 import { Roles } from '../../auth/decorators/roles.decorator';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('ProjectPoint')
 @ApiHeader({
@@ -21,27 +21,48 @@ export class ProjectsController {
 
     @Roles('CREATOR')
     @Post(':UserId')
+    @ApiBody({ type: ProjectDTO })
+    @ApiOperation({ summary: "Create a Project - ROLE: >= CREATOR " })
+    @ApiResponse({ status: 201, description: 'Project Created' })
+    @ApiResponse({ status: 400, description: "Bad request" })
     public async createProject(@Body() body: ProjectDTO, @Param('UserId') UserId: string) {
         return await this.service.create(body, UserId)
     }
 
+    @Roles('CREATOR')
+    @ApiOperation({ summary: "Get all Project - ROLE: >= CREATOR " })
+    @ApiResponse({ status: 200, description: 'Array of Project' })
+    @ApiResponse({ status: 400, description: "No data record" })
     @Get()
     public async getProjects() {
         return await this.service.get()
     }
 
+    @Roles('CREATOR')
+    @ApiOperation({ summary: "Get a Project by id - ROLE: >= CREATOR " })
+    @ApiResponse({ status: 200, description: 'Project' })
+    @ApiResponse({ status: 404, description: "Project not found" })
     @Get(':ProjectId')
     public async getProjectById(@Param('ProjectId') ProjectId: string) {
         return await this.service.getById(ProjectId)
     }
 
-    // @Roles('ADMIN', 'BASIC')
-    @AccessLevel('OWNER')
+    @AccessLevel('MANTEINER')
+    @Roles('CREATOR')
+    @ApiBody({ type: UpdateProjectDTO })
+    @ApiOperation({ summary: "Edit a Project - ROLE: >= CREATOR - ACCESS_LEVEL >= MANTEINER " })
+    @ApiResponse({ status: 201, description: 'Project edited' })
+    @ApiResponse({ status: 404, description: "Not found Project" })
     @Put(':ProjectId')
     public async updateProject(@Body() body: UpdateProjectDTO, @Param("ProjectId") ProjectId: string) {
         return await this.service.update(body, ProjectId)
     }
 
+    @AccessLevel('OWNER')
+    @Roles('CREATOR')
+    @ApiOperation({ summary: "Delete a Project - ROLE: >= CREATOR - ACCESS_LEVEL >= OWNER " })
+    @ApiResponse({ status: 201, description: 'Project deleted' })
+    @ApiResponse({ status: 404, description: "Not found Project" })
     @Delete(':ProjectId')
     public async deleteProject(@Param('ProjectId') ProjectId: string) {
         return await this.service.delete(ProjectId)

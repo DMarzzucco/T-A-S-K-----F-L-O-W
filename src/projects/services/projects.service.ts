@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable,  Logger,  NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectsEntity } from '../entities/projects.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -9,6 +9,9 @@ import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class ProjectsService {
+
+    private readonly logger = new Logger(ProjectsService.name)
+
     constructor(
         @InjectRepository(ProjectsEntity) private readonly project: Repository<ProjectsEntity>,
         @InjectRepository(UsersProjectsEntity) private readonly userRepository: Repository<UsersProjectsEntity>,
@@ -22,6 +25,8 @@ export class ProjectsService {
             throw new NotFoundException(`User ${user} not found`)
         }
         const project = await this.project.save(body);
+        this.logger.log(`User ${user.username} created project ${project.name}`)
+
         return await this.userRepository.save({
             accessLevel: ACCES_LEVEL.OWNER,
             user: user,
@@ -54,8 +59,8 @@ export class ProjectsService {
         }
         return project
     }
-    public async delete(id: string): Promise<DeleteResult | undefined> {
-        const project: DeleteResult = await this.project.delete(id)
+    public async delete(id: string): Promise<DeleteResult | undefined> {        
+        const project:DeleteResult = await this.project.delete(id)
         if (!project) {
             throw new NotFoundException('Project not found')
         }

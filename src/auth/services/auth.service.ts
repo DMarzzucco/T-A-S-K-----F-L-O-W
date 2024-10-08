@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken"
@@ -16,11 +16,11 @@ export class AuthService {
         const userByEmail = await this.userService.findBy({ key: 'email', value: username })
 
         const user = userByEmail || userByUsername;
-        if (user) {
-            const match = await bcrypt.compare(password, user.password)
-            if (match) return user
+        if (!user) {
+            throw new NotFoundException("Incorrect username/email or non-existent username.")
         }
-        return null
+        const match = await bcrypt.compare(password, user.password)
+        if (match) return user
     }
     public async signJWT({ payload, secret, expire }: singProps) {
         return jwt.sign(payload, secret, { expiresIn: expire })
