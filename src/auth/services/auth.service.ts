@@ -22,9 +22,11 @@ export class AuthService {
         const match = await bcrypt.compare(password, user.password)
         if (match) return user
     }
+
     public async signJWT({ payload, secret, expire }: singProps) {
         return jwt.sign(payload, secret, { expiresIn: expire })
     }
+    
     public async generateToken(user: UsersEntity): Promise<any> {
         const getUser = await this.userService.findUsersById(user.id);
 

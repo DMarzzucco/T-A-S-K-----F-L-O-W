@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable,  Logger,  NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectsEntity } from '../entities/projects.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -10,7 +10,6 @@ import { UsersService } from '../../users/services/users.service';
 @Injectable()
 export class ProjectsService {
 
-    private readonly logger = new Logger(ProjectsService.name)
 
     constructor(
         @InjectRepository(ProjectsEntity) private readonly project: Repository<ProjectsEntity>,
@@ -21,11 +20,10 @@ export class ProjectsService {
 
     public async create(body: ProjectDTO, UserId: string): Promise<any> {
         const user = await this.user.findUsersById(UserId)
-        if (!user) {    
-            throw new NotFoundException(`User ${user} not found`)
+        if (!user) {
+            throw new NotFoundException(`User with id ${UserId} not found`)
         }
         const project = await this.project.save(body);
-        this.logger.log(`User ${user.username} created project ${project.name}`)
 
         return await this.userRepository.save({
             accessLevel: ACCES_LEVEL.OWNER,
@@ -55,13 +53,13 @@ export class ProjectsService {
     public async update(body: UpdateProjectDTO, id: string): Promise<UpdateResult | undefined> {
         const project: UpdateResult = await this.project.update(id, body)
         if (project.affected === 0) {
-            throw new BadRequestException("Could not update")
+            throw new NotFoundException('Project not found')
         }
         return project
     }
-    public async delete(id: string): Promise<DeleteResult | undefined> {        
-        const project:DeleteResult = await this.project.delete(id)
-        if (!project) {
+    public async delete(id: string): Promise<DeleteResult | undefined> {
+        const project: DeleteResult = await this.project.delete(id)
+        if (project.affected === 0) {
             throw new NotFoundException('Project not found')
         }
         return project

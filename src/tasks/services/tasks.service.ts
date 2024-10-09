@@ -7,6 +7,7 @@ import { TaskDTO, UpdateTaskDTO } from '../dto/task.dto';
 
 @Injectable()
 export class TasksService {
+
     constructor(
         @InjectRepository(TasksEntity)
         private readonly task: Repository<TasksEntity>,
@@ -15,8 +16,8 @@ export class TasksService {
 
     public async create(body: TaskDTO, ProjectId: string): Promise<TasksEntity> {
         const project = await this.project.getById(ProjectId)
-        if (project === undefined) {
-            throw new NotFoundException('Project not found')
+        if (!project) {
+            throw new NotFoundException(`Project with id ${ProjectId} not found`)
         }
         return await this.task.save({ ...body, project })
     }
@@ -34,20 +35,20 @@ export class TasksService {
             .where({ id })
             .getOne()
         if (!task) {
-            throw new NotFoundException(` task ${task} not found`)
+            throw new NotFoundException(`Task with id ${id} not found`)
         }
         return task
     }
     public async update(body: UpdateTaskDTO, id: string): Promise<UpdateResult> {
         const data: UpdateResult = await this.task.update(id, body)
-        if (!data) {
-            throw new BadRequestException('Colud not update')
+        if (data.affected === 0) {
+            throw new NotFoundException('Could not found the Task')
         }
         return data
     }
     public async delete(TaskId: string): Promise<DeleteResult | undefined> {
         const del = await this.task.delete(TaskId)
-        if (!del) {
+        if (del.affected === 0) {
             throw new NotFoundException('Task not found')
         }
         return del

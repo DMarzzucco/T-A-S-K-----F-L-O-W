@@ -8,6 +8,7 @@ import * as bcrypt from "bcrypt"
 
 @Injectable()
 export class UsersService {
+
     constructor(
         @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
         @InjectRepository(UsersProjectsEntity) private readonly userProject: Repository<UsersProjectsEntity>
@@ -23,6 +24,7 @@ export class UsersService {
         body.password = await bcrypt.hash(body.password, 10)
         return await this.userRepository.save(body);
     }
+
     public async findUsers(): Promise<UsersEntity[]> {
         const user: UsersEntity[] = await this.userRepository.find()
         if (user.length === 0) {
@@ -30,6 +32,7 @@ export class UsersService {
         }
         return user
     }
+
     public async findUsersById(id: string): Promise<UsersEntity> {
         const user: UsersEntity = await this.userRepository
             .createQueryBuilder('user')
@@ -42,6 +45,7 @@ export class UsersService {
         }
         return user
     }
+
     public async findBy({ key, value }: { key: keyof UserDTO; value: any }) {
         const user: UsersEntity = await this.userRepository.createQueryBuilder("user")
             .addSelect('user.password')
@@ -49,23 +53,23 @@ export class UsersService {
             .getOne()
         return user
     }
+
     public async updateUser(body: UpdateUserDTO, id: string): Promise<UpdateResult | undefined> {
         const user: UpdateResult = await this.userRepository.update(id, body)
-        if (!user){
-            throw new NotFoundException("User not found")
-        }
         if (user.affected === 0) {
-            throw new BadRequestException("Could not update")
+            throw new NotFoundException('Could not foun the user')
         }
         return user
     }
+
     public async deleteUser(id: string): Promise<DeleteResult | undefined> {
         const user: DeleteResult = await this.userRepository.delete(id)
         if (user.affected === 0) {
-            throw new BadRequestException('User not found')
+            throw new NotFoundException('User not found')
         }
         return user
     }
+    
     public async realtionProject(body: UserToProjectDTO): Promise<UsersProjectsEntity> {
         return await this.userProject.save(body)
     }
