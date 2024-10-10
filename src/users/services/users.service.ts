@@ -69,7 +69,7 @@ export class UsersService {
         }
         return user
     }
-    
+
     public async realtionProject(body: UserToProjectDTO): Promise<UsersProjectsEntity> {
         return await this.userProject.save(body)
     }

@@ -2,13 +2,8 @@ import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nes
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDTO, UserDTO, UserToProjectDTO } from '../dto/user.dto';
 import { UsersService } from '../services/users.service';
-
-import { PublicAcces } from '../../auth/decorators/public.decorator';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { AdminAccess } from '../../auth/decorators/admin.decorator';
-
-import { AuthGuard } from '../../auth/guards/auth.guard';
-import { RolesGuard } from '../../auth/guards/roles.guard';
+import { PublicAcces, Roles, AdminAccess } from '../../auth/decorators';
+import { AuthGuard, RolesGuard } from '../../auth/guards';
 
 @Controller('users')
 @UseGuards(AuthGuard, RolesGuard)

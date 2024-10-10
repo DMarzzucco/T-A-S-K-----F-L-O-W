@@ -5,7 +5,6 @@ import { CORS } from './constants';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { GlobalExceptionFilter } from './utils/error.manager';
-// import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,11 +23,7 @@ async function bootstrap() {
 
   app.enableCors(CORS);
   app.setGlobalPrefix("api")
-  // 
-  // console.log (process.env.NODE_ENV)
-  // const configureService = app.get(ConfigService)
-  // console.log(configureService.get('ND'))
-  // 
+
   const config = new DocumentBuilder()
     .setTitle('T A S K / / F L O W')
     .setDescription('Task management application designed to optimize collaboration and access control between users.')

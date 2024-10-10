@@ -2,11 +2,8 @@ import { Controller, Post, Get, Put, Delete, Body, Param, UseGuards, Req } from 
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from '../services/projects.service';
 import { ProjectDTO, UpdateProjectDTO } from '../dto/project.dto';
-import { AuthGuard } from '../../auth/guards/auth.guard';
-import { RolesGuard } from '../../auth/guards/roles.guard';
-import { AccesLevelGuard } from '../../auth/guards/acces-level.guard';
-import { AccessLevel } from '../../auth/decorators/acces-level.decorator';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { AuthGuard, RolesGuard, AccesLevelGuard } from '../../auth/guards';
+import { AccessLevel, Roles } from '../../auth/decorators';
 
 @ApiTags('ProjectPoint')
 @ApiHeader({
