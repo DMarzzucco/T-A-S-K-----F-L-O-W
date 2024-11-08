@@ -30,7 +30,7 @@ export class RolesGuard extends BaseGuardGuard {
     const isAuth = roles.some((role) => role === roleUser)
 
     if (!isAuth) {
-      throw new UnauthorizedException('You are not authorized')
+      throw new UnauthorizedException('You rol are not authorized')
     }
     return true;
   }

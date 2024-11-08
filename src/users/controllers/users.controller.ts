@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDTO, UserDTO, UserToProjectDTO } from '../dto/user.dto';
 import { UsersService } from '../services/users.service';
 import { PublicAcces, Roles, AdminAccess } from '../../auth/decorators';
-import { AuthGuard, RolesGuard } from '../../auth/guards';
+import {  RolesGuard, JwtAuthGuard } from '../../auth/guards';
 
 @Controller('users')
-@UseGuards(AuthGuard, RolesGuard)
+@UseGuards( JwtAuthGuard, RolesGuard)
 export class UsersController {
 
     constructor(private readonly service: UsersService) { }
@@ -26,11 +26,7 @@ export class UsersController {
     // Give a Access Level 
     @Roles("CREATOR")
     @ApiTags('Access Level')
-    @ApiHeader({
-        name: "das_token",
-        description: "put the token here",
-        required: true
-    })
+    @ApiBearerAuth()
     @ApiBody({ type: UserToProjectDTO })
     @ApiOperation({ summary: "Give a access level - ROLE: >= CREATOR " })
     @ApiResponse({ status: 200, description: "Operation Successfully" })
@@ -42,11 +38,7 @@ export class UsersController {
 
     // Get All Users
     @Roles('CREATOR')
-    @ApiHeader({
-        name: "das_token",
-        description: "put the token here",
-        required: true
-    })
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Get all Users - ROLE: >= CREATOR " })
     @ApiResponse({ status: 200, description: "Array of users" })
     @ApiResponse({ status: 400, description: "No data record" })
@@ -58,11 +50,7 @@ export class UsersController {
 
     // Get a user by id
     @PublicAcces()
-    @ApiHeader({
-        name: "das_token",
-        description: "put the token here",
-        required: true
-    })
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Get a User by id - ROLE: PUBLIC_ACCESS " })
     @ApiResponse({ status: 200, description: "Return the User" })
     @ApiResponse({ status: 404, description: "User not found" })
@@ -75,11 +63,7 @@ export class UsersController {
     // Update
     @AdminAccess()
     @ApiTags('UserPoint')
-    @ApiHeader({
-        name: "das_token",
-        description: "put the token here",
-        required: true
-    })
+    @ApiBearerAuth()
     @ApiBody({ type: UpdateUserDTO })
     @ApiOperation({ summary: "Update a user - ROLE: ADMIN " })
     @ApiResponse({ status: 200, description: "User updated" })
@@ -92,11 +76,7 @@ export class UsersController {
     // Delete a user
     @AdminAccess()
     @ApiTags('UserPoint')
-    @ApiHeader({
-        name: "das_token",
-        description: "put the token here",
-        required: true
-    })
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Delete a user - ROLE: ADMIN " })
     @ApiResponse({ status: 200, description: "User deleted" })
     @ApiResponse({ status: 404, description: "User not found" })

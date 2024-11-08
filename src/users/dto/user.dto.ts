@@ -35,6 +35,10 @@ export class UserDTO {
     @IsString()
     password: string;
 
+    @IsOptional()
+    @IsString()
+    refreshToken?: string;
+
     @ApiProperty({ name: "role", example: "ADMIN" })
     @IsNotEmpty()
     @IsEnum(ROLES)

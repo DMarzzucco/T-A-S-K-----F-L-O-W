@@ -31,6 +31,7 @@ async function bootstrap() {
     .setDescription('Task management application designed to optimize collaboration and access control between users.')
     .addCookieAuth("optional-session-id")
     .setVersion("1.0")
+    .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('docs', app, document);

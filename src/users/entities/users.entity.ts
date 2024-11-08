@@ -37,7 +37,11 @@ export class UsersEntity extends BaseEntity implements IUser {
     @Column({ type: 'enum', enum: ROLES })
     role: ROLES;
 
+    @ApiProperty({ name: "refreshToken", required: false })
+    @Column({ nullable: true })
+    refreshToken?: string;
+
     @ApiProperty()
-    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.user)
+    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.user, { cascade: true })
     projectsIncludes: UsersProjectsEntity[]
 }

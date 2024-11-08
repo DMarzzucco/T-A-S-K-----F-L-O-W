@@ -51,7 +51,15 @@ export class UsersService {
             .addSelect('user.password')
             .where({ [key]: value })
             .getOne()
+        if (!user) {
+            throw new NotFoundException("Incorrect username/email or non-existent username.")
+        }
         return user
+    }
+    public async updateToken(id: string, refreshToken: string): Promise<UpdateResult> {
+        if (!id) throw new Error("Invalid Id Provided")
+        const user: UpdateResult = await this.userRepository.update(id, {refreshToken})
+        return user;
     }
 
     public async updateUser(body: UpdateUserDTO, id: string): Promise<UpdateResult | undefined> {

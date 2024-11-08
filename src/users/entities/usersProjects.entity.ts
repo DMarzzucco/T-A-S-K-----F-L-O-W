@@ -10,7 +10,7 @@ export class UsersProjectsEntity extends BaseEntity {
     @Column({ type: "enum", enum: ACCES_LEVEL })
     accessLevel: ACCES_LEVEL
 
-    @ManyToOne(() => UsersEntity, (user) => user.projectsIncludes)
+    @ManyToOne(() => UsersEntity, (user) => user.projectsIncludes, { onDelete: "CASCADE" })
     user: UsersEntity;
 
     @ManyToOne(() => ProjectsEntity, (project) => project.usersInludes, { onDelete: "CASCADE" })

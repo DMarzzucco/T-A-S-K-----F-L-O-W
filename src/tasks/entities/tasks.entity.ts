@@ -17,7 +17,7 @@ export class TasksEntity extends BaseEntity {
     @Column()
     responsable_name: string;
 
-    @ManyToOne(() => ProjectsEntity, (project) => project.task)
+    @ManyToOne(() => ProjectsEntity, (project) => project.task, { onDelete: "CASCADE" })
     @JoinColumn({ name: "project_id" })
     project: ProjectsEntity
 

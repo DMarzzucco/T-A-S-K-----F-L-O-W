@@ -1,18 +1,14 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody,  ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TasksService } from '../services/tasks.service';
 import { TaskDTO, UpdateTaskDTO } from '../dto/task.dto';
-import { AuthGuard, RolesGuard, AccesLevelGuard } from '../../auth/guards';
+import { RolesGuard, AccesLevelGuard, JwtAuthGuard } from '../../auth/guards';
 import { AccessLevel, Roles } from '../../auth/decorators';
 
 @ApiTags('TaskPoint')
-@ApiHeader({
-    name: "das_token",
-    description: "put the token here",
-    required: true
-})
+@ApiBearerAuth()
 @Controller('tasks')
-@UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, AccesLevelGuard)
 export class TasksController {
     constructor(private readonly service: TasksService) { }
 

@@ -1,18 +1,14 @@
 import { Controller, Post, Get, Put, Delete, Body, Param, UseGuards, Req } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from '../services/projects.service';
 import { ProjectDTO, UpdateProjectDTO } from '../dto/project.dto';
-import { AuthGuard, RolesGuard, AccesLevelGuard } from '../../auth/guards';
+import {  RolesGuard, AccesLevelGuard, JwtAuthGuard } from '../../auth/guards';
 import { AccessLevel, Roles } from '../../auth/decorators';
 
 @ApiTags('ProjectPoint')
-@ApiHeader({
-    name: "das_token",
-    description: "put the token here",
-    required: true
-})
+@ApiBearerAuth()
 @Controller('projects')
-@UseGuards(AuthGuard, RolesGuard, AccesLevelGuard)
+@UseGuards( JwtAuthGuard ,RolesGuard, AccesLevelGuard)
 export class ProjectsController {
     constructor(private readonly service: ProjectsService) { }
 

@@ -16,10 +16,10 @@ export class ProjectsEntity extends BaseEntity implements IProject {
     description: string;
 
     @ApiProperty()
-    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.project)
+    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.project, { cascade: true })
     usersInludes: UsersProjectsEntity[]
 
     @ApiProperty()
-    @OneToMany(() => TasksEntity, (task) => task.project)
+    @OneToMany(() => TasksEntity, (task) => task.project, { cascade: true })
     task: TasksEntity[]
 }
