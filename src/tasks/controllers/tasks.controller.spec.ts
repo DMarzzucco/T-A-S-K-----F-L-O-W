@@ -7,10 +7,10 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockProject, mockTask } from '../../constants/mockEnties';
 
-import { AuthGuard } from '../../auth/guards/auth.guard';
 import { UsersService } from '../../users/services/users.service';
 import { Reflector } from '@nestjs/core';
 import { UpdateTaskDTO } from '../dto/task.dto';
+import { JwtAuthGuard } from '../../auth/guards';
 
 describe('TasksController', () => {
   let controller: TasksController;
@@ -53,7 +53,7 @@ describe('TasksController', () => {
           useValue: mockReflector,
         },
       ]
-    }).overrideGuard(AuthGuard)
+    }).overrideGuard(JwtAuthGuard)
       .useValue({ canActivate: jest.fn(() => true) })
       .compile();
 

@@ -2,8 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
 import { mockUser } from '../../constants/mockEnties';
+import { PayloadToken } from '../interfaces/auth.interfaces';
+import { JwtModule } from '@nestjs/jwt';
+import { UsersModule } from '../../users/users.module';
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from '../strategies/local.strategy';
+import { JwtStrategy } from '../strategies/jwt.strategy';
+import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
+import { getMockRes } from "@jest-mock/express";
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -11,18 +18,24 @@ describe('AuthService', () => {
 
   const mockUserService = {
     findBy: jest.fn(),
-    findUsersById: jest.fn()
+    findUsersById: jest.fn(),
+    updateToken: jest.fn()
   }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        AuthService,
-        {
-          provide: UsersService,
-          useValue: mockUserService
+
+      imports: [UsersModule, PassportModule, JwtModule.registerAsync({
+        useFactory: () => {
+          return {
+            secret: process.env.SECRET_KEY,
+            signOptions: { expiresIn: "10h" }
+          }
         }
-      ],
+      })],
+      providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, JwtRefreshStrategy],
+
     }).compile();
+
     service = module.get<AuthService>(AuthService);
     userService = module.get<UsersService>(UsersService);
   });
@@ -45,38 +58,49 @@ describe('AuthService', () => {
       expect(mockUserService.findBy).toHaveBeenCalledWith({ key: 'username', value: mockUser.username })
     })
   })
-  describe('Sing JWT', () => {
-    it('should sign a JWT token', async () => {
-      const payload: jwt.JwtPayload = { role: "user", sub: "1" }
-      const secret = "SecretKey";
-      const expire = "1h";
 
-      jest.spyOn(jwt, 'sign').mockImplementation(() => 'jwt.token.here')
-      const token = await service.signJWT({ payload, secret, expire })
-
-      expect(token).toBe('jwt.token.here');
-      expect(jwt.sign).toHaveBeenCalledWith(payload, secret, { expiresIn: expire })
-    })
-  })
   describe('Generate Token', () => {
     it('should generate a token for a user', async () => {
+
       const userID = mockUser.id
 
-      mockUserService.findUsersById.mockResolvedValue(mockUser)
-      jest.spyOn(service, "signJWT").mockResolvedValue('jwt.token.here');
+      const payload: PayloadToken = {
+        role: mockUser.role,
+        sub: mockUser.id
+      }
 
-      const result = await service.generateToken(mockUser)
+      const mockJwtService = { sign: jest.fn() };
+      mockJwtService.sign.mockReturnValue('jwt.token.here')
+
+      const mockHash = jest.spyOn(bcrypt, "hash").mockImplementation(() => Promise.resolve("hashRefreshToken"));
+
+
+      const mockUpdateToken = jest.spyOn(userService, "updateToken").mockResolvedValue(undefined);
+
+      const MockRes = getMockRes();
+      MockRes.res.cookie = jest.fn();
+
+      mockUserService.findUsersById.mockResolvedValue(mockUser)
+
+      const result = await service.generateToken(mockUser, MockRes.res)
 
       expect(result).toEqual({
         accessToken: 'jwt.token.here',
         user: mockUser
       })
       expect(mockUserService.findUsersById).toHaveBeenCalledWith(userID);
-      expect(service.signJWT).toHaveBeenCalledWith({
-        payload: { role: mockUser.role, sub: mockUser.id },
+
+      expect(payload).toHaveBeenCalledWith(payload, expect.objectContaining({
         secret: expect.any(String),
-        expire: "1h"
-      })
+        expireIn: expect.any(String)
+      }));
+
+      expect(mockHash).toHaveBeenNthCalledWith(1, "hashRefreshToken", 10);
+
+      expect(MockRes.res.cookie).toHaveBeenCalledWith("Authentication", "jwt.token.here", expect.any(Object));
+      expect(MockRes.res.cookie).toHaveBeenCalledWith("Refresh", "jwt.token.here", expect.any(Object));
     })
   })
+
+
 });

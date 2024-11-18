@@ -17,7 +17,7 @@ export class AuthController {
     @ApiBody({ type: DTOAuth })
     @ApiOperation({ summary: "Log a User - ROLE: PUBLIC_ACCESS" })
     @ApiResponse({ status: 200, description: "Date of user" })
-    @ApiResponse({ status: 401, description: "Your are not authorizate" })
+    @ApiResponse({ status: 401, description: "Your are not authorize" })
     @Post('login')
 
     public async login(

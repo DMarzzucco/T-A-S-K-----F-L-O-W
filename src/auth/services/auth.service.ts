@@ -1,9 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable,  UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from "bcrypt"
-import * as jwt from "jsonwebtoken"
 import { UsersEntity } from '../../users/entities/users.entity';
-import { PayloadToken, singProps } from '../interfaces/auth.interfaces';
+import { PayloadToken } from '../interfaces/auth.interfaces';
 import { Request, Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 
@@ -25,7 +24,7 @@ export class AuthService {
         const expirationDate = 24 * 60 * 60;
         const RefreshExpirationDate = 7 * 24 * 60 * 60;
 
-        const acces_Token = this.jwtService.sign(payload, {
+        const access_Token = this.jwtService.sign(payload, {
             secret: process.env.SECRET_KEY,
             expiresIn: `${expirationDate}`
         })
@@ -36,7 +35,7 @@ export class AuthService {
         const hashRefreshToken = await bcrypt.hash(refresh_token, 10)
         await this.userService.updateToken(user.id, hashRefreshToken)
 
-        res.cookie("Authentication", acces_Token, {
+        res.cookie("Authentication", access_Token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             expires: new Date(Date.now() + expirationDate * 1000)
@@ -47,7 +46,7 @@ export class AuthService {
             expires: new Date(Date.now() + RefreshExpirationDate * 1000)
         })
 
-        return { acces_Token, user }
+        return { access_Token, user }
 
     }
     // USER VALIDATION
@@ -65,8 +64,8 @@ export class AuthService {
         const user = await this.userService.findUsersById(id)
         if (!user) throw new UnauthorizedException(" User not found")
 
-        const auhtenticated = await bcrypt.compare(refreshToken, user.refreshToken)
-        if (!auhtenticated) throw new UnauthorizedException()
+        const authenticated = await bcrypt.compare(refreshToken, user.refreshToken)
+        if (!authenticated) throw new UnauthorizedException()
 
         return user;
     }
@@ -76,8 +75,8 @@ export class AuthService {
         const token = req.cookies["Authentication"]
         if (!token) throw new UnauthorizedException("No token found in cookies")
         
-        const dedcodeToken = this.jwtService.verify(token, {secret: process.env.SECRET_KEY})
-        const userId = dedcodeToken.sub
+        const decodeToken = this.jwtService.verify(token, {secret: process.env.SECRET_KEY})
+        const userId = decodeToken.sub
 
         const user = await this.userService.findUsersById(userId)
         return ({username: user.username})
