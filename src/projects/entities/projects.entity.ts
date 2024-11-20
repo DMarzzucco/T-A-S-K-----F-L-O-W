@@ -2,7 +2,7 @@ import { TasksEntity } from "../../tasks/entities/tasks.entity";
 import { BaseEntity } from "../../config/base.entity";
 import { IProject } from "../../interfaces/projects.interface";
 import { UsersProjectsEntity } from "../../users/entities/usersProjects.entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 
 @Entity({ name: "projects" })
@@ -16,7 +16,7 @@ export class ProjectsEntity extends BaseEntity implements IProject {
     description: string;
 
     @ApiProperty()
-    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.project, { cascade: true })
+    @ManyToOne(() => UsersProjectsEntity, (usersProjects) => usersProjects.project, { onDelete: "CASCADE" })
     usersInludes: UsersProjectsEntity[]
 
     @ApiProperty()

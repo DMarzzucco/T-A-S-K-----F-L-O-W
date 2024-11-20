@@ -5,7 +5,7 @@ import { DTOAuth } from '../dto/auth.dto';
 import { Response } from 'express';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { CurrentUser } from '../decorators/current-user.decorator';
-import { UsersEntity } from 'src/users/entities/users.entity';
+import { UsersEntity } from '../../users/entities/users.entity';
 
 @Controller('auth')
 export class AuthController {
