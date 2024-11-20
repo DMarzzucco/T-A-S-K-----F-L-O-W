@@ -64,7 +64,7 @@ export class TasksController {
     // Delete a Task
     @Roles("BASIC")
     @AccessLevel('DEVELOPER')
-    @ApiParam({ name: "TasktId" })
+    @ApiParam({ name: "TaskId" })
     @ApiOperation({ summary: "Delete a Task - ROLE: >= BASIC - ACCESS_LEVEL: >= DEVELOPER" })
     @ApiResponse({ status: 201, description: "Task Deleted" })
     @ApiResponse({ status: 404, description: "Task not found" })

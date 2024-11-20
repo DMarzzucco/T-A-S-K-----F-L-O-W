@@ -11,6 +11,8 @@ import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtStrategy } from '../strategies/jwt.strategy';
 import { JwtRefreshStrategy } from '../strategies/jwt-refresh.strategy';
 import { getMockRes } from "@jest-mock/express";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -21,18 +23,34 @@ describe('AuthService', () => {
     findUsersById: jest.fn(),
     updateToken: jest.fn()
   }
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
 
-      imports: [UsersModule, PassportModule, JwtModule.registerAsync({
+      imports: [TypeOrmModule.forRoot({
+        type: 'postgres',
+        host: "localhost",
+        port: 5432,
+        username: "user",
+        password: "password",
+        database: "data_base",
+        entities: [__dirname + '/../**/**/*.entity.{ts,js}'],
+        migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
+        synchronize: false,
+        migrationsRun: true,
+        logging: false,
+        dropSchema: true,
+        namingStrategy: new SnakeNamingStrategy(),
+      }), UsersModule, PassportModule, JwtModule.registerAsync({
         useFactory: () => {
+          console.log('Valor de SECRET_KEY:', process.env.SECRET_KEY);
           return {
-            secret: process.env.SECRET_KEY,
+            secret:"this_is_the_key",
             signOptions: { expiresIn: "10h" }
           }
         }
       })],
-      providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, JwtRefreshStrategy],
+      providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, JwtRefreshStrategy, { provide: 'DataSource', useValue: {} }],
 
     }).compile();
 

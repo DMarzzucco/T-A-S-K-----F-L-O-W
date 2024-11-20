@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
     }
 
     async validate(payload: PayloadToken) {
-        if (!payload.sub) throw new UnauthorizedException("Token does not conatin a valid user ")
+        if (!payload.sub) throw new UnauthorizedException("Token does not contain a valid user ")
         const user = await this.userService.findUsersById(payload.sub)
         return {
             idUser: user.id,
