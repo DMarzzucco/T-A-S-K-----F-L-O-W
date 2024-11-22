@@ -32,6 +32,7 @@ export class TasksService {
     public async getById(id: string): Promise<TasksEntity> {
         const task = await this.task
             .createQueryBuilder('task')
+            .leftJoinAndSelect('task.project', 'project')
             .where({ id })
             .getOne()
         if (!task) {

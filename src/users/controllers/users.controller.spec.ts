@@ -72,10 +72,10 @@ describe('UsersController', () => {
       expect(mockUserEntityRepo.save).toHaveBeenCalledWith(expect.objectContaining(mockUser))
     })
   })
-  describe('realtionProject', () => {
-    it('should assing a acces_level to user', async () => {
+  describe('relationProject', () => {
+    it('should assign a access_level to user', async () => {
       mockUserProjectEntityRepo.save.mockResolvedValue(mockUserProject)
-      const result = await service.realtionProject(mockUserProject)
+      const result = await service.relationProject(mockUserProject)
       expect(result).toEqual(expect.objectContaining(mockUserProject))
       expect(mockUserProjectEntityRepo.save).toHaveBeenCalledWith(mockUserProject)
     })
@@ -106,7 +106,7 @@ describe('UsersController', () => {
     })
   })
   describe('Update', () => {
-    it('shoudl update a user', async () => {
+    it('should update a user', async () => {
       const id: string = "dkmsd";
       const body: UpdateUserDTO = {
         firstName: "UpdateName",

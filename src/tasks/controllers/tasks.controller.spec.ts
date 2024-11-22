@@ -101,12 +101,16 @@ describe('TasksController', () => {
       const id: string = mockTask.id
 
       mockTaskRepository.createQueryBuilder.mockReturnValue({
+        leftJoinAndSelect: jest.fn().mockReturnThis(),
         where: jest.fn().mockReturnThis(),
         getOne: jest.fn().mockResolvedValue(mockTask)
       })
+      
       const task = await service.getById(id)
+
       expect(task).toEqual(mockTask)
       expect(mockTaskRepository.createQueryBuilder).toHaveBeenCalledWith("task")
+      expect(mockTaskRepository.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("task.project", "project")
       expect(mockTaskRepository.createQueryBuilder().where).toHaveBeenCalledWith({ id })
       expect(mockTaskRepository.createQueryBuilder().getOne).toHaveBeenCalled();
     })
@@ -130,13 +134,13 @@ describe('TasksController', () => {
   describe('Delete a Task ', () => {
     it('should delete a task by id', async () => {
       const id: string = mockTask.id
-      const mockDelte = { affected: 1 }
+      const mockDelete = { affected: 1 }
 
-      mockTaskRepository.delete.mockResolvedValue(mockDelte)
+      mockTaskRepository.delete.mockResolvedValue(mockDelete)
 
       const result = await service.delete(id)
 
-      expect(result).toEqual(mockDelte)
+      expect(result).toEqual(mockDelete)
       expect(mockTaskRepository.delete).toHaveBeenCalledWith(id)
     })
   })

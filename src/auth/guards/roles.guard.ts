@@ -24,7 +24,7 @@ export class RolesGuard extends BaseGuardGuard {
       } else if (admin && roleUser === admin) {
         return true
       }
-      throw new UnauthorizedException('You are not get acces')
+      throw new UnauthorizedException('You are not get access')
     }
 
     const isAuth = roles.some((role) => role === roleUser)

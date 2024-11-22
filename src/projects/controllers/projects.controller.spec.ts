@@ -7,7 +7,7 @@ import { UsersProjectsEntity } from '../../users/entities/usersProjects.entity';
 import { UsersService } from '../../users/services/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockProject, mockUser } from '../../constants/mockEnties';
-import { ACCES_LEVEL } from '../../constants/roles';
+import { ACCESS_LEVEL } from '../../constants/roles';
 import { UpdateProjectDTO } from '../dto/project.dto';
 
 describe('ProjectsController', () => {
@@ -61,7 +61,7 @@ describe('ProjectsController', () => {
   describe('Create Project', () => {
     it('should create a project ', async () => {
       const project = {
-        accessLevel: ACCES_LEVEL.OWNER,
+        accessLevel: ACCESS_LEVEL.OWNER,
         user: mockUser,
         project: mockProject
       }
@@ -108,8 +108,9 @@ describe('ProjectsController', () => {
 
       expect(project).toEqual(mockProject)
       expect(mockService.createQueryBuilder).toHaveBeenCalledWith("project")
-      expect(mockService.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("project.usersInludes", "usersInludes")
-      expect(mockService.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("usersInludes.user", "user")
+      expect(mockService.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("project.usersIncludes", "usersIncludes")
+      expect(mockService.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("usersIncludes.user", "user")
+      expect(mockService.createQueryBuilder().leftJoinAndSelect).toHaveBeenCalledWith("project.task", "task")
       expect(mockService.createQueryBuilder().where).toHaveBeenCalledWith({ id })
       expect(mockService.createQueryBuilder().getOne).toHaveBeenCalled();
 

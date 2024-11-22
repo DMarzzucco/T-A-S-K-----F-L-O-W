@@ -65,7 +65,7 @@ export class UsersService {
     public async updateUser(body: UpdateUserDTO, id: string): Promise<UpdateResult | undefined> {
         const user: UpdateResult = await this.userRepository.update(id, body)
         if (user.affected === 0) {
-            throw new NotFoundException('Could not foun the user')
+            throw new NotFoundException('Could not found the user')
         }
         return user
     }
@@ -78,7 +78,7 @@ export class UsersService {
         return user
     }
 
-    public async realtionProject(body: UserToProjectDTO): Promise<UsersProjectsEntity> {
+    public async relationProject(body: UserToProjectDTO): Promise<UsersProjectsEntity> {
         return await this.userProject.save(body)
     }
 }

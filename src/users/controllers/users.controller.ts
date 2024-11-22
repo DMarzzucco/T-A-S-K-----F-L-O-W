@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDTO, UserDTO, UserToProjectDTO } from '../dto/user.dto';
 import { UsersService } from '../services/users.service';
-import { PublicAcces, Roles, AdminAccess } from '../../auth/decorators';
+import { PublicAccess, Roles, AdminAccess } from '../../auth/decorators';
 import {  RolesGuard, JwtAuthGuard } from '../../auth/guards';
 
 @Controller('users')
@@ -12,7 +12,7 @@ export class UsersController {
     constructor(private readonly service: UsersService) { }
 
     // Register
-    @PublicAcces()
+    @PublicAccess()
     @ApiTags("Register")
     @ApiOperation({ summary: "Register a User - ROLE: PUBLIC_ACCESS " })
     @ApiBody({ type: UserDTO })
@@ -25,7 +25,7 @@ export class UsersController {
 
     // Give a Access Level 
     @Roles("CREATOR")
-    @ApiTags('Access Level')
+    @ApiTags('Add User to a Project with a Access Level')
     @ApiBearerAuth()
     @ApiBody({ type: UserToProjectDTO })
     @ApiOperation({ summary: "Give a access level - ROLE: >= CREATOR " })
@@ -33,7 +33,7 @@ export class UsersController {
     @ApiResponse({ status: 400, description: "Bad Request" })
     @Post('addProject')
     public async addProject(@Body() body: UserToProjectDTO) {
-        return await this.service.realtionProject(body)
+        return await this.service.relationProject(body)
     }
 
     // Get All Users
@@ -49,14 +49,14 @@ export class UsersController {
     }
 
     // Get a user by id
-    @PublicAcces()
+    @Roles('ADMIN')
     @ApiBearerAuth()
-    @ApiOperation({ summary: "Get a User by id - ROLE: PUBLIC_ACCESS " })
+    @ApiOperation({ summary: "Get a User by id - ROLE: ADMIN " })
     @ApiResponse({ status: 200, description: "Return the User" })
     @ApiResponse({ status: 404, description: "User not found" })
     @ApiTags('UserPoint')
     @Get(":UserId")
-    public async getUserbyId(@Param('UserId') UserId: string) {
+    public async getUserById(@Param('UserId') UserId: string) {
         return await this.service.findUsersById(UserId)
     }
 
@@ -81,7 +81,7 @@ export class UsersController {
     @ApiResponse({ status: 200, description: "User deleted" })
     @ApiResponse({ status: 404, description: "User not found" })
     @Delete(":UserId")
-    public async DeletUser(@Param("UserId") UserId: string) {
+    public async DeleteUser(@Param("UserId") UserId: string) {
         return await this.service.deleteUser(UserId)
     }
 }

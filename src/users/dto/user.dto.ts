@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsEnum, IsOptional, IsUUID } from "class-validator";
-import { ACCES_LEVEL, ROLES } from "../../constants/roles";
+import { ACCESS_LEVEL, ROLES } from "../../constants/roles";
 import { UsersEntity } from "../entities/users.entity";
 import { ProjectsEntity } from "../../projects/entities/projects.entity";
 import { ApiProperty, PartialType } from "@nestjs/swagger";
@@ -94,6 +94,6 @@ export class UserToProjectDTO {
 
     @ApiProperty({name:"accessLevel", example:"OWNER"})
     @IsNotEmpty()
-    @IsEnum(ACCES_LEVEL)
-    accessLevel: ACCES_LEVEL;
+    @IsEnum(ACCESS_LEVEL)
+    accessLevel: ACCESS_LEVEL;
 }

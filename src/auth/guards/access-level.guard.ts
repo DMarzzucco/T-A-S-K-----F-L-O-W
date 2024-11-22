@@ -1,11 +1,11 @@
 import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ACCES_LEVEL, ROLES } from '../../constants/roles';
+import { ACCESS_LEVEL, ROLES } from '../../constants/roles';
 import { UsersService } from '../../users/services/users.service';
 import { BaseGuardGuard } from './base-guard.guard';
 
 @Injectable()
-export class AccesLevelGuard extends BaseGuardGuard {
+export class AccessLevelGuard extends BaseGuardGuard {
 
   constructor(
     private readonly userService: UsersService,
@@ -17,7 +17,7 @@ export class AccesLevelGuard extends BaseGuardGuard {
   ) {
     if (this.isPublic(context)) return true;
 
-    const acces_level = this.acces_level(context)
+    const access_level = this.access_level(context)
 
     const req = this.getRequest(context);
     // 
@@ -32,8 +32,8 @@ export class AccesLevelGuard extends BaseGuardGuard {
     if (userExistInProject === undefined) {
       throw new UnauthorizedException('Not belong to the project')
     }
-    if (ACCES_LEVEL[acces_level] > userExistInProject.accessLevel) {
-      throw new UnauthorizedException('Not get the level acces for this operation')
+    if (ACCESS_LEVEL[access_level] > userExistInProject.accessLevel) {
+      throw new UnauthorizedException('Not get the level access for this operation')
     }
     return true;
   }

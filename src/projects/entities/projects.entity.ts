@@ -16,8 +16,8 @@ export class ProjectsEntity extends BaseEntity implements IProject {
     description: string;
 
     @ApiProperty()
-    @ManyToOne(() => UsersProjectsEntity, (usersProjects) => usersProjects.project, { onDelete: "CASCADE" })
-    usersInludes: UsersProjectsEntity[]
+    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.project, { cascade:true })
+    usersIncludes: UsersProjectsEntity[]
 
     @ApiProperty()
     @OneToMany(() => TasksEntity, (task) => task.project, { cascade: true })

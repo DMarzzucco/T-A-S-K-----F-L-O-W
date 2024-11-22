@@ -19,10 +19,10 @@ export class TaskDTO {
     @IsEnum(STATUS_TASK)
     status: STATUS_TASK;
 
-    @ApiProperty({ name: "responsable_name", example: "Ozkar Strhazzi" })
+    @ApiProperty({ name: "responsible_name", example: "Ozkar Strhazzi" })
     @IsNotEmpty()
     @IsString()
-    responsable_name: string;
+    responsible_name: string;
 
     @IsOptional()
     project: ProjectDTO;
@@ -47,7 +47,7 @@ export class UpdateTaskDTO extends PartialType(TaskDTO) {
     @ApiProperty({ required: false })
     @IsOptional()
     @IsString()
-    responsable_name?: string;
+    responsible_name?: string;
 
     @IsOptional()
     project?: ProjectDTO;

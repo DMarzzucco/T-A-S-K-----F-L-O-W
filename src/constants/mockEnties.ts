@@ -1,4 +1,4 @@
-import { ACCES_LEVEL, ROLES } from "../constants/roles"
+import { ACCESS_LEVEL, ROLES } from "../constants/roles"
 import { ProjectsEntity } from "../projects/entities/projects.entity"
 import { UsersEntity } from "../users/entities/users.entity"
 import { UsersProjectsEntity } from "../users/entities/usersProjects.entity"
@@ -7,7 +7,7 @@ import { STATUS_TASK } from "./status-task"
 
 const mockUserProject: UsersProjectsEntity = {
     id: "up1",
-    accessLevel: ACCES_LEVEL.OWNER,
+    accessLevel: ACCESS_LEVEL.OWNER,
     user: {} as UsersEntity,
     project: {} as ProjectsEntity,
     createAt: new Date(),
@@ -17,7 +17,7 @@ const mockProject: ProjectsEntity = {
     id: "up1939341",
     name: "Project One",
     description: "Project One Description",
-    usersInludes: {} as UsersProjectsEntity[],
+    usersIncludes: {} as UsersProjectsEntity[],
     task: {} as TasksEntity[],
     createAt: new Date(),
     updateAt: new Date(),
@@ -40,7 +40,7 @@ const mockTask: TasksEntity = {
     taskName: "Task 1",
     taskDescription: "Task Description",
     status: STATUS_TASK.CREATED,
-    responsable_name: "User",
+    responsible_name: "User",
     project: {} as ProjectsEntity,
     createAt: new Date(),
     updateAt: new Date(),

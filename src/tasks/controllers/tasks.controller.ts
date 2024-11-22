@@ -2,13 +2,13 @@ import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nes
 import { ApiBearerAuth, ApiBody,  ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TasksService } from '../services/tasks.service';
 import { TaskDTO, UpdateTaskDTO } from '../dto/task.dto';
-import { RolesGuard, AccesLevelGuard, JwtAuthGuard } from '../../auth/guards';
+import { RolesGuard, AccessLevelGuard, JwtAuthGuard } from '../../auth/guards';
 import { AccessLevel, Roles } from '../../auth/decorators';
 
 @ApiTags('TaskPoint')
 @ApiBearerAuth()
 @Controller('tasks')
-@UseGuards(JwtAuthGuard, RolesGuard, AccesLevelGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, AccessLevelGuard)
 export class TasksController {
     constructor(private readonly service: TasksService) { }
 
