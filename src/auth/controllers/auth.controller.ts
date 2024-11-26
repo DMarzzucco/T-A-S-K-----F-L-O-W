@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../services/auth.service';
 import { DTOAuth } from '../dto/auth.dto';
 import { Request, Response } from 'express';
@@ -27,31 +27,33 @@ export class AuthController {
     ) {
         return await this.service.generateToken(body, res)
     }
-
-    @ApiTags("RefreshToken")
-    @UseGuards(JwtRefreshAuthGuard)
-    @ApiBody({ type: DTOAuth })
-    @Post("refresh")
-    public async RefreshToken(@CurrentUser() body: UsersEntity, @Res({ passthrough: true }) res: Response) {
-        return await this.service.generateToken(body, res);
-    }
-
+    // Profile
     @ApiTags("Profile")
     @Get("profile")
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    public async GetProfile (@Req() req:Request){
+    public async GetProfile(@Req() req: Request) {
         return await this.service.profile(req);
     }
+    // Log out
     @ApiTags("Log Out")
     @Post("logout")
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    public async LogOut(@Req()req:Request, @Res() res:Response){
-        const userId= req.idUser;
-        await this.service.LogOut(userId, res)
-        return res.status(200).json({message:"Log Out successfully"})
+    public async LogOut(@Req() req: Request, @Res() res: Response) {
+        const userId = req.idUser;
+        return await this.service.LogOut(userId, res)
     }
 
+    // RefreshToken
+    @ApiTags("RefreshToken")
+    @UseGuards(JwtRefreshAuthGuard)
+    @ApiBody({ type: DTOAuth })
+    @Post("refresh")
+    public async RefreshToken(
+        @CurrentUser() body: UsersEntity,
+        @Res({ passthrough: true }) res: Response) {
 
+        return await this.service.generateNewAccessToken( body, res);
+    }
 }

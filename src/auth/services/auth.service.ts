@@ -1,4 +1,4 @@
-import { Injectable,  UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from "bcrypt"
 import { UsersEntity } from '../../users/entities/users.entity';
@@ -21,7 +21,8 @@ export class AuthService {
             role: user.role,
             sub: user.id
         }
-        const expirationDate = 24 * 60 * 60;
+        // const expirationDate = 24 * 60 * 60;
+        const expirationDate = 3 * 60;
         const RefreshExpirationDate = 7 * 24 * 60 * 60;
 
         const access_Token = this.jwtService.sign(payload, {
@@ -49,6 +50,7 @@ export class AuthService {
         return { access_Token, user }
 
     }
+ 
     // USER VALIDATION
     public async validateUser(username: string, password: string): Promise<UsersEntity> {
         const user = await this.userService.findBy({ key: 'username', value: username })
@@ -71,22 +73,22 @@ export class AuthService {
     }
 
     // Get profile of user
-    public async profile (req:Request): Promise<{username:string}>{
+    public async profile(req: Request): Promise<{ username: string }> {
         const token = req.cookies["Authentication"]
         if (!token) throw new UnauthorizedException("No token found in cookies")
-        
-        const decodeToken = this.jwtService.verify(token, {secret: process.env.SECRET_KEY})
+
+        const decodeToken = this.jwtService.verify(token, { secret: process.env.SECRET_KEY })
         const userId = decodeToken.sub
 
         const user = await this.userService.findUsersById(userId)
-        return ({username: user.username})
+        return ({ username: user.username })
     }
 
     // Logout
-    public async LogOut(id:string, res:Response):Promise<any>{
+    public async LogOut(id: string, res: Response): Promise<any> {
         await this.userService.updateToken(id, null)
 
-        res.cookie("Authenticated", "", {
+        res.cookie("Authentication", "", {
             expires: new Date(0),
             httpOnly: true,
             secure: process.env.NODE_ENV === "production"
@@ -97,6 +99,26 @@ export class AuthService {
             secure: process.env.NODE_ENV === "production"
         })
 
+        res.status(200).json({ message: "Log Out successfully" });
     }
+    
+    // GenerateNewToken
+    public async generateNewAccessToken(user: UsersEntity, res: Response): Promise<any> {
+        const payload: PayloadToken = {
+            role: user.role,
+            sub: user.id
+        }
+        const expirationDate = 7 * 24 * 60 * 60;
 
+        const access_Token = this.jwtService.sign(payload, {
+            secret: process.env.SECRET_KEY,
+            expiresIn: `${expirationDate}`
+        })
+        res.cookie("Authentication", access_Token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            expires: new Date(Date.now() + expirationDate * 1000)
+        })
+        return { access_Token, user };
+    }
 }
