@@ -8,7 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
-import { TokenRefreshMiddleware } from './middleware/token-refresh.middleware';
+// import { TokenRefreshMiddleware } from './middleware/token-refresh.middleware';
 
 @Global()
 @Module({
@@ -23,16 +23,16 @@ import { TokenRefreshMiddleware } from './middleware/token-refresh.middleware';
   providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, JwtRefreshStrategy],
   controllers: [AuthController]
 })
-
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(TokenRefreshMiddleware)
-      .exclude(
-        { path: '/auth/login', method: RequestMethod.POST },
-        { path: '/users/register', method: RequestMethod.POST },
-      )
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
+export class AuthModule {
+  // export class AuthModule implements NestModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(TokenRefreshMiddleware)
+  //     .exclude(
+  //       { path: '/auth/login', method: RequestMethod.POST },
+  //       { path: '/users/register', method: RequestMethod.POST },
+  //     )
+  //     .forRoutes({ path: '*', method: RequestMethod.ALL });
+  // }
 
 }

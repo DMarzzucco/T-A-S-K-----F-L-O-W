@@ -7,6 +7,24 @@ With TaskFlow, users can efficiently create, update, and delete projects and tas
 > [!IMPORTANT]
 > This project is still in development
 
+# Data Model Structure
+
+The system's data model consists of four interconnected entities. These entities are linked through foreign keys, defining their relationships and ensuring referential integrity within the database.
+
+![Models](/img/ModelsDB.jpg)
+
+## Cardinal Relationships
+
+The following diagram provides a higher-level view of the cardinal relationships between the models, focusing on the logical associations such as one-to-many and many-to-one.
+
+![Models](/img/ArchDB.jpg)
+
+# Application Workflow
+
+This diagram illustrates the application's logic flow, including user authentication, role-based access control, and task management processes.
+
+![Models](/img/AppArch.jpg)
+
 ## Install
 
 ```bash

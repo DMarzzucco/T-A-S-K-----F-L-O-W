@@ -21,8 +21,8 @@ export class AuthService {
             role: user.role,
             sub: user.id
         }
-        // const expirationDate = 24 * 60 * 60;
-        const expirationDate = 3 * 60;
+        const expirationDate = 24 * 60 * 60;
+        // const expirationDate = 1 * 60;
         const RefreshExpirationDate = 7 * 24 * 60 * 60;
 
         const access_Token = this.jwtService.sign(payload, {
@@ -50,7 +50,7 @@ export class AuthService {
         return { access_Token, user }
 
     }
- 
+
     // USER VALIDATION
     public async validateUser(username: string, password: string): Promise<UsersEntity> {
         const user = await this.userService.findBy({ key: 'username', value: username })
@@ -101,7 +101,7 @@ export class AuthService {
 
         res.status(200).json({ message: "Log Out successfully" });
     }
-    
+
     // GenerateNewToken
     public async generateNewAccessToken(user: UsersEntity, res: Response): Promise<any> {
         const payload: PayloadToken = {
@@ -121,4 +121,17 @@ export class AuthService {
         })
         return { access_Token, user };
     }
+    
+    // Get profile of user
+    public async GetUser(req: Request): Promise<UsersEntity> {
+        const token = req.cookies["Authentication"]
+        if (!token) throw new UnauthorizedException("No token found in cookies")
+
+        const decodeToken = this.jwtService.verify(token, { secret: process.env.SECRET_KEY })
+        const userId = decodeToken.sub
+
+        const user = await this.userService.findUsersById(userId)
+        return (user)
+    }
+
 }
