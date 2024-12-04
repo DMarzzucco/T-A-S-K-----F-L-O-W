@@ -11,12 +11,6 @@ With TaskFlow, users can efficiently create, update, and delete projects and tas
 
 The system's data model consists of four interconnected entities. These entities are linked through foreign keys, defining their relationships and ensuring referential integrity within the database.
 
-![Models](/img/ModelsDB.jpg)
-
-## Cardinal Relationships
-
-The following diagram provides a higher-level view of the cardinal relationships between the models, focusing on the logical associations such as one-to-many and many-to-one.
-
 ![Models](/img/ArchDB.jpg)
 
 # Application Workflow
