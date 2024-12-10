@@ -1,8 +1,24 @@
 # T A S K / / F L O W
 
-TaskFlow is a project and task management application designed to optimize collaboration and access control between users. The app allows administrators to register new users and manage roles, ensuring that each person has the appropriate level of access to projects and tasks.
+TaskFlow is a versatile template for project and task management, designed to optimize collaboration and access control among users in any organizational environment. Its modular architecture allows the application to be customized and adapted to various needs, from corporate systems to educational platforms or personal productivity tools.
 
-With TaskFlow, users can efficiently create, update, and delete projects and tasks, while administrators can assign specific access levels, to ensure that only authorized people make critical modifications. The application also implements a secure authentication system, protecting access and ensuring that each operation is performed by authenticated users.
+### With TaskFlow, administrators can:
+
+- Register users securely and assign customized roles.
+- Manage access levels to ensure that only authorized individuals can make critical modifications to projects and tasks.
+
+### The application enables users to:
+
+- Create, update, and delete projects and tasks.
+- Monitor task progress with configurable statuses such as created, in progress, and finished.
+- Collaborate efficiently, ensuring that each role has the tools necessary to fulfill its responsibilities.
+Key features include:
+
+- Role-based access control: Assigns flexible permission levels, such as administrator, creator, and specific roles like owner, maintainer, or developer.
+- Secure authentication: Protects the system with robust validation and authorization mechanisms.
+- Modular management: Facilitates customization to suit various industries, such as education, marketing, software development, or internal administration.
+
+Thanks to its focus on security, efficiency, and adaptability, TaskFlow is the ideal solution for implementing collaborative systems that require structured control of users and activities.
 
 > [!IMPORTANT]
 > This project is still in development
