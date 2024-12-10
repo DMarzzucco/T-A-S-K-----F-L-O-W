@@ -20,6 +20,21 @@ Key features include:
 
 Thanks to its focus on security, efficiency, and adaptability, TaskFlow is the ideal solution for implementing collaborative systems that require structured control of users and activities.
 
+### Possible Applications of TaskFlow
+TaskFlow is a flexible solution that can be integrated into a wide variety of systems, including:
+
+1. **Project Management**  
+   Ideal for coordinating teams and tasks in corporate, educational, or creative environments, ensuring efficient organization and clear progress tracking.  
+
+2. **Internal Collaboration Systems**
+Simplifies the organization and monitoring of activities among users with diverse roles, fostering structured cooperation within teams.
+
+3. **Educational Platforms**
+Enables the management of courses, assignment tracking, and effective monitoring of student progress.
+
+4. **Personal Productivity Tools**
+Offers an efficient way to organize individual tasks and projects, catering to the needs of independent users.
+
 > [!IMPORTANT]
 > This project is still in development
 
