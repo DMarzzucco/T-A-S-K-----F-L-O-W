@@ -50,35 +50,34 @@ This diagram illustrates the application's logic flow, including user authentica
 
 ![Models](/img/AppArch.jpg)
 
-## Install
+
+## Requirements
+
+- [Docker-Desktope](https://www.docker.com/products/docker-desktop/)
+- Optional [.NET 8](https://dotnet.microsoft.com/es-es/download) 
+
+## Install in Docker 
+
+```bash
+$ docker-compose up
+```
+## Install in Local Machine 
 
 ```bash
 
 # start the date base
 $ docker-compose up db
 
-# install the node modules 
-$ npm install
-
-# migrate the entities to date base
-$ npm run m:gen -- ./migrations/init
-
-# start the entities in date base
-$ npm run m:run
+# in .\TASK-FLOW-TESTING\
 
 # start the server
-$ npm run start:dev
+$ dotnet run
 
 ```
 
-## Testing
-
-``` bash
-$ npm start test:watch
-```
 ## Documentation Swagger
 
-[3001/docs](http://localhost:3001/docs/)
+[PORT:5024](http://localhost:5024/swagger/index.html)
 
 ## Author 
 
