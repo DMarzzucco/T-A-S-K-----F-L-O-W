@@ -2,6 +2,8 @@
 
 TaskFlow is a versatile template for project and task management, designed to optimize collaboration and access control among users in any organizational environment. Its modular architecture allows the application to be customized and adapted to various needs, from corporate systems to educational platforms or personal productivity tools.
 
+![Models](/img/AppArch.jpg)
+
 ### With TaskFlow, administrators can:
 
 - Register users securely and assign customized roles.
@@ -43,13 +45,6 @@ Offers an efficient way to organize individual tasks and projects, catering to t
 The system's data model consists of four interconnected entities. These entities are linked through foreign keys, defining their relationships and ensuring referential integrity within the database.
 
 ![Models](/img/ArchDB.jpg)
-
-# Application Workflow
-
-This diagram illustrates the application's logic flow, including user authentication, role-based access control, and task management processes.
-
-![Models](/img/AppArch.jpg)
-
 
 ## Requirements
 
