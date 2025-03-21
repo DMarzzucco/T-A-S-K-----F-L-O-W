@@ -37,6 +37,108 @@
             <response code = "200">Ok</response>
             <response code = "401">Unauthorized</response>
         </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GetIdFromToken">
+            <summary>
+            Get Id from Token 
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GenerateToken(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+            Generate Token
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.RefreshToken(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+             Refresh Token 
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.ValidateToken(System.String)">
+            <summary>
+             Validate Token
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.isTokenExpireSoon(System.String)">
+            <summary>
+             is Token Expire Soon
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.CreateTokenPair(TASK_FLOW.NET.User.Model.UsersModel,System.DateTime,System.DateTime)">
+            <summary>
+             Create Token Pair Template
+            </summary>
+            <param name="user"></param>
+            <param name="accessTokenExpired"></param>
+            <param name="refreshTokenExpired"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Microsoft.IdentityModel.Tokens.SigningCredentials,System.DateTime)">
+            <summary>
+            Create Token Template
+            </summary>
+            <param name="claims"></param>
+            <param name="signingCredentials"></param>
+            <param name="expiration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.GenerateToken(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+            Generate Token 
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.RefreshToken">
+            <summary>
+            Refresh Token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.GetProfile">
+            <summary>
+            Get Profile
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.GetUserByCookie">
+            <summary>
+            Get User By Cookie 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.Logout">
+            <summary>
+            Log Out 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.RefreshTokenValidate(System.String,System.Int32)">
+            <summary>
+            Refresh Token Validate 
+            </summary>
+            <param name="refreshToken"></param>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.ValidationUser(TASK_FLOW.NET.Auth.DTO.AuthPropsDTO)">
+            <summary>
+             Validate User
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
         <member name="T:TASK_FLOW.NET.Migrations.Initial">
             <inheritdoc />
         </member>
@@ -94,6 +196,78 @@
             <response code= "204">No Content</response>
             <response code= "404">Not found</response>
         </member>
+        <member name="M:TASK_FLOW.NET.Project.Repository.ProjectRepository.DeleteProjectAsync(TASK_FLOW.NET.Project.Model.ProjectModel)">
+            <summary>
+            Delete Project
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Repository.ProjectRepository.findByIdAsync(System.Int32)">
+            <summary>
+            Find by key value
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Repository.ProjectRepository.ListOfProjectAsync">
+            <summary>
+            List of Project
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Repository.ProjectRepository.SaveProjectAsync(TASK_FLOW.NET.Project.Model.ProjectModel)">
+            <summary>
+            Save a Project
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Repository.ProjectRepository.UpdateProjectAsync(TASK_FLOW.NET.Project.Model.ProjectModel)">
+            <summary>
+            Update a Project
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Service.ProjectService.DeleteProject(System.Int32)">
+            <summary>
+            Delete Project
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Service.ProjectService.GetProjectById(System.Int32)">
+            <summary>
+            Get One Register 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Service.ProjectService.ListOfProject">
+            <summary>
+            Get all register
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Service.ProjectService.SaveProject(TASK_FLOW.NET.Project.DTO.CreateProjectDTO)">
+            <summary>
+            Save a new Project
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Project.Service.ProjectService.UpdateProject(System.Int32,TASK_FLOW.NET.Project.DTO.UpdateProjectDTO)">
+            <summary>
+            Update a Project
+            </summary>
+            <param name="id"></param>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
         <member name="M:TASK_FLOW.NET.Tasks.Controller.TaskController.CreateTask(System.Int32,TASK_FLOW.NET.Tasks.DTOs.CreateTaskDTO)">
             <summary>
             Create a new Task
@@ -140,6 +314,46 @@
             <response code = "204">No content</response>
             <response code = "404">Not found</response>
         </member>
+        <member name="M:TASK_FLOW.NET.Tasks.Service.TaskService.CreateTask(System.Int32,TASK_FLOW.NET.Tasks.DTOs.CreateTaskDTO)">
+            <summary>
+            Create Task
+            </summary>
+            <param name="ProjectId"></param>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Tasks.Service.TaskService.DeleteTask(System.Int32)">
+            <summary>
+            Delete Task
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Tasks.Service.TaskService.GetTaskById(System.Int32)">
+            <summary>
+            Get Task ById
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Tasks.Service.TaskService.ListOfAllTask">
+            <summary>
+            List of All Task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Tasks.Service.TaskService.UpdateTask(System.Int32,TASK_FLOW.NET.Tasks.DTOs.UpdateTaskDTO)">
+            <summary>
+            Update Task
+            </summary>
+            <param name="id"></param>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
         <member name="M:TASK_FLOW.NET.UserProject.Controllers.UserProjectController.RegisterUserAndProject(TASK_FLOW.NET.UserProject.DTO.UserProjectDTO)">
             <summary>
             Relation Project
@@ -147,6 +361,33 @@
             <returns>Relation between a User and a Project with a Access Level</returns>
             <response code="200">Relation finished successfully</response>
             <response code="400">Relation Faild</response>
+        </member>
+        <member name="M:TASK_FLOW.NET.UserProject.Repository.UserProjectRepository.AddChangeAsync(TASK_FLOW.NET.UserProject.Model.UserProjectModel)">
+            <summary>
+            Add Change Async 
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.UserProject.Repository.UserProjectRepository.findById(System.Int32)">
+            <summary>
+            Fin by ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.UserProject.Repository.UserProjectRepository.ListofAllAsync">
+            <summary>
+            List Of All Relations
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.UserProject.Repository.UserProjectRepository.UpdateUPAsync(TASK_FLOW.NET.UserProject.Model.UserProjectModel)">
+            <summary>
+            Update Relations
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
         </member>
         <member name="M:TASK_FLOW.NET.User.Controller.UserController.RegisterUser(TASK_FLOW.NET.User.DTO.CreateUserDTO)">
             <summary>
@@ -192,6 +433,118 @@
             <returns>Delete a User according his Id</returns>
             <response code="204">User Deleted</response>
             <response code="404">User Not Found</response>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.AddChangeAsync(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+             Add Change Async 
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.ExistsByEmail(System.String)">
+            <summary>
+             Exist By Email
+            </summary>
+            <param name="Email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.ExistsByUsername(System.String)">
+            <summary>
+            Exists By Username 
+            </summary>
+            <param name="Username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.ToListAsync">
+            <summary>
+            To List Async 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.FindByIdAsync(System.Int32)">
+            <summary>
+            Find By Id Async 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.FindByKey(System.String,System.Object)">
+            <summary>
+            Find By Key
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.RemoveAsync(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+            Remove Async 
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.UpdateAsync(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+            Update Async 
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.CreateUser(TASK_FLOW.NET.User.DTO.CreateUserDTO)">
+            <summary>
+            Save one Register
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.DeleteUser(System.Int32)">
+            <summary>
+            Delete One register
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.FindByAuth(System.String,System.Object)">
+            <summary>
+            Fin by value key
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.GetAll">
+            <summary>
+            Get all Users Register
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.GetById(System.Int32)">
+            <summary>
+            Get One Register
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.UpdateToken(System.Int32,System.String)">
+            <summary>
+            Update RefrehsToken
+            </summary>
+            <param name="id"></param>
+            <param name="RefreshToken"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.UpdateUser(System.Int32,TASK_FLOW.NET.User.DTO.UpdateUserDTO)">
+            <summary>
+            Update one Register
+            </summary>
+            <param name="id"></param>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
         </member>
     </members>
 </doc>

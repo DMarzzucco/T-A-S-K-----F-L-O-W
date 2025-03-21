@@ -15,10 +15,15 @@ namespace TASK_FLOW.NET.Auth.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var body = context.ActionArguments["body"] as AuthPropsDTO;
-
-            var user = await this._authService.ValidationUser(body);
-            context.HttpContext.Items["User"] = user;
+            if (context.ActionArguments.TryGetValue("body", out var bodyObj) && bodyObj is AuthPropsDTO body)
+            {
+                var user = await this._authService.ValidationUser(body);
+                context.HttpContext.Items["User"] = user;
+            }
+            else
+            {
+                context.HttpContext.Items["User"] = null;
+            }
 
             await next();
         }

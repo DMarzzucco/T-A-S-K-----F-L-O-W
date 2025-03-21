@@ -11,6 +11,9 @@ namespace TASK_FLOW.NET.Configuration
         {
             var secretKey = configuration.GetSection("JwtSettings").GetSection("secretKey").ToString();
 
+            if (string.IsNullOrEmpty(secretKey))
+                throw new ArgumentNullException(nameof(secretKey), "secretKey cannot be null or empty");
+
             service.AddAuthentication(cfg =>
             {
                 cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

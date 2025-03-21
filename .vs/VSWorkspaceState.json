@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\TASK-FLOW.NET"
   ],
-  "SelectedNode": "\\TASK-FLOW.NET.sln",
+  "SelectedNode": "\\TASK-FLOW.NET\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

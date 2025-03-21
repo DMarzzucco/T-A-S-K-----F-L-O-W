@@ -16,24 +16,41 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
 
         public TokenService(IConfiguration config, IHttpContextAccessor httpContextAccessor)
         {
-            this._secretKey = config.GetSection("JwtSettings").GetSection("secretKey").ToString();
+            var secretKeySection = config.GetSection("JwtSettings").GetSection("secretKey").ToString();
+            if (secretKeySection == null || string.IsNullOrEmpty(secretKeySection))
+            {
+                throw new ArgumentNullException("Secret key configuration is missing");
+            }
+            this._secretKey = secretKeySection;
             this._httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// Get Id from Token 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException"></exception>
         public int GetIdFromToken()
         {
-            var token = this._httpContextAccessor.HttpContext.Request.Cookies["Authentication"];
+            var httpContext = this._httpContextAccessor.HttpContext;
+            if (httpContext == null) throw new UnauthorizedAccessException("HttpContext is null");
+            
+            var token = httpContext.Request.Cookies["Authentication"];
             if (token == null) throw new UnauthorizedAccessException("Token not found");
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-            var Id = int.Parse(jwtToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
-            if (Id == null) throw new UnauthorizedAccessException("Invalid Token");
+            var IdClaim = jwtToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+            if (IdClaim == null) throw new UnauthorizedAccessException("Invalid Token");
 
-            return Id;
+            return int.Parse(IdClaim);
         }
-
+        /// <summary>
+        /// Generate Token
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public TokenPair GenerateToken(UsersModel user)
         {
             return CreateTokenPair(
@@ -42,6 +59,11 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
                 DateTime.UtcNow.AddDays(5)
            );
         }
+        /// <summary>
+        ///  Refresh Token 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public TokenPair RefreshToken(UsersModel user)
         {
             return CreateTokenPair(
@@ -50,7 +72,11 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
                 DateTime.UtcNow.AddDays(5)
                 );
         }
-
+        /// <summary>
+        ///  Validate Token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -77,7 +103,11 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
                 return false;
             }
         }
-
+        /// <summary>
+        ///  is Token Expire Soon
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool isTokenExpireSoon(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -89,7 +119,13 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
             var expiration = jwtToken.ValidTo;
             return expiration <= DateTime.UtcNow.AddMinutes(21);
         }
-
+        /// <summary>
+        ///  Create Token Pair Template
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="accessTokenExpired"></param>
+        /// <param name="refreshTokenExpired"></param>
+        /// <returns></returns>
         public TokenPair CreateTokenPair(UsersModel user, DateTime accessTokenExpired, DateTime refreshTokenExpired)
         {
 
@@ -114,7 +150,13 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
                 RefreshTokenHasher = refreshTokenHash
             };
         }
-
+        /// <summary>
+        /// Create Token Template
+        /// </summary>
+        /// <param name="claims"></param>
+        /// <param name="signingCredentials"></param>
+        /// <param name="expiration"></param>
+        /// <returns></returns>
         private string CreateToken(IEnumerable<Claim> claims, SigningCredentials signingCredentials, DateTime expiration)
         {
             var tokenDescriptor = new SecurityTokenDescriptor

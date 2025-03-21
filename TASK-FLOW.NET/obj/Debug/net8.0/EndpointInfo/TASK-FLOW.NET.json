@@ -1,0 +1,1707 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "T A S K - F L O W",
+    "description": "Some description to refomrs",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login User",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthPropsDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthPropsDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthPropsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/profile": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get Profile",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Log Out",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh Token",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/Project": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Create Project",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Get All Project",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Project/{id}": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Get project by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Update Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Delete Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Task": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Create a new Task",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get all Tasks",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Task/{id}": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get task by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Update Task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Delete task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Register a new User",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User Registered",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict between repeat dates",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get All User",
+        "responses": {
+          "200": {
+            "description": "List of User",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "User Updated"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delte User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User Deleted"
+          },
+          "404": {
+            "description": "User Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserProject": {
+      "post": {
+        "tags": [
+          "UserProject"
+        ],
+        "summary": "Relation Project",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProjectDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProjectDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProjectDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Relation finished successfully"
+          },
+          "400": {
+            "description": "Relation Faild",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "UserProject"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserProjectModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserProjectModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserProjectModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserProject/{id}": {
+      "get": {
+        "tags": [
+          "UserProject"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "UserProject"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserProjectDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserProjectDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserProjectDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ACCESSLEVEL": {
+        "enum": [
+          30,
+          40,
+          50
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "AuthPropsDTO": {
+        "required": [
+          "Password",
+          "Username"
+        ],
+        "type": "object",
+        "properties": {
+          "Username": {
+            "type": "string",
+            "description": "User Username",
+            "nullable": true,
+            "example": "DMarzz"
+          },
+          "Password": {
+            "type": "string",
+            "description": "User Password ",
+            "nullable": true,
+            "example": "Pr@motheus98"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateProjectDTO": {
+        "required": [
+          "Description",
+          "Name"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Project Name",
+            "nullable": true,
+            "example": "Next year's projects."
+          },
+          "Description": {
+            "type": "string",
+            "description": "Project Description",
+            "nullable": true,
+            "example": "Next year's projects include basic tasks for beginners, as well as a review of errors made the previous year."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTaskDTO": {
+        "required": [
+          "Descritpion",
+          "Name",
+          "ResponsibleName",
+          "Status"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Task Name",
+            "nullable": true,
+            "example": "Change of management policies"
+          },
+          "Descritpion": {
+            "type": "string",
+            "description": "Task Desciption",
+            "nullable": true,
+            "example": "The changes in management policies have to be different from those of last year."
+          },
+          "Status": {
+            "$ref": "#/components/schemas/STATUSTASK"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Responsible Name of the Task",
+            "nullable": true,
+            "example": "Dario Marzzucco"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUserDTO": {
+        "required": [
+          "Age",
+          "Email",
+          "First_name",
+          "Last_name",
+          "Password",
+          "Roles",
+          "Username"
+        ],
+        "type": "object",
+        "properties": {
+          "First_name": {
+            "type": "string",
+            "description": "User first name ",
+            "nullable": true,
+            "example": "Dario"
+          },
+          "Last_name": {
+            "type": "string",
+            "description": "User last name ",
+            "nullable": true,
+            "example": "Marzzucco"
+          },
+          "Age": {
+            "type": "string",
+            "description": "User age ",
+            "nullable": true,
+            "example": "27"
+          },
+          "Username": {
+            "type": "string",
+            "description": "User username ",
+            "nullable": true,
+            "example": "DMarzz"
+          },
+          "Email": {
+            "type": "string",
+            "description": "User Email ",
+            "nullable": true,
+            "example": "DMarzz@gmail.com"
+          },
+          "Password": {
+            "type": "string",
+            "description": "User Password ",
+            "nullable": true,
+            "example": "Pr@motheus98"
+          },
+          "Roles": {
+            "$ref": "#/components/schemas/ROLES"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "ProjectModel": {
+        "required": [
+          "Description",
+          "Name"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "Project id",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Project Name",
+            "nullable": true,
+            "example": "Next year's projects."
+          },
+          "Description": {
+            "type": "string",
+            "description": "Project Description",
+            "nullable": true,
+            "example": "Next year's projects include basic tasks for beginners, as well as a review of errors made the previous year."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ROLES": {
+        "enum": [
+          10,
+          20,
+          30
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "STATUSTASK": {
+        "enum": [
+          10,
+          20,
+          30
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "TaskModel": {
+        "required": [
+          "Descritpion",
+          "Name",
+          "Project",
+          "ResponsibleName",
+          "Status"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "Task id",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Task Name",
+            "nullable": true,
+            "example": "Change of management policies"
+          },
+          "Descritpion": {
+            "type": "string",
+            "description": "Task Desciption",
+            "nullable": true,
+            "example": "The changes in management policies have to be different from those of last year."
+          },
+          "Status": {
+            "$ref": "#/components/schemas/STATUSTASK"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Responsible Name of the Task",
+            "nullable": true,
+            "example": "Dario Marzzucco"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/ProjectModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateProjectDTO": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Project Name",
+            "nullable": true,
+            "example": "Next year's projects."
+          },
+          "Description": {
+            "type": "string",
+            "description": "Project Description",
+            "nullable": true,
+            "example": "Next year's projects include basic tasks for beginners, as well as a review of errors made the previous year."
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTaskDTO": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Task Name",
+            "nullable": true,
+            "example": "Change of management policies"
+          },
+          "Descritpion": {
+            "type": "string",
+            "description": "Task Desciption",
+            "nullable": true,
+            "example": "The changes in management policies have to be different from those of last year."
+          },
+          "Status": {
+            "$ref": "#/components/schemas/STATUSTASK"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Responsible Name of the Task",
+            "nullable": true,
+            "example": "Dario Marzzucco"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserDTO": {
+        "type": "object",
+        "properties": {
+          "First_name": {
+            "type": "string",
+            "description": "User first name ",
+            "nullable": true,
+            "example": "Dario"
+          },
+          "Last_name": {
+            "type": "string",
+            "description": "User last name ",
+            "nullable": true,
+            "example": "Marzzucco"
+          },
+          "Age": {
+            "type": "string",
+            "description": "User age ",
+            "nullable": true,
+            "example": "27"
+          },
+          "Username": {
+            "type": "string",
+            "description": "User username ",
+            "nullable": true,
+            "example": "DMarzz"
+          },
+          "Email": {
+            "type": "string",
+            "description": "User Email ",
+            "nullable": true,
+            "example": "DMarzz@gmail.com"
+          },
+          "Password": {
+            "type": "string",
+            "description": "User Password ",
+            "nullable": true,
+            "example": "Pr@motheus98"
+          },
+          "Roles": {
+            "$ref": "#/components/schemas/ROLES"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserProjectDTO": {
+        "type": "object",
+        "properties": {
+          "AccessLevel": {
+            "$ref": "#/components/schemas/ACCESSLEVEL"
+          },
+          "UserId": {
+            "type": "integer",
+            "description": "User Id",
+            "format": "int32",
+            "nullable": true,
+            "example": "1"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "description": "Project Id",
+            "format": "int32",
+            "nullable": true,
+            "example": "1"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserProjectDTO": {
+        "required": [
+          "AccessLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "AccessLevel": {
+            "$ref": "#/components/schemas/ACCESSLEVEL"
+          },
+          "UserId": {
+            "type": "integer",
+            "description": "User Id",
+            "format": "int32",
+            "example": "1"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "description": "Project Id",
+            "format": "int32",
+            "example": "1"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserProjectModel": {
+        "required": [
+          "AccessLevel",
+          "Project",
+          "User"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "UserProject Id",
+            "format": "int32"
+          },
+          "AccessLevel": {
+            "$ref": "#/components/schemas/ACCESSLEVEL"
+          },
+          "User": {
+            "$ref": "#/components/schemas/UsersModel"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/ProjectModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersModel": {
+        "required": [
+          "Age",
+          "Email",
+          "First_name",
+          "Last_name",
+          "Password",
+          "Roles",
+          "Username"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "User id",
+            "format": "int32"
+          },
+          "First_name": {
+            "type": "string",
+            "description": "User first name ",
+            "nullable": true,
+            "example": "Dario"
+          },
+          "Last_name": {
+            "type": "string",
+            "description": "User last name ",
+            "nullable": true,
+            "example": "Marzzucco"
+          },
+          "Age": {
+            "type": "string",
+            "description": "User age ",
+            "nullable": true,
+            "example": "27"
+          },
+          "Username": {
+            "type": "string",
+            "description": "User username ",
+            "nullable": true,
+            "example": "DMarzz"
+          },
+          "Email": {
+            "type": "string",
+            "description": "User Email ",
+            "nullable": true,
+            "example": "DMarzz@gmail.com"
+          },
+          "Password": {
+            "type": "string",
+            "description": "User Password ",
+            "nullable": true,
+            "example": "Pr@motheus98"
+          },
+          "Roles": {
+            "$ref": "#/components/schemas/ROLES"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

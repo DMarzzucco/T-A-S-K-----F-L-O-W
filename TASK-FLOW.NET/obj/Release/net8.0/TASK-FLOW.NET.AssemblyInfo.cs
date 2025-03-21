@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("3fee7692-6521-49e0-9f5e-b01ad3fb0b42")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("TASK-FLOW.NET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+389514ce21da8e58130fea89e3144486750b664d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87996fab28a7c380e971e69edef83f9ebe5c0874")]
 [assembly: System.Reflection.AssemblyProductAttribute("TASK-FLOW.NET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TASK-FLOW.NET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

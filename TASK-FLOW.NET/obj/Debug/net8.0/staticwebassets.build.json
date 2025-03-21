@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "o8J20gMYebZrOrMdphV/LtyAJFDl5IoHeUCnmJ9viok=",
+  "Hash": "eqpP0z+gcFq32zB13l1CWQ0SFLgefqCUSaRwzAcOzj0=",
   "Source": "TASK-FLOW.NET",
   "BasePath": "_content/TASK-FLOW.NET",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

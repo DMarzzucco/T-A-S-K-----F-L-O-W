@@ -1,6 +1,14 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
+
+# Copia el certificado dentro del contenedor
+COPY certs/cert.pfx /https/cert.pfx
+
+# Variables de entorno para HTTPS
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cert.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password=pass123
+
 EXPOSE 5024
 EXPOSE 5024
 
