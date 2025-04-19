@@ -6,13 +6,9 @@ using TASK_FLOW.NET.Utils.Exceptions;
 
 namespace TASK_FLOW.NET.Utils.Filters
 {
-    public class GlobalFilterExceptions : IExceptionFilter
+    public class GlobalFilterExceptions(ILogger<GlobalFilterExceptions> logger) : IExceptionFilter
     {
-        private readonly ILogger<GlobalFilterExceptions> _logger;
-        public GlobalFilterExceptions(ILogger<GlobalFilterExceptions> logger)
-        {
-            this._logger = logger;
-        }
+        private readonly ILogger<GlobalFilterExceptions> _logger = logger;
 
         public void OnException(ExceptionContext context)
         {

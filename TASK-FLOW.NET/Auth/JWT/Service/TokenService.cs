@@ -32,17 +32,17 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
         /// <exception cref="UnauthorizedAccessException"></exception>
         public int GetIdFromToken()
         {
-            var httpContext = this._httpContextAccessor.HttpContext;
-            if (httpContext == null) throw new UnauthorizedAccessException("HttpContext is null");
+            var httpContext = this._httpContextAccessor.HttpContext ??
+                throw new UnauthorizedAccessException("HttpContext is null");
             
-            var token = httpContext.Request.Cookies["Authentication"];
-            if (token == null) throw new UnauthorizedAccessException("Token not found");
+            var token = httpContext.Request.Cookies["Authentication"] ??
+                throw new UnauthorizedAccessException("Token not found");
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-            var IdClaim = jwtToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
-            if (IdClaim == null) throw new UnauthorizedAccessException("Invalid Token");
+            var IdClaim = jwtToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value ??
+                throw new UnauthorizedAccessException("Invalid Token");
 
             return int.Parse(IdClaim);
         }

@@ -425,6 +425,15 @@
             <response code="204">User Updated</response>
             <response code="404">User not found</response>
         </member>
+        <member name="M:TASK_FLOW.NET.User.Controller.UserController.UpdatePasswordUser(System.Int32,System.String,System.String)">
+            <summary>
+            update password
+            </summary>
+            <param name="id"></param>
+            <param name="oldPassword"></param>
+            <param name="newPassword"></param>
+            <returns></returns>
+        </member>
         <member name="M:TASK_FLOW.NET.User.Controller.UserController.DelteUser(System.Int32)">
             <summary>
             Delte User
@@ -445,14 +454,14 @@
             <summary>
              Exist By Email
             </summary>
-            <param name="Email"></param>
+            <param name="email"></param>
             <returns></returns>
         </member>
         <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.ExistsByUsername(System.String)">
             <summary>
             Exists By Username 
             </summary>
-            <param name="Username"></param>
+            <param name="username"></param>
             <returns></returns>
         </member>
         <member name="M:TASK_FLOW.NET.User.Repository.UserRepository.ToListAsync">
@@ -545,6 +554,61 @@
             <param name="body"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Service.UserService.UpdatePassword(System.Int32,System.String,System.String)">
+            <summary>
+            Updated password 
+            </summary>
+            <param name="id"></param>
+            <param name="oldPassword"></param>
+            <param name="newPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Validations.UsersValidations.ValidateDuplicated(TASK_FLOW.NET.User.DTO.CreateUserDTO)">
+            <summary>
+            Validate Duplicated
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Validations.UsersValidations.ValidateEmail(System.String)">
+            <summary>
+            Validate Email
+            </summary>
+            <param name="email"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.User.Validations.UsersValidations.ValidatePassword(System.String)">
+            <summary>
+            Validate Password
+            </summary>
+            <param name="password"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.ConflictException">
+            <summary>
+            409
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.ConflictException.#ctor(System.String)">
+            <summary>
+            409
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException">
+            <summary>
+            400
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.BadRequestException.#ctor(System.String)">
+            <summary>
+            400
+            </summary>
+            <param name="message"></param>
         </member>
     </members>
 </doc>

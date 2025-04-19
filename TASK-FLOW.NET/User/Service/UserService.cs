@@ -5,6 +5,7 @@ using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.User.Repository.Interface;
 using TASK_FLOW.NET.User.Service.Interface;
 using TASK_FLOW.NET.User.Validations.Interface;
+using TASK_FLOW.NET.Utils.Exceptions;
 
 namespace TASK_FLOW.NET.User.Service
 {
@@ -28,7 +29,9 @@ namespace TASK_FLOW.NET.User.Service
         /// <returns></returns>
         public async Task<UsersModel> CreateUser(CreateUserDTO body)
         {
-            this._validation.ValidationCreateUser(body);
+            await this._validation.ValidateDuplicated(body);
+            this._validation.ValidateEmail(body.Email);
+            this._validation.ValidatePassword(body.Password);
 
             var data = this._mapper.Map<UsersModel>(body);
 
@@ -113,17 +116,44 @@ namespace TASK_FLOW.NET.User.Service
         /// <exception cref="KeyNotFoundException"></exception>
         public async Task<UsersModel> UpdateUser(int id, UpdateUserDTO body)
         {
-            var user = await this._repository.FindByIdAsync(id);
-            if (user == null) throw new KeyNotFoundException("User not found");
-
+            var user = await this._repository.FindByIdAsync(id) ??
+                throw new KeyNotFoundException("User not found");
+                
             this._mapper.Map(body, user);
-
-            var passwordHasher = new PasswordHasher<UsersModel>();
-            user.Password = passwordHasher.HashPassword(user, body.Password);
 
             await this._repository.UpdateAsync(user);
 
             return user;
+        }
+
+        /// <summary>
+        /// Updated password 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public async Task<string> UpdatePassword (int id, string oldPassword, string newPassword)
+        {
+            var date = await this._repository.FindByIdAsync(id) ??
+                throw new KeyNotFoundException ("User not found");
+
+            var passwordHasher = new PasswordHasher<UsersModel>();
+
+            var verificationPass = passwordHasher.VerifyHashedPassword(date, date.Password, oldPassword);
+            if (verificationPass == PasswordVerificationResult.Failed)
+                throw new BadRequestException("Password is wrong");
+            
+            this._validation.ValidatePassword(newPassword);
+
+            var verificationResult = passwordHasher.VerifyHashedPassword(date, date.Password, newPassword);
+            if (verificationResult == PasswordVerificationResult.Success)
+                throw new ConflictException ("The password cannot be the same as the current one");
+
+            date.Password = passwordHasher.HashPassword (date, newPassword);
+            await this._repository.UpdateAsync(date);
+
+            return "Password updated successfully";
         }
     }
 }

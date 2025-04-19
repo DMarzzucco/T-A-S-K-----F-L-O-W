@@ -61,7 +61,6 @@ namespace Specs.User.Mocks
             Age = "27",
             Username = "DMarzz",
             Email = "DMarzz@gmail.com",
-            Password = "Pr@motheus98",
             Roles = ROLES.ADMIN
         };
         public static UsersModel UserMockWithRelations

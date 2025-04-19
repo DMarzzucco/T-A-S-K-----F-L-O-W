@@ -26,10 +26,6 @@ namespace TASK_FLOW.NET.User.DTO
         [SwaggerSchemaExample("DMarzz@gmail.com")]
         public string? Email { get; set; }
 
-        [SwaggerSchema("User Password ")]
-        [SwaggerSchemaExample("Pr@motheus98")]
-        public string? Password { get; set; }
-
         [SwaggerSchema("User ROle ")]
         [SwaggerSchemaExample("ADMIN")]
         public ROLES? Roles { get; set; }

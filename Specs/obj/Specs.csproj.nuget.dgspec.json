@@ -1,39 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj": {}
+    "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj": {
+    "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj",
+        "projectUniqueName": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj",
         "projectName": "Specs",
-        "projectPath": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj",
-        "packagesPath": "C:\\Users\\darmarzrold\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\Specs\\obj\\",
+        "projectPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\Specs\\Specs.csproj",
+        "packagesPath": "C:\\Users\\darma\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\Specs\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\darmarzrold\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\darma\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
-                "projectPath": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj"
+              "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
+                "projectPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj"
               }
             }
           }
@@ -91,32 +85,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
+    "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
+        "projectUniqueName": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
         "projectName": "TASK-FLOW.NET",
-        "projectPath": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
-        "packagesPath": "C:\\Users\\darmarzrold\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\darmarzrold\\source\\repos\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\obj\\",
+        "projectPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
+        "packagesPath": "C:\\Users\\darma\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\darmarzrold\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\darma\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -203,7 +191,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

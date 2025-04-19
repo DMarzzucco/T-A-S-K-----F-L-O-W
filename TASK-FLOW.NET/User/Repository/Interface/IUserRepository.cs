@@ -6,8 +6,8 @@ namespace TASK_FLOW.NET.User.Repository.Interface
     {
         Task<UsersModel?> FindByIdAsync(int id);
         Task<IEnumerable<UsersModel>> ToListAsync();
-        bool ExistsByEmail(string Email);
-        bool ExistsByUsername(string Username);
+        Task <bool> ExistsByEmail(string email);
+        Task <bool> ExistsByUsername(string username);
         Task RemoveAsync(UsersModel user);
         Task AddChangeAsync(UsersModel user);
         Task<bool>UpdateAsync(UsersModel user);

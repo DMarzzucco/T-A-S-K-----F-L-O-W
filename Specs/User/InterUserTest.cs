@@ -45,6 +45,9 @@ namespace Specs.User
             var body = UsersMock.CreateUserDTOMOck;
             var user = UsersMock.UserMock;
             this._repository.Setup(r => r.AddChangeAsync(user)).Returns(Task.CompletedTask);
+            this._validations.Setup (v => v.ValidateDuplicated(body)).Returns(Task.CompletedTask);
+            this._validations.Setup(v => v.ValidateEmail(body.Email));
+            this._validations.Setup(v => v.ValidatePassword(body.Password));
 
             var res = await this._service.CreateUser(body) as UsersModel;
 
@@ -134,6 +137,30 @@ namespace Specs.User
 
             Assert.NotNull(res);
             Assert.Equal(user, res);
+        }
+
+        /// <summary>
+        /// Update Password
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task SouldUpdateOnePassword ()
+        {
+            var id = 4;
+            var user = UsersMock.UserHashPassMock;
+
+            string oldPassword = "Pr@motheus98";
+            string newPassword = "sdAr@motheus34";
+            string message = "Password updated successfully";
+
+            this._repository.Setup( r => r.FindByIdAsync(id)).ReturnsAsync(user);
+            this._validations.Setup(v => v.ValidatePassword(newPassword));
+            this._repository.Setup (r => r.UpdateAsync(user)).ReturnsAsync(true);
+
+            var res = await this._service.UpdatePassword(id, oldPassword, newPassword);
+
+            Assert.NotNull(res);
+            Assert.Equal(message, res);
         }
     }
 }

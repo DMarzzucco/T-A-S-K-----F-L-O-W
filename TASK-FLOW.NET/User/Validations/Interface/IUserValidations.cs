@@ -4,6 +4,8 @@ namespace TASK_FLOW.NET.User.Validations.Interface
 {
     public interface IUserValidations
     {
-        void ValidationCreateUser(CreateUserDTO body);
+        void ValidateEmail (string email);
+        void ValidatePassword (string password);
+        Task ValidateDuplicated (CreateUserDTO body);
     }
 }

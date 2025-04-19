@@ -1,18 +1,13 @@
 ﻿namespace TASK_FLOW.NET.Utils.Exceptions
 {
-    public class ConflictException : Exception
-    {
-        public ConflictException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class BadRequestException : Exception
-    {
-        public BadRequestException(string message) : base(message)
-        {
-
-        }
-    }
+    /// <summary>
+    /// 409
+    /// </summary>
+    /// <param name="message"></param>
+    public class ConflictException(string message) : Exception(message){}
+    /// <summary>
+    /// 400
+    /// </summary>
+    /// <param name="message"></param>
+    public class BadRequestException(string message) : Exception(message){}
 }

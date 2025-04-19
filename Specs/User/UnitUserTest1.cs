@@ -92,6 +92,27 @@ namespace Specs.User
             Assert.Equal(204, res.StatusCode);
         }
         /// <summary>
+        /// Should Update User Password
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task ShouldUpdateOnePassword()
+        {
+            var id = 4;
+            string oldPassword = "Pr@motheus98";
+            string newPassword = "sdAr@motheus34";
+            string message = "Password updated successfully";
+
+            this._service.Setup(s => s.UpdatePassword(id, oldPassword, newPassword)).ReturnsAsync(message);
+
+            var res = await this._controller.UpdatePasswordUser(id, oldPassword, newPassword);
+            var result = Assert.IsType<OkObjectResult>(res.Result);
+
+            Assert.NotNull(result);
+            Assert.Equal(200, result.StatusCode);
+            Assert.Equal (message, result.Value);
+        }
+        /// <summary>
         /// Delete one user register
         /// </summary>
         /// <returns></returns>

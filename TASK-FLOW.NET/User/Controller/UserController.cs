@@ -88,6 +88,23 @@ namespace TASK_FLOW.NET.User.Controller
         }
 
         /// <summary>
+        /// update password
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        [Roles(ROLES.BASIC)]
+        [HttpPut("{id}/password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult<string>> UpdatePasswordUser(int id, string oldPassword, string newPassword)
+        {
+            return Ok(await this._service.UpdatePassword(id, oldPassword, newPassword));
+        }
+        /// <summary>
         /// Delte User
         /// </summary>
         /// <param name="id"></param>
@@ -103,5 +120,7 @@ namespace TASK_FLOW.NET.User.Controller
             await this._service.DeleteUser(id);
             return NoContent();
         }
+
+
     }
 }

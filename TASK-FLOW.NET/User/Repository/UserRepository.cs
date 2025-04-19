@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TASK_FLOW.NET.Context;
 using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.User.Repository.Interface;
@@ -29,21 +30,23 @@ namespace TASK_FLOW.NET.User.Repository
         /// <summary>
         ///  Exist By Email
         /// </summary>
-        /// <param name="Email"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public bool ExistsByEmail(string Email)
+        public async Task<bool> ExistsByEmail(string email)
         {
-            return this._context.UserModel.Any(u => u.Email == Email);
+            var normalizedEmail = email.Trim().ToLowerInvariant();
+            return await this._context.UserModel.AnyAsync(u => u.Email.ToLower() == normalizedEmail);
         }
 
         /// <summary>
         /// Exists By Username 
         /// </summary>
-        /// <param name="Username"></param>
+        /// <param name="username"></param>
         /// <returns></returns>
-        public bool ExistsByUsername(string Username)
+        public async Task<bool> ExistsByUsername(string username)
         {
-            return this._context.UserModel.Any(u => u.Username == Username);
+            var normalizedUsername = username.Trim().ToLowerInvariant();
+            return  await this._context.UserModel.AnyAsync(u => u.Username.ToLower() == normalizedUsername);
         }
 
         /// <summary>
