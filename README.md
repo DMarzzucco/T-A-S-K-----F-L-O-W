@@ -46,12 +46,6 @@ The system's data model consists of four interconnected entities. These entities
 
 ![Models](/img/ArchDB.jpg)
 
-## Account recovery system;
-
-This monolithic system features an account recovery mechanism that allows users to generate a temporary code, which is sent via email. Since this is a practice environment, the code is displayed in the console rather than actually sent. The user can later use this code to verify their identity and reset their password, provided the code is valid and has not expired.
-
-![Models](/img/recuperation-account.png)
-
 ## Requirements
 
 - [Docker-Desktope](https://www.docker.com/products/docker-desktop/)
