@@ -24,6 +24,7 @@ using TASK_FLOW.NET.UserProject.Repository.Interface;
 using TASK_FLOW.NET.UserProject.Services;
 using TASK_FLOW.NET.UserProject.Services.Interface;
 using TASK_FLOW.NET.Utils.Filters;
+using TASK_FLOW.NET.Utils.Helpers;
 
 namespace TASK_FLOW.NET.Configuration
 {
@@ -33,6 +34,8 @@ namespace TASK_FLOW.NET.Configuration
         {
             //Gloabl Filter Exceptions
             services.AddScoped<GlobalFilterExceptions>();
+            //Generate Code Verification
+            services.AddScoped<CodeGeneration>();
             //JWT Services
             services.AddScoped<ITokenService, TokenService>();
             // Cookie Service

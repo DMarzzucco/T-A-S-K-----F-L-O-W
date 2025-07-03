@@ -63,6 +63,9 @@ namespace TASK_FLOW.NET.User.Repository
                 Age = u.Age,
                 Username = u.Username,
                 Email = u.Email,
+                VerifyEmail = u.VerifyEmail,
+                VerifyCode = u.VerifyCode,
+                CodeExpiration = u.CodeExpiration,
                 Password = u.Password,
                 Roles = u.Roles,
                 RefreshToken = u.RefreshToken,
@@ -87,6 +90,17 @@ namespace TASK_FLOW.NET.User.Repository
             if (user == null) return null;
 
             user.ProjectIncludes ??= new List<UserProjectModel>();
+            return user;
+        }
+
+        /// <summary>
+        /// Retun User model by Email adress
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<UsersModel> FindByEmail(string email) 
+        {
+            var user = await this._context.UserModel.FirstOrDefaultAsync(u => u.Email == email);
             return user;
         }
 

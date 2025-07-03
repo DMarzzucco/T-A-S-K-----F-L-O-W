@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {}
+    "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {}
   },
   "projects": {
-    "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
+    "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
+        "projectUniqueName": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
         "projectName": "TASK-FLOW.NET",
-        "projectPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
+        "projectPath": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
         "packagesPath": "C:\\Users\\darma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\darma\\Documents\\source\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\obj\\",
+        "outputPath": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\darma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\darma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -106,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

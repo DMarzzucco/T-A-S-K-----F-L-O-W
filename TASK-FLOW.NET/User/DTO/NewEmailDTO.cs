@@ -1,0 +1,16 @@
+using System;
+using Swashbuckle.AspNetCore.Annotations;
+using TASK_FLOW.NET.Configuration.Swagger.Attributes;
+
+namespace TASK_FLOW.NET.User.DTO;
+
+public class NewEmailDTO
+{
+    [SwaggerSchema("User password to validate credentials")]
+    [SwaggerSchemaExample("Pr@motheus98")]
+    public required string Password { get; set; }
+
+    [SwaggerSchema("User email")]
+    [SwaggerSchemaExample("marzz77_@gmail.com")]
+    public string? NewEmail { get; set; }
+}

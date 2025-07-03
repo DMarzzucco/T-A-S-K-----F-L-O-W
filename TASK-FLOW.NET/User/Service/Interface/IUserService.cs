@@ -12,6 +12,13 @@ namespace TASK_FLOW.NET.User.Service.Interface
         Task DeleteUser(int id);
         Task<UsersModel> FindByAuth(string key, object value);
         Task<UsersModel> UpdateToken(int id, string RefreshToken);
-        Task<string> UpdatePassword (int id, string oldPassword, string newPassword);
+        Task<string> UpdatePassword (int id, NewPasswordDTO body);
+        Task<UsersModel> UpdateEmail(int id, NewEmailDTO body);
+        Task<string> UpdateRolesUser(int id, RolesDTO body);
+        Task<string> UpdateOwnUserAccount(int id, UpdateOwnUserDTO body);
+        Task RemoveOwnAccount(int id, PasswordDTO body);
+        Task<string> MarkVerify(VerifyDTO dto);
+        Task<string> ForgetPassword(ForgetDTO dto);
+        Task<UsersModel> RecuperationAccount(RecuperationDTO dto);
     }
 }

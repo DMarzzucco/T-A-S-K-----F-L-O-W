@@ -20,6 +20,13 @@ namespace TASK_FLOW.NET.Context.Configuration
 
             builder.Property(row => row.Username).HasMaxLength(100).IsUnicode();
             builder.Property(row => row.Email).HasMaxLength(100).IsUnicode();
+
+            builder.Property(row => row.VerifyEmail).IsRequired();
+            
+            builder.Property(row => row.CodeExpiration).IsRequired(false);
+
+            builder.Property(row => row.LockedUntil).IsRequired(false);
+            
             builder.Property(row => row.Password);
 
             builder.Property(row => row.Roles).HasConversion(

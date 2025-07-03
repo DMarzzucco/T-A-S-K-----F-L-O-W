@@ -3,74 +3,83 @@
 start
 
 :Client;
-if (¿Is the client registered?) then (No)
+
+if ("¿Is the client registered?") then (No)
     :Register;
-    if (¿Duplicate Data?) then (Yes)
+    if ("¿Duplicate Data?") then (Yes)
         :Show error 409;
         stop
-    else (No)
+    else
         :Save user data in the database;
-        :Return to Login Section;
+        :Generate code to validate email;
         stop
     endif
-else (yes)
-    :Login;
-    if (¿Validate credentials?) then (No)
-        :Show error;
-        :Error 401 Unauthorized ;
-        :Error 404 User not found;
-        stop
-    else (Yes)
-        :Access to profile;
-    endif
+else
+    :Verify Email;
+    if ("Email Verified?") then (Yes)
+        :Login;
+        if ("Are credentials valid?") then (Yes)
+            :Access to profile;
 
-    if (Roles)then (Yes)
-        if (Admin)
-            if (Total Access)
-                :CRUD user;
-                :Give Access Level;
-                :CRUD project;
-                :CRUD task;
-            endif
-        else if (Creator)
-            :List of User;
-            :CRUD project;
-            :Give Access Level;
-            :CRUD task;
-        else if (Basic)
-            :Create Project;
-            if (¿Get Level Access?) then (Yes)
-                if (OWNER ) then (50)
+            if ("Has Roles?") then (Yes)
+                if ("Admin?") then (Yes)
+                    if ("Total Access") then (Yes)
+                        :CRUD user;
+                        :Give Access Level;
+                        :CRUD project;
+                        :CRUD task;
+                    endif
+                elseif ("Creator?") then (Yes)
+                    :List of Users;
+                    :CRUD project;
+                    :Give Access Level;
+                    :CRUD task;
+                elseif ("Basic?") then (Yes)
                     :Create Project;
-                    :Get Project by id;
-                    :Update Project;
-                    :CRUD task;
-                else if (MAINTAINER) then(40)
-                    :Create Project;
-                    :Update Project;
-                    :CRUD task;
-                else if (DEVELOPER) then(30)
-                    :CRUD task;
+                    if ("Has Access Level?") then (Yes)
+                        if ("OWNER") then (Yes)
+                            :Create Project;
+                            :Get Project by ID;
+                            :Update Project;
+                            :CRUD task;
+                        elseif ("MAINTAINER") then (Yes)
+                            :Create Project;
+                            :Update Project;
+                            :CRUD task;
+                        elseif ("DEVELOPER") then (Yes)
+                            :CRUD task;
+                        endif
+                    else
+                        :Error 401 Unauthorized;
+                        stop
+                    endif
                 endif
 
-            else (no)
-                :Error 401 Unauthorized ;
+                :Progress Task;
+                if ("Task Status") then (CREATED)
+                    :Task Created;
+                elseif ("IN_PROGRESS")
+                    :Task In Progress;
+                elseif ("FINISH")
+                    :Task Finished;
+                endif
+
+            else
+                :Error 401 Unauthorized;
                 stop
             endif
+
+            stop
+        else
+            :Show error;
+            :Error 401 Unauthorized;
+            :Error 404 User not found;
+            stop
         endif
-        :Progress Task;
-        if (CREATED)
-            :Task Created;
-        else if (IN_PROGRESS)
-            :Task In Progress;
-        else if (FINISH)
-            :Task Finished;
-        endif
-    else (No)
-        :Error 401;
+    else
+        :Ask to verify email again;
         stop
-
     endif
+endif
 
-    stop
-    @enduml
+@enduml

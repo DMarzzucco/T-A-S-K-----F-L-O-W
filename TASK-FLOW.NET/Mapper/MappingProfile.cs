@@ -10,13 +10,15 @@ using TASK_FLOW.NET.UserProject.Model;
 
 namespace TASK_FLOW.NET.Mapper
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             //User Mapper
             CreateMap<CreateUserDTO, UsersModel>();
             CreateMap<UpdateUserDTO, UsersModel>();
+            CreateMap<UpdateOwnUserDTO, UsersModel>()
+                .ForMember(d => d.Password, op => op.Ignore());
             // User Project Mapper
             CreateMap<UserProjectDTO, UserProjectModel>();
             CreateMap<UpdateUserProjectDTO, UserProjectModel>();

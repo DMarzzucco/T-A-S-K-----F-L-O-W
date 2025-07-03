@@ -15,7 +15,14 @@ namespace TASK_FLOW.NET.Auth.Middleware
         }
         public async Task InvokeAsync(HttpContext context, ITokenService tokenService, IAuthService authService, ICookieService cookieService)
         {
-            var publicPaths = new[] { "/api/Auth/login", "/api/User/register" };
+            var publicPaths = new[] 
+            {
+                "/api/Auth/login",
+                "/api/Auth/register",
+                "/api/Auth/verify-account",
+                "/api/Auth/recuperation-account",
+                "/api/Auth/forget-account"
+            };
 
             var path = context.Request.Path.Value;
             if (publicPaths.Contains(path))

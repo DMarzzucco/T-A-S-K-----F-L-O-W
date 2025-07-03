@@ -40,11 +40,17 @@ Offers an efficient way to organize individual tasks and projects, catering to t
 > [!IMPORTANT]
 > This project is still in development
 
-# Data Model Structure
+## Data Model Structure
 
 The system's data model consists of four interconnected entities. These entities are linked through foreign keys, defining their relationships and ensuring referential integrity within the database.
 
 ![Models](/img/ArchDB.jpg)
+
+## Account recovery system;
+
+This monolithic system features an account recovery mechanism that allows users to generate a temporary code, which is sent via email. Since this is a practice environment, the code is displayed in the console rather than actually sent. The user can later use this code to verify their identity and reset their password, provided the code is valid and has not expired.
+
+![Models](/img/recuperation-account.png)
 
 ## Requirements
 
@@ -56,7 +62,7 @@ The system's data model consists of four interconnected entities. These entities
 ```bash
 $ docker-compose up
 ```
-## Install in Local Machine 
+### Install in Local Machine 
 
 ```bash
 
@@ -67,7 +73,18 @@ $ docker-compose up db
 
 # start the server
 $ dotnet run
+```
+### If Your have Makefile
 
+```bash
+#start system
+$ make system
+
+# down system
+$ make down
+
+# logs 
+$ make logs
 ```
 
 ## Documentation Swagger

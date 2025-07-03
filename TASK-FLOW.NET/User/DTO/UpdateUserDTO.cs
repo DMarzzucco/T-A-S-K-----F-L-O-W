@@ -1,6 +1,5 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 using TASK_FLOW.NET.Configuration.Swagger.Attributes;
-using TASK_FLOW.NET.User.Enums;
 
 namespace TASK_FLOW.NET.User.DTO
 {
@@ -21,13 +20,5 @@ namespace TASK_FLOW.NET.User.DTO
         [SwaggerSchema("User username ")]
         [SwaggerSchemaExample("DMarzz")]
         public string? Username { get; set; }
-
-        [SwaggerSchema("User Email ")]
-        [SwaggerSchemaExample("DMarzz@gmail.com")]
-        public string? Email { get; set; }
-
-        [SwaggerSchema("User ROle ")]
-        [SwaggerSchemaExample("ADMIN")]
-        public ROLES? Roles { get; set; }
     }
 }

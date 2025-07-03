@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -6,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TASK_FLOW.NET.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +37,11 @@ namespace TASK_FLOW.NET.Migrations
                     Age = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Username = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    VerifyEmail = table.Column<bool>(type: "boolean", nullable: false),
+                    VerifyCode = table.Column<string>(type: "text", nullable: false),
+                    CodeExpiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    VerifyAttempts = table.Column<int>(type: "integer", nullable: false),
+                    LockedUntil = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Password = table.Column<string>(type: "text", nullable: false),
                     Roles = table.Column<string>(type: "character varying(20)", unicode: false, maxLength: 20, nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true)

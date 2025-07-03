@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics;
 using TASK_FLOW.NET.Utils.Exceptions;
 
 namespace TASK_FLOW.NET.Utils.Filters
@@ -12,19 +11,18 @@ namespace TASK_FLOW.NET.Utils.Filters
 
         public void OnException(ExceptionContext context)
         {
-            var stackTrace = new StackTrace(context.Exception, true);
-            var frame = stackTrace.GetFrame(0);
-            var fileName = frame?.GetFileName();
-            var lineNumber = frame?.GetFileLineNumber();
+
 
             var statusCode = context.Exception switch
             {
                 BadRequestException => 400,
+                ForbiddentExceptions => 403,
                 KeyNotFoundException => 404,
                 UnauthorizedAccessException => 401,
                 ConflictException => 409,
                 SecurityTokenExpiredException => 401,
                 SecurityTokenSignatureKeyNotFoundException => 401,
+                TooManyRequestExceptions =>429,
                 _ => 500
             };
             var response = new ErrorResponse
@@ -33,6 +31,7 @@ namespace TASK_FLOW.NET.Utils.Filters
                 Message = statusCode switch
                 {
                     400 => context.Exception.Message,
+                    403 => context.Exception.Message,
                     404 => context.Exception.Message,
                     401 => context.Exception switch
                     {
@@ -41,13 +40,13 @@ namespace TASK_FLOW.NET.Utils.Filters
                         _ => context.Exception.Message
                     },
                     409 => context.Exception.Message,
+                    429 => context.Exception.Message,
                     _ => context.Exception.Message
                 },
                 Details = statusCode == 500 ?
-                    context.Exception.InnerException?.Message : null,
+                    context.Exception.InnerException?.Message : null
 
-                FileName = fileName,
-                LineNumber = lineNumber
+
             };
             context.Result = new ObjectResult(response)
             {
@@ -61,8 +60,6 @@ namespace TASK_FLOW.NET.Utils.Filters
             public int StatusCode { get; set; }
             public required string Message { get; set; }
             public string? Details { get; set; }
-            public string? FileName { get; set; }
-            public int? LineNumber { get; set; }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TASK_FLOW.NET.Configuration.ConnectionsConfigurations
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            // var connectionString = configuration.GetConnectionString("Connection");
+            //var connectionString = configuration.GetConnectionString("Connection");
             var connectionString = configuration.GetConnectionString("Container");
             
             if (string.IsNullOrEmpty(connectionString))

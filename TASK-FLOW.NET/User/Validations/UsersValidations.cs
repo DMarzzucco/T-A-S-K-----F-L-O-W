@@ -12,20 +12,17 @@ namespace TASK_FLOW.NET.User.Validations
         private readonly IUserRepository _repository = repository;
 
         /// <summary>
-        /// Validate Duplicated
+        /// ValidateUsernameDuplicated
         /// </summary>
-        /// <param name="body"></param>
+        /// <param name="username"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task ValidateDuplicated(CreateUserDTO body)
+        public async Task ValidateDuplicated(string username)
         {
-            var normalizedUsername = body.Username.Trim().ToLowerInvariant();
-            var normalizedEmail = body.Email.Trim().ToLowerInvariant();
+            var normalizedUsername = username.Trim().ToLowerInvariant();
 
             var validations = new List<(bool isInvalid, Exception Error)>
             {
                 (await this._repository.ExistsByUsername(normalizedUsername), new ConflictException("This username already exists")),
-                (await this._repository.ExistsByEmail(normalizedEmail), new ConflictException("This email already exists"))
             };
             var firstError = validations.FirstOrDefault(v => v.isInvalid);
             if (firstError != default)
@@ -37,8 +34,11 @@ namespace TASK_FLOW.NET.User.Validations
         /// </summary>
         /// <param name="email"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void ValidateEmail(string email)
+        public async Task ValidateEmail(string email)
         {
+            if (string.IsNullOrEmpty(email))
+                throw new BadRequestException("Email is required");
+
             if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 throw new BadRequestException("Invalid email addres");
 
@@ -50,10 +50,13 @@ namespace TASK_FLOW.NET.User.Validations
 
             var emailDomains = parts[1];
 
+            var normalizedEmail = email.Trim().ToLowerInvariant();
+
             var validations = new List<(bool isInvalid, Exception Error)>
             {
                 (email.Length > 320, new BadRequestException ("Enail is too long")),
-                (!disposableDomains.Contains(emailDomains), new BadRequestException ("Disposable email domains are not allowed"))
+                (!disposableDomains.Contains(emailDomains), new BadRequestException ("Disposable email domains are not allowed")),
+                (await this._repository.ExistsByEmail(normalizedEmail), new ConflictException("This Email already exist"))
             };
 
             var firstError = validations.FirstOrDefault(v => v.isInvalid);

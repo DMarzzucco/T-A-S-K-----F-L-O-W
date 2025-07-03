@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "eqpP0z+gcFq32zB13l1CWQ0SFLgefqCUSaRwzAcOzj0=",
-  "Source": "TASK-FLOW.NET",
-  "BasePath": "_content/TASK-FLOW.NET",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"eqpP0z+gcFq32zB13l1CWQ0SFLgefqCUSaRwzAcOzj0=","Source":"TASK-FLOW.NET","BasePath":"_content/TASK-FLOW.NET","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

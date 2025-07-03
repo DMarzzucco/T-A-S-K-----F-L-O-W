@@ -30,11 +30,26 @@ namespace TASK_FLOW.NET.User.Model
         [SwaggerSchemaExample("DMarzz@gmail.com")]
         public required string Email { get; set; }
 
+        [SwaggerIgnore]
+        public required bool VerifyEmail { get; set; } = false;
+
+        [SwaggerIgnore]
+        public required string VerifyCode { get; set; }
+
+        [SwaggerIgnore]
+        public DateTime? CodeExpiration { get; set; } = null;
+
+        [SwaggerIgnore]
+        public int VerifyAttempts { get; set; } = 0;
+        
+        [SwaggerIgnore]
+        public DateTime? LockedUntil { get; set; } = null;
+
         [SwaggerSchema("User Password ")]
         [SwaggerSchemaExample("Pr@motheus98")]
         public required string Password { get; set; }
 
-        [SwaggerSchema("User ROle ")]
+        [SwaggerSchema("User Role ")]
         [SwaggerSchemaExample("ADMIN")]
         public required ROLES Roles { get; set; }
 
