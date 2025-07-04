@@ -1,6 +1,8 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 using TASK_FLOW.NET.Configuration.Swagger.Attributes;
+using TASK_FLOW.NET.Project.DTO;
 using TASK_FLOW.NET.Project.Model;
+using TASK_FLOW.NET.User.DTO;
 using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.UserProject.Enums;
 
@@ -29,4 +31,15 @@ namespace TASK_FLOW.NET.UserProject.Model
         [SwaggerSchemaExample("Project")]
         public required ProjectModel Project { get; set; }
     }
+
+    public class PublicUserProjectDTO
+    {
+        public int Id { get; set; }
+        public required ACCESSLEVEL AccessLevel { get; set; }
+        public int UserId { get; set; }
+        public required SimpleUserDTO User { get; set; }
+        public int ProjectId { get; set; }
+        public required SimpleProjectIncludeDTObyUp Project { get; set; }
+    }
+
 }

@@ -12,7 +12,7 @@ namespace TASK_FLOW.NET.Configuration.ConnectionsConfigurations
         {
             //var connectionString = configuration.GetConnectionString("Connection");
             var connectionString = configuration.GetConnectionString("Container");
-            
+
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException(nameof(connectionString), "Connection String could not be null or Empty");
 

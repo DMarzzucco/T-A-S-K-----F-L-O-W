@@ -39,7 +39,7 @@ namespace TASK_FLOW.NET.Auth.Service
             }
             var user = await this._userService.CreateUser(body);
 
-            return $"Hi {user.First_name} {user.Last_name} your account was register successfully, Now your need check your email to verify the account.";
+            return $"Hi {user.First_name} {user.Last_name} your account was register successfully, Now your need check your email to verify the account.//JUST FOR DEV Your code is {user.VerifyCode}";
         }
         /// <summary>
         /// Generate Token 

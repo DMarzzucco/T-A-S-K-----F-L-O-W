@@ -22,8 +22,7 @@ namespace TASK_FLOW.NET.Tasks.Model
         [SwaggerSchemaExample("CREATED")]
         public required STATUSTASK Status { get; set; }
 
-        [SwaggerSchema("Responsible Name of the Task")]
-        [SwaggerSchemaExample("Dario Marzzucco")]
+        [SwaggerIgnore]
         public required string ResponsibleName { get; set; }
 
         [SwaggerIgnore]

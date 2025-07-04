@@ -970,22 +970,22 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "Ok",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "type": "string"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "type": "string"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "type": "string"
                 }
               }
             }
@@ -1094,17 +1094,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectModel"
+                  "$ref": "#/components/schemas/PublicProjectDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectModel"
+                  "$ref": "#/components/schemas/PublicProjectDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectModel"
+                  "$ref": "#/components/schemas/PublicProjectDTO"
                 }
               }
             }
@@ -1558,7 +1558,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UsersModel"
+                    "$ref": "#/components/schemas/PublicUserDTO"
                   }
                 }
               },
@@ -1566,7 +1566,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UsersModel"
+                    "$ref": "#/components/schemas/PublicUserDTO"
                   }
                 }
               },
@@ -1574,7 +1574,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UsersModel"
+                    "$ref": "#/components/schemas/PublicUserDTO"
                   }
                 }
               }
@@ -1627,17 +1627,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersModel"
+                  "$ref": "#/components/schemas/PublicUserDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersModel"
+                  "$ref": "#/components/schemas/PublicUserDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersModel"
+                  "$ref": "#/components/schemas/PublicUserDTO"
                 }
               }
             }
@@ -2172,6 +2172,7 @@
         "tags": [
           "UserProject"
         ],
+        "summary": "Get All relations",
         "responses": {
           "200": {
             "description": "OK",
@@ -2210,10 +2211,12 @@
         "tags": [
           "UserProject"
         ],
+        "summary": "Get One relation",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2227,17 +2230,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "$ref": "#/components/schemas/PublicUserProjectDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "$ref": "#/components/schemas/PublicUserProjectDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProjectModel"
+                  "$ref": "#/components/schemas/PublicUserProjectDTO"
                 }
               }
             }
@@ -2248,10 +2251,12 @@
         "tags": [
           "UserProject"
         ],
+        "summary": "Update own relatin",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2260,6 +2265,7 @@
           }
         ],
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -2345,7 +2351,6 @@
         "required": [
           "Descritpion",
           "Name",
-          "ResponsibleName",
           "Status"
         ],
         "type": "object",
@@ -2364,12 +2369,6 @@
           },
           "Status": {
             "$ref": "#/components/schemas/STATUSTASK"
-          },
-          "ResponsibleName": {
-            "type": "string",
-            "description": "Responsible Name of the Task",
-            "nullable": true,
-            "example": "Dario Marzzucco"
           }
         },
         "additionalProperties": false
@@ -2555,6 +2554,113 @@
         },
         "additionalProperties": false
       },
+      "PublicProjectDTO": {
+        "required": [
+          "Description",
+          "Name"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "Project id",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Project Name",
+            "nullable": true,
+            "example": "Next year's projects."
+          },
+          "Description": {
+            "type": "string",
+            "description": "Project Description",
+            "nullable": true,
+            "example": "Next year's projects include basic tasks for beginners, as well as a review of errors made the previous year."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicUserDTO": {
+        "required": [
+          "Age",
+          "Email",
+          "First_name",
+          "Last_name",
+          "Username"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "User id",
+            "format": "int32"
+          },
+          "First_name": {
+            "type": "string",
+            "description": "User first name ",
+            "nullable": true,
+            "example": "Dario"
+          },
+          "Last_name": {
+            "type": "string",
+            "description": "User last name ",
+            "nullable": true,
+            "example": "Marzzucco"
+          },
+          "Age": {
+            "type": "string",
+            "description": "User age ",
+            "nullable": true,
+            "example": "27"
+          },
+          "Username": {
+            "type": "string",
+            "description": "User username ",
+            "nullable": true,
+            "example": "DMarzz"
+          },
+          "Email": {
+            "type": "string",
+            "description": "User Email ",
+            "nullable": true,
+            "example": "DMarzz@gmail.com"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicUserProjectDTO": {
+        "required": [
+          "AccessLevel",
+          "Project",
+          "User"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "AccessLevel": {
+            "$ref": "#/components/schemas/ACCESSLEVEL"
+          },
+          "UserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "User": {
+            "$ref": "#/components/schemas/SimpleUserDTO"
+          },
+          "ProjectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/SimpleProjectIncludeDTObyUp"
+          }
+        },
+        "additionalProperties": false
+      },
       "ROLES": {
         "enum": [
           10,
@@ -2614,12 +2720,108 @@
         "type": "integer",
         "format": "int32"
       },
+      "SimpleProjectIncludeDTObyUp": {
+        "required": [
+          "Description",
+          "ProjectName"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ProjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimpleTaskInclude"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SimpleTaskInclude": {
+        "required": [
+          "Descritpion",
+          "Name",
+          "ResponsibleName",
+          "Status"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Descritpion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "$ref": "#/components/schemas/STATUSTASK"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SimpleUserDTO": {
+        "required": [
+          "Age",
+          "Email",
+          "First_name",
+          "Last_name",
+          "Username"
+        ],
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "First_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Last_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Age": {
+            "type": "string",
+            "nullable": true
+          },
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TaskModel": {
         "required": [
           "Descritpion",
           "Name",
           "Project",
-          "ResponsibleName",
           "Status"
         ],
         "type": "object",
@@ -2643,12 +2845,6 @@
           },
           "Status": {
             "$ref": "#/components/schemas/STATUSTASK"
-          },
-          "ResponsibleName": {
-            "type": "string",
-            "description": "Responsible Name of the Task",
-            "nullable": true,
-            "example": "Dario Marzzucco"
           },
           "Project": {
             "$ref": "#/components/schemas/ProjectModel"

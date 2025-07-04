@@ -483,13 +483,13 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "TASK_FLOW.NET.UserProject.Model.UserProjectModel",
+        "Type": "System.String",
         "MediaTypes": [
           "text/plain",
           "application/json",
           "text/json"
         ],
-        "StatusCode": 201
+        "StatusCode": 200
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
@@ -547,7 +547,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "TASK_FLOW.NET.Project.Model.ProjectModel",
+        "Type": "TASK_FLOW.NET.Project.DTO.PublicProjectDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -814,7 +814,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[TASK_FLOW.NET.User.Model.UsersModel, TASK-FLOW.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[TASK_FLOW.NET.User.DTO.PublicUserDTO, TASK-FLOW.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -849,7 +849,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "TASK_FLOW.NET.User.Model.UsersModel",
+        "Type": "TASK_FLOW.NET.User.DTO.PublicUserDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1167,7 +1167,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "TASK_FLOW.NET.UserProject.Model.UserProjectModel",
+        "Type": "TASK_FLOW.NET.UserProject.Model.PublicUserProjectDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",

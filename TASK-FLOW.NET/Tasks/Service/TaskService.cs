@@ -28,15 +28,18 @@ namespace TASK_FLOW.NET.Tasks.Service
         /// <exception cref="KeyNotFoundException"></exception>
         public async Task<TaskModel> CreateTask(int ProjectId, CreateTaskDTO body)
         {
-            var project = await this._projectService.GetProjectById(ProjectId);
-
-            if (project == null)
+            var project = await this._projectService.GetProjectById(ProjectId) ??
                 throw new KeyNotFoundException("Project not found");
 
+            var user = project.UsersIncludes.FirstOrDefault()?.User;
+
             var mapperTask = this._mapper.Map<TaskModel>(body);
+            var firstName = user.First_name;
+            var lastName = user.Last_name;
 
+            mapperTask.ResponsibleName = $"{firstName} {lastName}";
             mapperTask.ProjectId = project.Id;
-
+            
             await this._repository.SaveTaskAsync(mapperTask);
 
             return mapperTask;

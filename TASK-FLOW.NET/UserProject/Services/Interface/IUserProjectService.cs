@@ -7,7 +7,7 @@ namespace TASK_FLOW.NET.UserProject.Services.Interface
     {
         Task<UserProjectModel> UpdateUP(int id, UpdateUserProjectDTO body);
         Task<IEnumerable<UserProjectModel>> ListOfAllUP();
-        Task<UserProjectModel> GetUPbyID(int id);
+        Task<PublicUserProjectDTO> GetUPbyID(int id);
         Task<UserProjectModel> CreateUP(UserProjectDTO body);
     }
 }

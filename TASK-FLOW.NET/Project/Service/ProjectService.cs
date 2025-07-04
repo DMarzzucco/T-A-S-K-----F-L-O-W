@@ -54,6 +54,20 @@ namespace TASK_FLOW.NET.Project.Service
             return project;
         }
         /// <summary>
+        /// Find user by id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
+        public async Task<PublicProjectDTO> FindProjectById(int id)
+        {
+            var project = await this._repository.findByIdAsync(id) ??
+                throw new KeyNotFoundException("Project not found it");
+
+            var response = this._mapper.Map<PublicProjectDTO>(project);
+            return response;
+        }
+        /// <summary>
         /// Get all register
         /// </summary>
         /// <returns></returns>
@@ -67,11 +81,10 @@ namespace TASK_FLOW.NET.Project.Service
         /// </summary>
         /// <param name="body"></param>
         /// <returns></returns>
-        public async Task<UserProjectModel> SaveProject(CreateProjectDTO body)
+        public async Task<string> SaveProject(CreateProjectDTO body)
         {
             var user = await this._authService.GetUserByCookie();
             var project = this._mapper.Map<ProjectModel>(body);
-
             await this._repository.SaveProjectAsync(project);
 
             var relation = new UserProjectDTO
@@ -84,7 +97,7 @@ namespace TASK_FLOW.NET.Project.Service
 
             await this._userProjectRepository.AddChangeAsync(userProject);
 
-            return userProject;
+            return $"Your Project {project.Name} was create by {user.Username}. And your access level is: {userProject.AccessLevel}";
         }
 
         /// <summary>

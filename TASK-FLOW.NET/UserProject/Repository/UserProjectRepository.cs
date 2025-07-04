@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TASK_FLOW.NET.Context;
+using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.UserProject.Model;
 using TASK_FLOW.NET.UserProject.Repository.Interface;
 
@@ -46,7 +47,17 @@ namespace TASK_FLOW.NET.UserProject.Repository
         /// <returns></returns>
         public async Task<UserProjectModel?> findById(int id)
         {
-            var up = await _context.UserProjectModel.FindAsync(id);
+            var up = await this._context.UserProjectModel
+                .Include(u => u.User)
+                .AsNoTracking()
+                .Include(p => p.Project)
+                .AsNoTracking()
+                .Include(p => p.Project.Tasks)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(up => up.Id == id);
+
+            if (up == null) return null;
+
             return up;
         }
         /// <summary>

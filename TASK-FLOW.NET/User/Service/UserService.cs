@@ -107,14 +107,15 @@ namespace TASK_FLOW.NET.User.Service
             return user;
         }
         /// <summary>
-        /// Get all Users Register
+        /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<UsersModel>> GetAll()
+        public async Task<IEnumerable<PublicUserDTO>> ToListAll()
         {
-            return await this._repository.ToListAsync();
+            var list = await this._repository.ToListAsync();
+            var response = this._mapper.Map<IEnumerable<PublicUserDTO>>(list);
+            return response;
         }
-
         /// <summary>
         /// Get One Register
         /// </summary>
@@ -127,7 +128,20 @@ namespace TASK_FLOW.NET.User.Service
             if (user == null) throw new KeyNotFoundException(" User not found");
             return user;
         }
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
+        public async Task<PublicUserDTO> FindUserById(int id)
+        {
+            var user = await this._repository.FindByIdAsync(id) ??
+                throw new KeyNotFoundException("User not found");
 
+            var response = this._mapper.Map<PublicUserDTO>(user);
+            return response;
+        }
         /// <summary>
         /// Update RefrehsToken
         /// </summary>
@@ -225,7 +239,7 @@ namespace TASK_FLOW.NET.User.Service
         public async Task<UsersModel> UpdateEmail(int id, NewEmailDTO body)
         {
             var code = this.codeGeneration.InvokeCodeGeneration();
-            
+
             var user = await this._repository.FindByIdAsync(id) ??
                     throw new KeyNotFoundException("User not found");
 
@@ -276,7 +290,7 @@ namespace TASK_FLOW.NET.User.Service
 
             return "Password updated successfully";
         }
-        
+
         /// <summary>
         /// Forget Password
         /// </summary>

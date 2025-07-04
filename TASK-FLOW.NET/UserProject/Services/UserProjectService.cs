@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using TASK_FLOW.NET.Project.Repository.Interface;
-using TASK_FLOW.NET.User.Enums;
 using TASK_FLOW.NET.User.Repository.Interface;
 using TASK_FLOW.NET.UserProject.DTO;
 using TASK_FLOW.NET.UserProject.Model;
@@ -24,16 +23,16 @@ namespace TASK_FLOW.NET.UserProject.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Create a relation
+        /// </summary>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<UserProjectModel> CreateUP(UserProjectDTO body)
         {
-            var project = await _projectRepository.findByIdAsync(body.ProjectId);
-            if (project == null)
-                throw new KeyNotFoundException("Project not found");
-
-            var user = await _userRepository.FindByIdAsync(body.UserId);
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
-
+            var project = await _projectRepository.findByIdAsync(body.ProjectId) ?? throw new KeyNotFoundException("Project not found");
+            var user = await _userRepository.FindByIdAsync(body.UserId) ?? throw new KeyNotFoundException("User not found");
             var UP = new UserProjectModel
             {
                 AccessLevel = body.AccessLevel,
@@ -44,25 +43,38 @@ namespace TASK_FLOW.NET.UserProject.Services
             return UP;
         }
 
-        public async Task<UserProjectModel> GetUPbyID(int id)
+        /// <summary>
+        /// Find a relations for id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
+        public async Task<PublicUserProjectDTO> GetUPbyID(int id)
         {
-            var UP = await _repository.findById(id);
-            if (UP == null)
-                throw new KeyNotFoundException("This relation not was foundet");
-            return UP;
+            var up = await _repository.findById(id) ?? throw new KeyNotFoundException("This relation not was foundet");
+            var response = this._mapper.Map<PublicUserProjectDTO>(up);
+            return response;
         }
 
+        /// <summary>
+        /// List of All Relations
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<UserProjectModel>> ListOfAllUP()
         {
             return await _repository.ListofAllAsync();
         }
 
+        /// <summary>
+        /// Update Relations
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<UserProjectModel> UpdateUP(int id, UpdateUserProjectDTO body)
         {
-            var up = await _repository.findById(id);
-            if (up == null)
-                throw new KeyNotFoundException("This relation not was foundet");
-
+            var up = await _repository.findById(id) ?? throw new KeyNotFoundException("This relation not was foundet");
             _mapper.Map(body, up);
             await _repository.UpdateUPAsync(up);
             return up;

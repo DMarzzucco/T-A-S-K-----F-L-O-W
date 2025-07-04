@@ -30,9 +30,9 @@ namespace TASK_FLOW.NET.User.Controller
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<UsersModel>>> GetAllUser()
+        public async Task<ActionResult<IEnumerable<PublicUserDTO>>> GetAllUser()
         {
-            return Ok(await this._service.GetAll());
+            return Ok(await this._service.ToListAll());
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace TASK_FLOW.NET.User.Controller
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UsersModel>> GetUserById(int id)
+        public async Task<ActionResult<PublicUserDTO>> GetUserById(int id)
         {
-            var user = await this._service.GetById(id);
+            var user = await this._service.FindUserById(id);
             return Ok(user);
         }
 

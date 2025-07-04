@@ -5,7 +5,6 @@ namespace TASK_FLOW.NET.User.Service.Interface
 {
     public interface IUserService
     {
-        Task<IEnumerable<UsersModel>> GetAll();
         Task<UsersModel> GetById(int id);
         Task<UsersModel> CreateUser(CreateUserDTO body);
         Task<UsersModel> UpdateUser(int id, UpdateUserDTO body);
@@ -20,5 +19,7 @@ namespace TASK_FLOW.NET.User.Service.Interface
         Task<string> MarkVerify(VerifyDTO dto);
         Task<string> ForgetPassword(ForgetDTO dto);
         Task<UsersModel> RecuperationAccount(RecuperationDTO dto);
+        Task<PublicUserDTO> FindUserById(int id);
+        Task<IEnumerable<PublicUserDTO>> ToListAll();
     }
 }

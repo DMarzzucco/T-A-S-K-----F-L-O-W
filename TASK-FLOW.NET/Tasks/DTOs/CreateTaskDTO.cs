@@ -18,8 +18,8 @@ namespace TASK_FLOW.NET.Tasks.DTOs
         [SwaggerSchemaExample("CREATED")]
         public required STATUSTASK Status { get; set; }
 
-        [SwaggerSchema("Responsible Name of the Task")]
-        [SwaggerSchemaExample("Dario Marzzucco")]
-        public required string ResponsibleName { get; set; }
+        // [SwaggerSchema("Responsible Name of the Task")]
+        // [SwaggerSchemaExample("Dario Marzzucco")]
+        // public required string ResponsibleName { get; set; }
     }
 }
