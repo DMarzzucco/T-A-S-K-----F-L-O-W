@@ -28,5 +28,14 @@ namespace Specs.UserProject.Mocks
             ProjectId = 4,
             UserId = 1
         };
+
+        public static PublicUserProjectDTO PublicUserProjectDTOMock => new PublicUserProjectDTO
+        {
+            Id = 1,
+            AccessLevel = ACCESSLEVEL.OWNER,
+            Project = ProjectMock.SimpleProjectIncludeDTObyUpMock,
+            User = UsersMock.SimpleUserDTOMock
+        };
+
     }
 }

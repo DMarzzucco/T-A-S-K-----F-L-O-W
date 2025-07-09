@@ -40,15 +40,16 @@ namespace Specs.Project
                 Project = project
             };
 
-            this._projectService.Setup(s => s.SaveProject(body)).ReturnsAsync(userProject);
+            string message = $"Your Project {project.Name} was create by {user.Username}. And your access level is: {userProject.AccessLevel}";
+
+            this._projectService.Setup(s => s.SaveProject(body)).ReturnsAsync(message);
 
             var res = await this._projectController.CreateProject(body);
-            var result = Assert.IsType<CreatedAtActionResult>(res.Result);
+            var result = Assert.IsType<OkObjectResult>(res.Result);
 
             Assert.NotNull(result);
-            Assert.Equal(201, result.StatusCode);
-            Assert.Equal("GetAllProject", result.ActionName);
-            Assert.Equal(userProject, result.Value);
+            Assert.Equal(200, result.StatusCode);
+            Assert.Equal(message, result.Value);
         }
 
         /// <summary>
@@ -91,13 +92,13 @@ namespace Specs.Project
         [Fact]
         public async Task Get_A_Project_By_His_Id()
         {
-            var project = ProjectMock.ProjectModelMock;
+            var project = ProjectMock.PublicProjectDTOMock;
 
-            var projectId = 4;
+            int id = 4;
 
-            this._projectService.Setup(p => p.GetProjectById(projectId)).ReturnsAsync(project);
+            this._projectService.Setup(p => p.FindProjectById(id)).ReturnsAsync(project);
 
-            var res = await this._projectController.GetProjectById(projectId);
+            var res = await this._projectController.GetProjectById(id);
             var result = Assert.IsType<OkObjectResult>(res.Result);
 
             Assert.NotNull(result);

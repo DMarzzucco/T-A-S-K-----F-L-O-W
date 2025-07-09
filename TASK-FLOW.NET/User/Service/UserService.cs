@@ -83,7 +83,7 @@ namespace TASK_FLOW.NET.User.Service
         public async Task RemoveOwnAccount(int id, PasswordDTO body)
         {
             var user = await this._repository.FindByIdAsync(id) ??
-                throw new KeyNotFoundException("user not found");
+                throw new KeyNotFoundException("User not found");
             var passwordHasher = new PasswordHasher<UsersModel>();
             var verify = passwordHasher.VerifyHashedPassword(user, user.Password, body.Password);
 
@@ -107,7 +107,7 @@ namespace TASK_FLOW.NET.User.Service
             return user;
         }
         /// <summary>
-        /// 
+        /// Get all register
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<PublicUserDTO>> ToListAll()
@@ -149,15 +149,14 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="RefreshToken"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<UsersModel> UpdateToken(int id, string RefreshToken)
+        public async Task UpdateToken(int id, string RefreshToken)
         {
-            var user = await this._repository.FindByIdAsync(id);
-            if (user == null) throw new KeyNotFoundException("Invalid Id Provider");
-
+            var user = await this._repository.FindByIdAsync(id)
+                ?? throw new KeyNotFoundException("Invalid Id Provider");
+                
             user.RefreshToken = RefreshToken;
 
             await this._repository.UpdateAsync(user);
-            return user;
         }
 
         /// <summary>

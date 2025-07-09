@@ -3,7 +3,11 @@ using Moq;
 using Specs.Project.Mock;
 using Specs.User.Mocks;
 using Specs.UserProject.Mocks;
+using TASK_FLOW.NET.Project.DTO;
+using TASK_FLOW.NET.Project.Model;
 using TASK_FLOW.NET.Project.Repository.Interface;
+using TASK_FLOW.NET.User.DTO;
+using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.User.Repository.Interface;
 using TASK_FLOW.NET.UserProject.DTO;
 using TASK_FLOW.NET.UserProject.Model;
@@ -29,8 +33,31 @@ namespace Specs.UserProject
 
             var config = new MapperConfiguration(conf =>
             {
+                conf.CreateMap<UsersModel, SimpleUserDTO>();
+
                 conf.CreateMap<UserProjectDTO, UserProjectModel>();
                 conf.CreateMap<UpdateUserProjectDTO, UserProjectModel>();
+
+                conf.CreateMap<UserProjectModel, SimpleProjectIncludeDTO>()
+                    .ForMember(dest => dest.RelationId, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.ProjectId, opt => opt.MapFrom(src => src.Project.Id))
+                    .ForMember(dest => dest.ProjectName, opt => opt.MapFrom(src => src.Project.Name))
+                    .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Project.Description))
+                    .ForMember(dest => dest.Tasks, opt => opt.MapFrom(src => src.Project.Tasks));
+
+                conf.CreateMap<UserProjectModel, SimpleUserDTO>()
+                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
+                    .ForMember(dest => dest.First_name, opt => opt.MapFrom(src => src.User.First_name))
+                    .ForMember(dest => dest.Last_name, opt => opt.MapFrom(src => src.User.Last_name))
+                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.User.Age))
+                    .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
+                    .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+                conf.CreateMap<UserProjectModel, PublicUserProjectDTO>()
+                    .ForMember(dest => dest.Project, opt => opt.MapFrom(src => src.Project))
+                    .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
+
+                conf.CreateMap<ProjectModel, SimpleProjectIncludeDTObyUp>();
             });
             this._mapper = config.CreateMapper();
 
@@ -91,14 +118,14 @@ namespace Specs.UserProject
         public async Task ShouldGetOneRegisterOfUserProject()
         {
             var up = UserProjectsMocks.MockUserProject;
+            var response = UserProjectsMocks.PublicUserProjectDTOMock;
             var id = 1;
             this._repository.Setup(r => r.findById(id)).ReturnsAsync(up);
 
-            var res = await this._service.GetUPbyID(id) as UserProjectModel;
+            var res = await this._service.GetUPbyID(id);
 
             Assert.NotNull(res);
             Assert.Equal(up.Id, res.Id);
-            Assert.Equal(up, res);
         }
 
         /// <summary>

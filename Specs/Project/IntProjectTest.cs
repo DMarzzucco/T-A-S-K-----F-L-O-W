@@ -2,6 +2,7 @@
 using Moq;
 using Specs.Project.Mock;
 using Specs.User.Mocks;
+using Specs.UserProject.Mocks;
 using TASK_FLOW.NET.Auth.Service.Interface;
 using TASK_FLOW.NET.Project.DTO;
 using TASK_FLOW.NET.Project.Model;
@@ -55,6 +56,9 @@ namespace Specs.Project
 
             var body = ProjectMock.CreateProjectDTOMock;
             var project = ProjectMock.ProjectModelMock;
+            var relation = UserProjectsMocks.MockUserProject;
+
+            string message = $"Your Project {project.Name} was create by {user.Username}. And your access level is: {relation.AccessLevel}";
 
             this._mapper.Map<ProjectModel>(body);
 
@@ -63,9 +67,9 @@ namespace Specs.Project
             this._userProjectRepository.Setup(r => r.AddChangeAsync(It.IsAny<UserProjectModel>())).ReturnsAsync(true);
 
             var res = await this._projectService.SaveProject(body);
-            var result = Assert.IsType<UserProjectModel>(res);
 
-            Assert.NotNull(result);
+            Assert.NotNull(res);
+            Assert.Equal(message, res);
         }
 
         /// <summary>

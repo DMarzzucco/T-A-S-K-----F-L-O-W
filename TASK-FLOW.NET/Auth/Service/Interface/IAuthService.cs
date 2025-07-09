@@ -12,7 +12,7 @@ namespace TASK_FLOW.NET.Auth.Service.Interface
         Task<UsersModel> GetUserByCookie();
         Task<string> GetProfile();
         Task<UsersModel> RefreshTokenValidate(string refreshToken, int id);
-        Task Logout();
+        Task<string> Logout();
         Task<string> RegisterUser(CreateUserDTO body);
         Task<string> UpdateEmail(int id, NewEmailDTO body);
         Task<string> RemoveOwnAccount(int id, PasswordDTO body);

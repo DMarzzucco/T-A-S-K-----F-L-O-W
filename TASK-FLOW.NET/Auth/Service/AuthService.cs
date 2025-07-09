@@ -49,9 +49,9 @@ namespace TASK_FLOW.NET.Auth.Service
         /// <exception cref="UnauthorizedAccessException"></exception>
         public async Task<string> GenerateToken(UsersModel body)
         {
-            var context = this._httpContext.HttpContext;
-            if (context == null) throw new UnauthorizedAccessException("HttpContext is null");
-
+            var context = this._httpContext.HttpContext ??
+                throw new UnauthorizedAccessException("HttpContext is null");
+                
             var token = this._tokenService.GenerateToken(body);
             await this._userService.UpdateToken(body.Id, token.RefreshTokenHasher);
 
@@ -98,15 +98,20 @@ namespace TASK_FLOW.NET.Auth.Service
         /// Log Out 
         /// </summary>
         /// <returns></returns>
-        public async Task Logout()
+        public async Task<string> Logout()
         {
             var context = this._httpContext.HttpContext ??
                 throw new UnauthorizedAccessException("HttpContext is null");
 
-            var user = await this.GetUserByCookie();
+            int id = this._tokenService.GetIdFromToken();
+
+            var user = await this._userService.GetById(id);
+
             await this._userService.UpdateToken(user.Id, string.Empty); 
 
             this._cookieService.ClearTokenCookies(context.Response);
+
+            return "Your account was closet successfully";
         }
         /// <summary>
         /// Update Email

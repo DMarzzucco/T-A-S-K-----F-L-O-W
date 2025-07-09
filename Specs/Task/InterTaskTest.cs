@@ -44,13 +44,14 @@ namespace Specs.Tasks
             var body = TasksMocks.CreateTaskDTOMosck;
             var tasks = TasksMocks.TasksModelMosck;
             var projectId = 4;
-            var project = ProjectMock.ProjectModelMock;
-
+            var project = ProjectMock.ProjectModelForTaskMock;
+            
             this._projectService.Setup(s => s.GetProjectById(projectId)).ReturnsAsync(project);
 
             this._repository.Setup(r => r.SaveTaskAsync(tasks)).ReturnsAsync(true);
 
-            var res = await this._service.CreateTask(projectId, body) as TaskModel;
+            var res = await this._service.CreateTask(projectId, body);
+
             Assert.NotNull(res);
             Assert.Equal(tasks.Name, res.Name);
         }

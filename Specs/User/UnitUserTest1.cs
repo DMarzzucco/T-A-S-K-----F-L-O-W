@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Specs.User.Mocks;
 using TASK_FLOW.NET.User.Controller;
+using TASK_FLOW.NET.User.DTO;
 using TASK_FLOW.NET.User.Model;
 using TASK_FLOW.NET.User.Service.Interface;
 
@@ -17,24 +19,7 @@ namespace Specs.User
             this._service = new Mock<IUserService>();
             this._controller = new UserController(this._service.Object);
         }
-        /// <summary>
-        /// Register User
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task ShouldRegisterOneUser()
-        {
-            var body = UsersMock.CreateUserDTOMOck;
-            var user = UsersMock.UserMock;
 
-            this._service.Setup(s => s.CreateUser(body)).ReturnsAsync(user);
-            var res = await this._controller.RegisterUser(body);
-            var result = Assert.IsType<CreatedAtActionResult>(res.Result);
-
-            Assert.NotNull(result);
-            Assert.Equal(201, result.StatusCode);
-            Assert.Equal(user, result.Value);
-        }
         /// <summary>
         /// Get all User Register
         /// </summary>
@@ -42,11 +27,8 @@ namespace Specs.User
         [Fact]
         public async Task ShouldGetAllUserRegister()
         {
-            var list = new List<UsersModel> {
-                UsersMock.UserMock,
-                UsersMock.UserMock
-            };
-            this._service.Setup(s => s.GetAll()).ReturnsAsync(list);
+            var list = new List<PublicUserDTO> { UsersMock.PublicUserDTOMOck };
+            this._service.Setup(s => s.ToListAll()).ReturnsAsync(list);
             var res = await this._controller.GetAllUser();
             var result = Assert.IsType<OkObjectResult>(res.Result);
 
@@ -61,10 +43,10 @@ namespace Specs.User
         [Fact]
         public async Task ShouldGetOneUserRegister()
         {
-            var user = UsersMock.UserMock;
+            var user = UsersMock.PublicUserDTOMOck;
             var id = 4;
 
-            this._service.Setup(s => s.GetById(id)).ReturnsAsync(user);
+            this._service.Setup(s => s.FindUserById(id)).ReturnsAsync(user);
 
             var res = await this._controller.GetUserById(id);
             var result = Assert.IsType<OkObjectResult>(res.Result);
@@ -92,6 +74,51 @@ namespace Specs.User
             Assert.Equal(204, res.StatusCode);
         }
         /// <summary>
+        /// UpdateOwnAccount
+        /// </summary>
+        [Fact]
+        public async Task ShouldUpdateOwnUserAccount()
+        {
+            int id = 4;
+            var body = UsersMock.UpdateOwnUserDTOMock;
+
+            var user = UsersMock.UserHashPassMock;
+
+            string message = "Your account was updated successfully";
+
+            this._service.Setup(s => s.UpdateOwnUserAccount(id, body)).ReturnsAsync(message);
+
+            var r = await this._controller.UpdateOwnAccount(id, body);
+            var res = Assert.IsType<OkObjectResult>(r.Result);
+
+            Assert.NotNull(res);
+            Assert.Equal(200, res.StatusCode);
+            Assert.Equal(message, res.Value);
+        }
+
+        /// <summary>
+        /// Update Roles
+        /// </summary>
+        [Fact]
+        public async Task ShouldUpdateUserRoles()
+        {
+            int id = 4;
+            var body = UsersMock.RolesDTOMock;
+            var user = UsersMock.UserHashPassMock;
+
+            string message = $"The rols of user {user.Username} was chanches for {body.Roles} ";
+
+            this._service.Setup(s => s.UpdateRolesUser(id, body)).ReturnsAsync(message);
+
+            var r = await this._controller.UpdateRoles(id, body);
+            var res = Assert.IsType<OkObjectResult>(r.Result);
+
+            Assert.NotNull(res);
+            Assert.Equal(200, res.StatusCode);
+            Assert.Equal(message, res.Value);
+        }
+
+        /// <summary>
         /// Should Update User Password
         /// </summary>
         /// <returns></returns>
@@ -99,18 +126,17 @@ namespace Specs.User
         public async Task ShouldUpdateOnePassword()
         {
             var id = 4;
-            string oldPassword = "Pr@motheus98";
-            string newPassword = "sdAr@motheus34";
+            var body = UsersMock.NewPasswordDTOMock;
             string message = "Password updated successfully";
 
-            this._service.Setup(s => s.UpdatePassword(id, oldPassword, newPassword)).ReturnsAsync(message);
+            this._service.Setup(s => s.UpdatePassword(id, body)).ReturnsAsync(message);
 
-            var res = await this._controller.UpdatePasswordUser(id, oldPassword, newPassword);
+            var res = await this._controller.UpdatePasswordUser(id, body);
             var result = Assert.IsType<OkObjectResult>(res.Result);
 
             Assert.NotNull(result);
             Assert.Equal(200, result.StatusCode);
-            Assert.Equal (message, result.Value);
+            Assert.Equal(message, result.Value);
         }
         /// <summary>
         /// Delete one user register

@@ -71,7 +71,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         {
             return Ok(await this._service.RecuperatioAccount(body));
         }
-        
+
         /// <summary>
         /// Forget Account
         /// </summary>
@@ -134,10 +134,9 @@ namespace TASK_FLOW.NET.Auth.Controller
         [HttpPost("logout")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> LogOut()
+        public async Task<ActionResult<string>> LogOut()
         {
-            await this._service.Logout();
-            return Ok(new { message = "Log Out successfully" });
+            return Ok(await this._service.Logout());
         }
         /// <summary>
         /// Update Email

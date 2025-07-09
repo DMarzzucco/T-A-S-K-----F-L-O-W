@@ -61,7 +61,7 @@ namespace Specs.UserProject
         [Fact]
         public async Task Should_Get_One_Register_Of_User_Project()
         {
-            var up = UserProjectsMocks.MockUserProject;
+            var up = UserProjectsMocks.PublicUserProjectDTOMock;
             var id = 1;
             this._service.Setup(s => s.GetUPbyID(id)).ReturnsAsync(up);
             var res = await this._controller.GetUPbyId(id);

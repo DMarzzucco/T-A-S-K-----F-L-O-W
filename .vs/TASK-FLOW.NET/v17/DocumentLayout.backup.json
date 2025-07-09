@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\user\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\project\\service\\projectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\project\\service\\projectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\auth\\middleware\\refreshtokenmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\auth\\middleware\\refreshtokenmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,24 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 773,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProjectService.cs",
-              "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Project\\Service\\ProjectService.cs",
-              "RelativeDocumentMoniker": "TASK-FLOW.NET\\Project\\Service\\ProjectService.cs",
-              "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Project\\Service\\ProjectService.cs",
-              "RelativeToolTip": "TASK-FLOW.NET\\Project\\Service\\ProjectService.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAxwFEAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T13:25:49.603Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -57,23 +40,22 @@
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\User\\Service\\UserService.cs",
               "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\User\\Service\\UserService.cs",
               "RelativeToolTip": "TASK-FLOW.NET\\User\\Service\\UserService.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAQwIcAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAG0BAAAAAAAAAAAswH4BAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-03T16:05:29.152Z",
+              "WhenOpened": "2025-07-08T17:32:00.352Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "RefreshTokenMiddleware.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "RelativeToolTip": "TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAAAC8AAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwCMAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T17:49:31.72Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T17:49:31.72Z"
             }
           ]
         },
@@ -83,20 +65,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "DatabaseConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "RelativeToolTip": "TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T10:38:39.804Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Program.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Program.cs",
