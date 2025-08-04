@@ -507,3 +507,5 @@ C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\obj\Debug\net8.0\TASK
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\obj\Debug\net8.0\TASK-FLOW.NET.pdb
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\obj\Debug\net8.0\TASK-FLOW.NET.genruntimeconfig.cache
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\obj\Debug\net8.0\ref\TASK-FLOW.NET.dll
+C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\bin\Debug\net8.0\SwaggerSchemaExample.Nuget.dll
+C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\TASK-FLOW.NET\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using TASK_FLOW.NET.Utils.Exceptions;
@@ -12,41 +13,37 @@ namespace TASK_FLOW.NET.Utils.Filters
         public void OnException(ExceptionContext context)
         {
 
-
             var statusCode = context.Exception switch
             {
-                BadRequestException => 400,
-                ForbiddentExceptions => 403,
+                BadRequestExceptions => 400,
+                ForbiddenExceptions => 403,
                 KeyNotFoundException => 404,
                 UnauthorizedAccessException => 401,
-                ConflictException => 409,
+                ConflictExceptions => 409,
                 SecurityTokenExpiredException => 401,
                 SecurityTokenSignatureKeyNotFoundException => 401,
-                TooManyRequestExceptions =>429,
+                TooManyRequestsExceptions =>429,
                 _ => 500
             };
+            var message = context.Exception switch
+            {
+                BadRequestExceptions ex => ex.Message,
+                UnauthorizedAccessException ex => ex.Message,
+                ForbiddenExceptions ex => ex.Message,
+                SecurityTokenExpiredException => "Token is expired",
+                SecurityTokenSignatureKeyNotFoundException => "Token is invalid",
+                KeyNotFoundException ex => ex.Message,
+                ConflictExceptions ex => ex.Message,
+                TooManyRequestsExceptions ex => ex.Message,
+                _ => context.Exception.Message
+            };
+
             var response = new ErrorResponse
             {
                 StatusCode = statusCode,
-                Message = statusCode switch
-                {
-                    400 => context.Exception.Message,
-                    403 => context.Exception.Message,
-                    404 => context.Exception.Message,
-                    401 => context.Exception switch
-                    {
-                        SecurityTokenExpiredException => "Token has expired",
-                        SecurityTokenSignatureKeyNotFoundException => "Invalid Token",
-                        _ => context.Exception.Message
-                    },
-                    409 => context.Exception.Message,
-                    429 => context.Exception.Message,
-                    _ => context.Exception.Message
-                },
+                Message = message, 
                 Details = statusCode == 500 ?
                     context.Exception.InnerException?.Message : null
-
-
             };
             context.Result = new ObjectResult(response)
             {

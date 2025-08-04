@@ -62,7 +62,7 @@ namespace Specs.Auth
             var token = AuthMock.TokenMock;
 
             string message = $"Welcome {user.Username}";
-            this._tokenService.Setup(x => x.GenerateToken(user)).Returns(token);
+            this._tokenService.Setup(x => x.GenerateAuthenticationToken(user)).Returns(token);
 
             var result = await this._authService.GenerateToken(user);
 
@@ -80,9 +80,9 @@ namespace Specs.Auth
             var user = UsersMock.UserMock;
             var token = AuthMock.TokenMock;
 
-            this._tokenService.Setup(s => s.GetIdFromToken()).Returns(user.Id);
+            this._tokenService.Setup(s => s.GetIdFromClaim()).Returns(user.Id);
             this._userService.Setup(s => s.GetById(user.Id)).ReturnsAsync(user);
-            this._tokenService.Setup(s => s.RefreshToken(user)).Returns(token);
+            this._tokenService.Setup(s => s.GenerateRefreshToken(user)).Returns(token);
 
             var result = await this._authService.RefreshToken();
 
@@ -98,7 +98,7 @@ namespace Specs.Auth
         {
             var user = UsersMock.UserMock;
 
-            this._tokenService.Setup(t => t.GetIdFromToken()).Returns(user.Id);
+            this._tokenService.Setup(t => t.GetIdFromClaim()).Returns(user.Id);
             this._userService.Setup(u => u.GetById(user.Id)).ReturnsAsync(user);
 
             var response = this._authService.GetUserByCookie();
@@ -120,7 +120,7 @@ namespace Specs.Auth
             var httpContext = new DefaultHttpContext();
 
             this._httpContext.Setup(h => h.HttpContext).Returns(httpContext);
-            this._tokenService.Setup(t => t.GetIdFromToken()).Returns(user.Id);
+            this._tokenService.Setup(t => t.GetIdFromClaim()).Returns(user.Id);
             this._userService.Setup(u => u.GetById(user.Id)).ReturnsAsync(user);
             this._userService.Setup(u => u.UpdateToken(user.Id, string.Empty)).Returns(Task.CompletedTask);
 

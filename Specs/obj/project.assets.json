@@ -1031,6 +1031,18 @@
           }
         }
       },
+      "SwaggerSchemaExample.Nuget/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Swashbuckle.AspNetCore.Annotations": "7.1.0"
+        },
+        "compile": {
+          "lib/net8.0/SwaggerSchemaExample.Nuget.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/SwaggerSchemaExample.Nuget.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "type": "package",
         "dependencies": {
@@ -2308,8 +2320,8 @@
           "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.10",
+          "SwaggerSchemaExample.Nuget": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2",
-          "Swashbuckle.AspNetCore.Annotations": "7.1.0",
           "System.IdentityModel.Tokens.Jwt": "8.2.1"
         },
         "compile": {
@@ -3987,6 +3999,20 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "SwaggerSchemaExample.Nuget/1.0.0": {
+      "sha512": "nHFwReS3PeZ1yf7V/ns6zBOU4vCSKLNHK75Psr2AWvRrT0sfO5Ov8CU6XqhGW2xW2mG44/+ddwaRa1uM8sfKqw==",
+      "type": "package",
+      "path": "swaggerschemaexample.nuget/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net8.0/SwaggerSchemaExample.Nuget.dll",
+        "swaggerschemaexample.nuget.1.0.0.nupkg.sha512",
+        "swaggerschemaexample.nuget.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.6.2": {

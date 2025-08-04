@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\user\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\user\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\utils\\filters\\globalfilterexceptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\utils\\filters\\globalfilterexceptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\auth\\jwt\\service\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|solutionrelative:task-flow.net\\auth\\jwt\\service\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{297329B3-33B9-484F-B957-EA723BD5878B}|TASK-FLOW.NET\\TASK-FLOW.NET.csproj|c:\\users\\darma\\documents\\t-a-s-k-----f-l-o-w\\task-flow.net\\auth\\middleware\\refreshtokenmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,27 +39,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\User\\Service\\UserService.cs",
-              "RelativeDocumentMoniker": "TASK-FLOW.NET\\User\\Service\\UserService.cs",
-              "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\User\\Service\\UserService.cs",
-              "RelativeToolTip": "TASK-FLOW.NET\\User\\Service\\UserService.cs",
-              "ViewState": "AgIAAG0BAAAAAAAAAAAswH4BAAAiAAAAAAAAAA==",
+              "Title": "GlobalFilterExceptions.cs",
+              "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Utils\\Filters\\GlobalFilterExceptions.cs",
+              "RelativeDocumentMoniker": "TASK-FLOW.NET\\Utils\\Filters\\GlobalFilterExceptions.cs",
+              "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Utils\\Filters\\GlobalFilterExceptions.cs",
+              "RelativeToolTip": "TASK-FLOW.NET\\Utils\\Filters\\GlobalFilterExceptions.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T17:32:00.352Z",
+              "WhenOpened": "2025-08-04T20:22:34.305Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "RefreshTokenMiddleware.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
               "RelativeToolTip": "TASK-FLOW.NET\\Auth\\Middleware\\RefreshTokenMiddleware.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAiwCMAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBcAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T17:49:31.72Z"
+              "WhenOpened": "2025-03-21T17:49:31.72Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -65,20 +70,33 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\JWT\\Service\\TokenService.cs",
+              "RelativeDocumentMoniker": "TASK-FLOW.NET\\Auth\\JWT\\Service\\TokenService.cs",
+              "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Auth\\JWT\\Service\\TokenService.cs",
+              "RelativeToolTip": "TASK-FLOW.NET\\Auth\\JWT\\Service\\TokenService.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAwwCMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T20:16:14.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "DatabaseConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "ToolTip": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
               "RelativeToolTip": "TASK-FLOW.NET\\Configuration\\ConnectionsConfigurations\\DatabaseConfiguration.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T10:38:39.804Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\Program.cs",
               "RelativeDocumentMoniker": "TASK-FLOW.NET\\Program.cs",

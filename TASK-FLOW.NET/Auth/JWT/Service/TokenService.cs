@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using TASK_FLOW.NET.Auth.JWT.Service.Interface;
 using TASK_FLOW.NET.Auth.JWT.DTO;
+using TASK_FLOW.NET.Auth.JWT.Helper.Interfaces;
 
 namespace TASK_FLOW.NET.Auth.JWT.Service
 {
@@ -13,8 +14,9 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
     {
         private readonly string _secretKey;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ITokenCreationServices _tokenCreation;
 
-        public TokenService(IConfiguration config, IHttpContextAccessor httpContextAccessor)
+        public TokenService(IConfiguration config, IHttpContextAccessor httpContextAccessor, ITokenCreationServices tokenCreation)
         {
             var secretKeySection = config.GetSection("JwtSettings").GetSection("secretKey").ToString();
             if (secretKeySection == null || string.IsNullOrEmpty(secretKeySection))
@@ -23,6 +25,7 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
             }
             this._secretKey = secretKeySection;
             this._httpContextAccessor = httpContextAccessor;
+            _tokenCreation = tokenCreation;
         }
 
         /// <summary>
@@ -30,11 +33,11 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
         /// </summary>
         /// <returns></returns>
         /// <exception cref="UnauthorizedAccessException"></exception>
-        public int GetIdFromToken()
+        public int GetIdFromClaim()
         {
             var httpContext = this._httpContextAccessor.HttpContext ??
                 throw new UnauthorizedAccessException("HttpContext is null");
-            
+
             var token = httpContext.Request.Cookies["Authentication"] ??
                 throw new UnauthorizedAccessException("Token not found");
 
@@ -51,9 +54,9 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public TokenPair GenerateToken(UsersModel user)
+        public TokenPair GenerateAuthenticationToken(UsersModel user)
         {
-            return CreateTokenPair(
+            return this._tokenCreation.CreateTokenPair(
                 user,
                 DateTime.UtcNow.AddHours(1),
                 DateTime.UtcNow.AddDays(5)
@@ -64,9 +67,9 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public TokenPair RefreshToken(UsersModel user)
+        public TokenPair GenerateRefreshToken(UsersModel user)
         {
-            return CreateTokenPair(
+            return this._tokenCreation.CreateTokenPair(
                 user,
                 DateTime.UtcNow.AddDays(5),
                 DateTime.UtcNow.AddDays(5)
@@ -77,10 +80,14 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public bool ValidateToken(string token)
+        public bool ValidateAuthenticationToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var keyBytes = Encoding.UTF8.GetBytes(this._secretKey);
+
+            if (tokenHandler.ReadToken(token) is not JwtSecurityToken jwtToken) return false;
+
+            if (jwtToken.ValidTo < DateTime.UtcNow) return false;
 
             var principal = new TokenValidationParameters
             {
@@ -92,81 +99,23 @@ namespace TASK_FLOW.NET.Auth.JWT.Service
                 ClockSkew = TimeSpan.Zero
             };
 
-            try
-            {
-                tokenHandler.ValidateToken(token, principal, out _);
-                return true;
-
-            }
-            catch (SecurityTokenExpiredException)
-            {
-                return false;
-            }
+            tokenHandler.ValidateToken(token, principal, out _);
+            return true;
         }
         /// <summary>
         ///  is Token Expire Soon
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public bool isTokenExpireSoon(string token)
+        public bool IsTokenExpireSoon(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             if (!handler.CanReadToken(token)) return false;
 
-            var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
-            if (jwtToken == null) return false;
+            if (handler.ReadToken(token) is not JwtSecurityToken jwtToken) return false;
 
             var expiration = jwtToken.ValidTo;
             return expiration <= DateTime.UtcNow.AddMinutes(21);
-        }
-        /// <summary>
-        ///  Create Token Pair Template
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="accessTokenExpired"></param>
-        /// <param name="refreshTokenExpired"></param>
-        /// <returns></returns>
-        public TokenPair CreateTokenPair(UsersModel user, DateTime accessTokenExpired, DateTime refreshTokenExpired)
-        {
-
-            var keyBytes = Encoding.UTF8.GetBytes(this._secretKey);
-            var signingCredential = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature);
-
-            var claims = new List<Claim>
-            {
-                new Claim("sub", user.Id.ToString()),
-                new Claim ("rol", user.Id.ToString())
-            };
-
-            var accessToken = CreateToken(claims, signingCredential, accessTokenExpired);
-            var refreshToken = CreateToken(claims, signingCredential, refreshTokenExpired);
-
-            var refreshTokenHash = BCrypt.Net.BCrypt.HashPassword(refreshToken);
-
-            return new TokenPair
-            {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken,
-                RefreshTokenHasher = refreshTokenHash
-            };
-        }
-        /// <summary>
-        /// Create Token Template
-        /// </summary>
-        /// <param name="claims"></param>
-        /// <param name="signingCredentials"></param>
-        /// <param name="expiration"></param>
-        /// <returns></returns>
-        private string CreateToken(IEnumerable<Claim> claims, SigningCredentials signingCredentials, DateTime expiration)
-        {
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = expiration,
-                SigningCredentials = signingCredentials
-            };
-            var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
         }
     }
 

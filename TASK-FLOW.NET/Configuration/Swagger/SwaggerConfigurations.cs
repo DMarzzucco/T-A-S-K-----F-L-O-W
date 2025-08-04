@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
+using SwaggerSchemaExample.Nuget;
 using System.Reflection;
-using TASK_FLOW.NET.Configuration.Swagger.Filter;
 
 namespace TASK_FLOW.NET.Configuration.Swagger
 {

@@ -22,7 +22,7 @@ namespace TASK_FLOW.NET.User.Validations
 
             var validations = new List<(bool isInvalid, Exception Error)>
             {
-                (await this._repository.ExistsByUsername(normalizedUsername), new ConflictException("This username already exists")),
+                (await this._repository.ExistsByUsername(normalizedUsername), new ConflictExceptions("This username already exists")),
             };
             var firstError = validations.FirstOrDefault(v => v.isInvalid);
             if (firstError != default)
@@ -37,16 +37,16 @@ namespace TASK_FLOW.NET.User.Validations
         public async Task ValidateEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
-                throw new BadRequestException("Email is required");
+                throw new BadRequestExceptions("Email is required");
 
             if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                throw new BadRequestException("Invalid email addres");
+                throw new BadRequestExceptions("Invalid email addres");
 
             var disposableDomains = new[] { "gmail.com", "hotmail.com", "outlook.com", "icloud.com", "yahoo.com" };
 
             var parts = email.Split('@');
             if (parts.Length != 2)
-                throw new BadRequestException("Invalid Email format");
+                throw new BadRequestExceptions("Invalid Email format");
 
             var emailDomains = parts[1];
 
@@ -54,9 +54,9 @@ namespace TASK_FLOW.NET.User.Validations
 
             var validations = new List<(bool isInvalid, Exception Error)>
             {
-                (email.Length > 320, new BadRequestException ("Enail is too long")),
-                (!disposableDomains.Contains(emailDomains), new BadRequestException ("Disposable email domains are not allowed")),
-                (await this._repository.ExistsByEmail(normalizedEmail), new ConflictException("This Email already exist"))
+                (email.Length > 320, new BadRequestExceptions ("Enail is too long")),
+                (!disposableDomains.Contains(emailDomains), new BadRequestExceptions ("Disposable email domains are not allowed")),
+                (await this._repository.ExistsByEmail(normalizedEmail), new ConflictExceptions("This Email already exist"))
             };
 
             var firstError = validations.FirstOrDefault(v => v.isInvalid);
@@ -74,10 +74,10 @@ namespace TASK_FLOW.NET.User.Validations
 
             var validations = new List<(bool isInvalid, Exception Error)>
             {
-                (password.Length < 8, new BadRequestException("Password must be at least 8 characters long.")),
-                (!password.Any(char.IsDigit), new BadRequestException("Password must contain at least one digit")),
-                (!password.Any(char.IsUpper), new BadRequestException("Password must contain at least one upper case letter")),
-                (!password.Any(ch => !char.IsLetterOrDigit(ch)), new BadRequestException("Password must contain at least one special character"))
+                (password.Length < 8, new BadRequestExceptions("Password must be at least 8 characters long.")),
+                (!password.Any(char.IsDigit), new BadRequestExceptions("Password must contain at least one digit")),
+                (!password.Any(char.IsUpper), new BadRequestExceptions("Password must contain at least one upper case letter")),
+                (!password.Any(ch => !char.IsLetterOrDigit(ch)), new BadRequestExceptions("Password must contain at least one special character"))
             };
 
             var firstError = validations.FirstOrDefault(v => v.isInvalid);

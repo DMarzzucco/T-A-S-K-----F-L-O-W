@@ -415,3 +415,4 @@ C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\Specs\bin\Debug\net8.0\TASK-FLOW.NE
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\Specs\obj\Debug\net8.0\Specs.csproj.Up2Date
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\Specs\obj\Debug\net8.0\Specs.genruntimeconfig.cache
 C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\Specs\obj\Debug\net8.0\ref\Specs.dll
+C:\Users\darma\Documents\T-A-S-K-----F-L-O-W\Specs\bin\Debug\net8.0\SwaggerSchemaExample.Nuget.dll

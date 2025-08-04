@@ -1,5 +1,5 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-using TASK_FLOW.NET.Configuration.Swagger.Attributes;
+﻿using SwaggerSchemaExample.Nuget;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace TASK_FLOW.NET.Project.DTO
 {

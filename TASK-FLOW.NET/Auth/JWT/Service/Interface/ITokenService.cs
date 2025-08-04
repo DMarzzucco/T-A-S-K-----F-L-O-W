@@ -5,11 +5,10 @@ namespace TASK_FLOW.NET.Auth.JWT.Service.Interface
 {
     public interface ITokenService
     {
-        TokenPair GenerateToken(UsersModel user);
-        TokenPair RefreshToken(UsersModel user);
-        bool ValidateToken(string token);
-        int GetIdFromToken();
-        bool isTokenExpireSoon(string token);
-        TokenPair CreateTokenPair(UsersModel user, DateTime accessTokenExpired, DateTime refreshTokenExpired);
+        TokenPair GenerateAuthenticationToken(UsersModel user);
+        TokenPair GenerateRefreshToken(UsersModel user);
+        bool ValidateAuthenticationToken(string token);
+        int GetIdFromClaim();
+        bool IsTokenExpireSoon(string token);
     }
 }

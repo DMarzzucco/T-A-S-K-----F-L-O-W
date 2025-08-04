@@ -42,7 +42,7 @@ namespace Specs.Auth.Filters
 
             context.HttpContext = httpContext.Object;
 
-            this._tokenService.Setup(t => t.ValidateToken(validToken)).Verifiable();
+            this._tokenService.Setup(t => t.ValidateAuthenticationToken(validToken)).Verifiable();
             this._authService.Setup(a => a.GetUserByCookie()).ReturnsAsync(user);
 
             await this._filter.OnAuthorizationAsync(context);

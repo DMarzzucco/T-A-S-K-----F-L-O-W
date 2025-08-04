@@ -1,6 +1,6 @@
 using System;
 using Swashbuckle.AspNetCore.Annotations;
-using TASK_FLOW.NET.Configuration.Swagger.Attributes;
+using SwaggerSchemaExample.Nuget;
 using TASK_FLOW.NET.Tasks.Enums;
 using TASK_FLOW.NET.Tasks.Model;
 using TASK_FLOW.NET.User.Enums;

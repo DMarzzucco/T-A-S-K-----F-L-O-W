@@ -79,7 +79,7 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="body"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="BadRequestException"></exception>
+        /// <exception cref="BadRequestExceptions"></exception>
         public async Task RemoveOwnAccount(int id, PasswordDTO body)
         {
             var user = await this._repository.FindByIdAsync(id) ??
@@ -88,7 +88,7 @@ namespace TASK_FLOW.NET.User.Service
             var verify = passwordHasher.VerifyHashedPassword(user, user.Password, body.Password);
 
             if (verify == PasswordVerificationResult.Failed)
-                throw new BadRequestException("Password is wrong");
+                throw new BadRequestExceptions("Password is wrong");
 
             await this._repository.RemoveAsync(user);
         }
@@ -189,7 +189,7 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="body"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="BadRequestException"></exception>
+        /// <exception cref="BadRequestExceptions"></exception>
         public async Task<string> UpdateOwnUserAccount(int id, UpdateOwnUserDTO body)
         {
             var user = await this._repository.FindByIdAsync(id) ??
@@ -199,7 +199,7 @@ namespace TASK_FLOW.NET.User.Service
             var verify = passwordHaser.VerifyHashedPassword(user, user.Password, body.Password);
 
             if (verify == PasswordVerificationResult.Failed)
-                throw new BadRequestException("Password is wrong");
+                throw new BadRequestExceptions("Password is wrong");
 
             await this._validation.ValidateDuplicated(body.Username);
 
@@ -234,7 +234,7 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="body"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="BadRequestException"></exception>
+        /// <exception cref="BadRequestExceptions"></exception>
         public async Task<UsersModel> UpdateEmail(int id, NewEmailDTO body)
         {
             var code = this.codeGeneration.InvokeCodeGeneration();
@@ -245,7 +245,7 @@ namespace TASK_FLOW.NET.User.Service
             var passwordHasher = new PasswordHasher<UsersModel>();
             var verify = passwordHasher.VerifyHashedPassword(user, user.Password, body.Password);
             if (verify == PasswordVerificationResult.Failed)
-                throw new BadRequestException("Password is wrong");
+                throw new BadRequestExceptions("Password is wrong");
 
             await this._validation.ValidateEmail(body.NewEmail);
 
@@ -265,8 +265,8 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="body"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="BadRequestException"></exception>
-        /// <exception cref="ConflictException"></exception>
+        /// <exception cref="BadRequestExceptions"></exception>
+        /// <exception cref="ConflictExceptions"></exception>
         public async Task<string> UpdatePassword(int id, NewPasswordDTO body)
         {
             var date = await this._repository.FindByIdAsync(id) ??
@@ -276,13 +276,13 @@ namespace TASK_FLOW.NET.User.Service
 
             var verificationPass = passwordHasher.VerifyHashedPassword(date, date.Password, body.OldPassword);
             if (verificationPass == PasswordVerificationResult.Failed)
-                throw new BadRequestException("Password is wrong");
+                throw new BadRequestExceptions("Password is wrong");
 
             this._validation.ValidatePassword(body.NewPassword);
 
             var verificationResult = passwordHasher.VerifyHashedPassword(date, date.Password, body.NewPassword);
             if (verificationResult == PasswordVerificationResult.Success)
-                throw new ConflictException("The password cannot be the same as the current one");
+                throw new ConflictExceptions("The password cannot be the same as the current one");
 
             date.Password = passwordHasher.HashPassword(date, body.NewPassword);
             await this._repository.UpdateAsync(date);
@@ -319,9 +319,9 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="dto"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="TooManyRequestExceptions"></exception>
-        /// <exception cref="ForbiddentExceptions"></exception>
-        /// <exception cref="ConflictException"></exception>
+        /// <exception cref="TooManyRequestsExceptions"></exception>
+        /// <exception cref="ForbiddenExceptions"></exception>
+        /// <exception cref="ConflictExceptions"></exception>
         public async Task<UsersModel> RecuperationAccount(RecuperationDTO dto)
         {
             var user = await this._repository.FindByEmail(dto.Email) ??
@@ -331,7 +331,7 @@ namespace TASK_FLOW.NET.User.Service
             var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, dto.Password);
 
             if (user.LockedUntil != null && DateTime.UtcNow < user.LockedUntil)
-                throw new TooManyRequestExceptions("Account locked due to multple failed attemp, Try againt later");
+                throw new TooManyRequestsExceptions("Account locked due to multple failed attemp, Try againt later");
 
             if (user.VerifyCode != dto.VerifyCode || user.CodeExpiration < DateTime.UtcNow)
             {
@@ -344,13 +344,13 @@ namespace TASK_FLOW.NET.User.Service
 
                 await this._repository.UpdateAsync(user);
 
-                throw new ForbiddentExceptions("Code is invalid or is expired");
+                throw new ForbiddenExceptions("Code is invalid or is expired");
             }
 
             this._validation.ValidatePassword(dto.Password);
 
             if (verifyPassword == PasswordVerificationResult.Success)
-                throw new ConflictException("The password could not be same at old");
+                throw new ConflictExceptions("The password could not be same at old");
 
             user.VerifyCode = "";
             user.CodeExpiration = null;
@@ -369,18 +369,18 @@ namespace TASK_FLOW.NET.User.Service
         /// <param name="dto"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        /// <exception cref="ForbiddentExceptions"></exception>
-        /// <exception cref="TooManyRequestExceptions"></exception>
+        /// <exception cref="ForbiddenExceptions"></exception>
+        /// <exception cref="TooManyRequestsExceptions"></exception>
         public async Task<string> MarkVerify(VerifyDTO dto)
         {
             var user = await this._repository.FindByEmail(dto.Email) ??
                 throw new KeyNotFoundException("User not found");
 
             if (user.VerifyEmail == true)
-                throw new ForbiddentExceptions("This user was verify");
+                throw new ForbiddenExceptions("This user was verify");
 
             if (user.LockedUntil != null && DateTime.UtcNow < user.LockedUntil)
-                throw new TooManyRequestExceptions("Account locked due to multiple failed attemps. Try again later");
+                throw new TooManyRequestsExceptions("Account locked due to multiple failed attemps. Try again later");
 
             if (user.VerifyCode != dto.VerifyCode || user.CodeExpiration < DateTime.UtcNow)
             {
@@ -392,7 +392,7 @@ namespace TASK_FLOW.NET.User.Service
                     user.VerifyAttempts = 0;
                 }
                 await this._repository.UpdateAsync(user);
-                throw new ForbiddentExceptions("Code is invalid or is expired");
+                throw new ForbiddenExceptions("Code is invalid or is expired");
             }
             user.VerifyEmail = true;
             user.VerifyCode = "";

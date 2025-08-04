@@ -58,7 +58,7 @@ namespace Specs.Auth.Middleware
 
             context.Request.Headers["Cookie"] = "Authentication=invalidToken";
 
-            this._tokenSerivce.Setup(s => s.ValidateToken("invalid")).Returns(false);
+            this._tokenSerivce.Setup(s => s.ValidateAuthenticationToken("invalid")).Returns(false);
 
             var middleware = new RefreshTokenMiddleware(this._next);
 
@@ -77,13 +77,13 @@ namespace Specs.Auth.Middleware
             context.Request.Headers["Cookie"] = "Authentication=validToken; RefreshToken=validRefreshToken";
             var user = UsersMock.UserMock;
 
-            this._tokenSerivce.Setup(ts => ts.ValidateToken("validToken")).Returns(true);
-            this._tokenSerivce.Setup(ts => ts.isTokenExpireSoon("validToken")).Returns(true);
-            this._tokenSerivce.Setup(ts => ts.ValidateToken("validRefreshToken")).Returns(true);
+            this._tokenSerivce.Setup(ts => ts.ValidateAuthenticationToken("validToken")).Returns(true);
+            this._tokenSerivce.Setup(ts => ts.IsTokenExpireSoon("validToken")).Returns(true);
+            this._tokenSerivce.Setup(ts => ts.ValidateAuthenticationToken("validRefreshToken")).Returns(true);
 
             this._authService.Setup(s => s.GetUserByCookie()).ReturnsAsync(user);
 
-            this._tokenSerivce.Setup(ts => ts.RefreshToken(user)).Returns(token);
+            this._tokenSerivce.Setup(ts => ts.GenerateRefreshToken(user)).Returns(token);
 
             var middleware = new RefreshTokenMiddleware(_next);
 
@@ -117,7 +117,7 @@ namespace Specs.Auth.Middleware
             context.Request.Headers["Cookie"] = "Authentication=invalidToken";
 
 
-            this._tokenSerivce.Setup(s => s.ValidateToken("invalid")).Returns(false);
+            this._tokenSerivce.Setup(s => s.ValidateAuthenticationToken("invalid")).Returns(false);
 
             var middleware = new RefreshTokenMiddleware(this._next);
 

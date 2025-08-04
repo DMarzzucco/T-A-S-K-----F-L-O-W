@@ -26,7 +26,7 @@ namespace TASK_FLOW.NET.Auth.Filters
                 context.Result = ContentResultHelper.CreateContentResult(StatusCodes.Status401Unauthorized, "Invalid or not Provider Token");
                 return;
             }
-            this._tokenService.ValidateToken(token);
+            this._tokenService.ValidateAuthenticationToken(token);
 
             var user = await this._authService.GetUserByCookie();
 

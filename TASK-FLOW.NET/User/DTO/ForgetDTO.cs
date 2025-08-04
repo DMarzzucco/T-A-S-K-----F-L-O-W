@@ -1,6 +1,6 @@
 using System;
 using Swashbuckle.AspNetCore.Annotations;
-using TASK_FLOW.NET.Configuration.Swagger.Attributes;
+using SwaggerSchemaExample.Nuget;
 
 namespace TASK_FLOW.NET.User.DTO;
 

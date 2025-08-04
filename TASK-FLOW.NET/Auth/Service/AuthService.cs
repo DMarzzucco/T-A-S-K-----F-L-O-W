@@ -30,12 +30,12 @@ namespace TASK_FLOW.NET.Auth.Service
         /// </summary>
         /// <param name="body"></param>
         /// <returns></returns>
-        /// <exception cref="BadRequestException"></exception>
+        /// <exception cref="BadRequestExceptions"></exception>
         public async Task<string> RegisterUser(CreateUserDTO body)
         {
             if (body == null)
             {
-                throw new BadRequestException($"{body} is required");
+                throw new BadRequestExceptions($"{body} is required");
             }
             var user = await this._userService.CreateUser(body);
 
@@ -52,7 +52,7 @@ namespace TASK_FLOW.NET.Auth.Service
             var context = this._httpContext.HttpContext ??
                 throw new UnauthorizedAccessException("HttpContext is null");
                 
-            var token = this._tokenService.GenerateToken(body);
+            var token = this._tokenService.GenerateAuthenticationToken(body);
             await this._userService.UpdateToken(body.Id, token.RefreshTokenHasher);
 
             this._cookieService.SetTokenCookies(context.Response, token);
@@ -68,7 +68,7 @@ namespace TASK_FLOW.NET.Auth.Service
             if (context == null) throw new UnauthorizedAccessException("HttpContext is null");
 
             var user = await this.GetUserByCookie();
-            var token = this._tokenService.RefreshToken(user);
+            var token = this._tokenService.GenerateRefreshToken(user);
 
             await this._userService.UpdateToken(user.Id, token.RefreshTokenHasher);
 
@@ -90,7 +90,7 @@ namespace TASK_FLOW.NET.Auth.Service
         /// <returns></returns>
         public async Task<UsersModel> GetUserByCookie()
         {
-            var id = this._tokenService.GetIdFromToken();
+            var id = this._tokenService.GetIdFromClaim();
             var user = await this._userService.GetById(id);
             return user;
         }
@@ -103,7 +103,7 @@ namespace TASK_FLOW.NET.Auth.Service
             var context = this._httpContext.HttpContext ??
                 throw new UnauthorizedAccessException("HttpContext is null");
 
-            int id = this._tokenService.GetIdFromToken();
+            int id = this._tokenService.GetIdFromClaim();
 
             var user = await this._userService.GetById(id);
 
@@ -182,7 +182,7 @@ namespace TASK_FLOW.NET.Auth.Service
             if (verificationResult == PasswordVerificationResult.Failed) throw new UnauthorizedAccessException("Password wrong");
 
             if (user.VerifyEmail == false)
-                throw new ForbiddentExceptions("Your account not was verifiet");
+                throw new ForbiddenExceptions("Your account not was verifiet");
 
             return user;
         }

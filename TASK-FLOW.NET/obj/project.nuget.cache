@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MYz+xTxD+AA=",
+  "dgSpecHash": "gKlr8iN5szM=",
   "success": true,
   "projectFilePath": "C:\\Users\\darma\\Documents\\T-A-S-K-----F-L-O-W\\TASK-FLOW.NET\\TASK-FLOW.NET.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,7 @@
     "C:\\Users\\darma\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\darma\\.nuget\\packages\\npgsql\\8.0.5\\npgsql.8.0.5.nupkg.sha512",
     "C:\\Users\\darma\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.10\\npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512",
+    "C:\\Users\\darma\\.nuget\\packages\\swaggerschemaexample.nuget\\1.0.0\\swaggerschemaexample.nuget.1.0.0.nupkg.sha512",
     "C:\\Users\\darma\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\darma\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\7.1.0\\swashbuckle.aspnetcore.annotations.7.1.0.nupkg.sha512",
     "C:\\Users\\darma\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\7.1.0\\swashbuckle.aspnetcore.swagger.7.1.0.nupkg.sha512",
