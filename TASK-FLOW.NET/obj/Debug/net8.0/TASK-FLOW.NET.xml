@@ -20,20 +20,6 @@
             <param name="body"></param>
             <returns></returns>
         </member>
-        <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.RecuperationAccount(TASK_FLOW.NET.User.DTO.RecuperationDTO)">
-            <summary>
-            Recuperation Account
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.ForgetAccount(TASK_FLOW.NET.User.DTO.ForgetDTO)">
-            <summary>
-            Forget Account
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
         <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.Login(TASK_FLOW.NET.Auth.DTO.AuthPropsDTO)">
             <summary>
             Login User 
@@ -43,13 +29,19 @@
             <response code="200">Ok</response>
             <response code="401">Unauthorized</response>
         </member>
-        <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.GetProfile">
+        <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.ForgetAccount(TASK_FLOW.NET.User.DTO.ForgetDTO)">
             <summary>
-            Get Profile
+            Forget Account
             </summary>
-            <returns>Return the Username of User</returns>
-            <response code="200">Ok</response>
-            <response code="401">Unauthorized</response>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.RecuperationAccount(TASK_FLOW.NET.User.DTO.RecuperationDTO)">
+            <summary>
+            Recuperation Account
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
         </member>
         <member name="M:TASK_FLOW.NET.Auth.Controller.AuthController.LogOut">
             <summary>
@@ -83,51 +75,7 @@
             <response code = "200">Ok</response>
             <response code = "401">Unauthorized</response>
         </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GetIdFromToken">
-            <summary>
-            Get Id from Token 
-            </summary>
-            <returns></returns>
-            <exception cref="T:System.UnauthorizedAccessException"></exception>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GenerateToken(TASK_FLOW.NET.User.Model.UsersModel)">
-            <summary>
-            Generate Token
-            </summary>
-            <param name="user"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.RefreshToken(TASK_FLOW.NET.User.Model.UsersModel)">
-            <summary>
-             Refresh Token 
-            </summary>
-            <param name="user"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.ValidateToken(System.String)">
-            <summary>
-             Validate Token
-            </summary>
-            <param name="token"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.isTokenExpireSoon(System.String)">
-            <summary>
-             is Token Expire Soon
-            </summary>
-            <param name="token"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.CreateTokenPair(TASK_FLOW.NET.User.Model.UsersModel,System.DateTime,System.DateTime)">
-            <summary>
-             Create Token Pair Template
-            </summary>
-            <param name="user"></param>
-            <param name="accessTokenExpired"></param>
-            <param name="refreshTokenExpired"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Microsoft.IdentityModel.Tokens.SigningCredentials,System.DateTime)">
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Helper.TokenCreationServices.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Microsoft.IdentityModel.Tokens.SigningCredentials,System.DateTime)">
             <summary>
             Create Token Template
             </summary>
@@ -136,13 +84,57 @@
             <param name="expiration"></param>
             <returns></returns>
         </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Helper.TokenCreationServices.CreateTokenPair(TASK_FLOW.NET.User.Model.UsersModel,System.DateTime,System.DateTime)">
+            <summary>
+             Create Token Pair Template
+            </summary>
+            <param name="user"></param>
+            <param name="accessTokenExpired"></param>
+            <param name="refreshTokenExpired"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GetIdFromClaim">
+            <summary>
+            Get Id from Token 
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GenerateAuthenticationToken(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+            Generate Token
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.GenerateRefreshToken(TASK_FLOW.NET.User.Model.UsersModel)">
+            <summary>
+             Refresh Token 
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.ValidateAuthenticationToken(System.String)">
+            <summary>
+             Validate Token
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TASK_FLOW.NET.Auth.JWT.Service.TokenService.IsTokenExpireSoon(System.String)">
+            <summary>
+             is Token Expire Soon
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.RegisterUser(TASK_FLOW.NET.User.DTO.CreateUserDTO)">
             <summary>
             Register User
             </summary>
             <param name="body"></param>
             <returns></returns>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.Auth.Service.AuthService.GenerateToken(TASK_FLOW.NET.User.Model.UsersModel)">
             <summary>
@@ -689,7 +681,7 @@
             <param name="body"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Service.UserService.FindByAuth(System.String,System.Object)">
             <summary>
@@ -748,7 +740,7 @@
             <param name="body"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Service.UserService.UpdateRolesUser(System.Int32,TASK_FLOW.NET.User.DTO.RolesDTO)">
             <summary>
@@ -767,7 +759,7 @@
             <param name="body"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Service.UserService.UpdatePassword(System.Int32,TASK_FLOW.NET.User.DTO.NewPasswordDTO)">
             <summary>
@@ -777,8 +769,8 @@
             <param name="body"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ConflictException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ConflictExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Service.UserService.ForgetPassword(TASK_FLOW.NET.User.DTO.ForgetDTO)">
             <summary>
@@ -795,9 +787,9 @@
             <param name="dto"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestExceptions"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddentExceptions"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ConflictException"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestsExceptions"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddenExceptions"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ConflictExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Service.UserService.MarkVerify(TASK_FLOW.NET.User.DTO.VerifyDTO)">
             <summary>
@@ -806,8 +798,8 @@
             <param name="dto"></param>
             <returns></returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddentExceptions"></exception>
-            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestExceptions"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddenExceptions"></exception>
+            <exception cref="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestsExceptions"></exception>
         </member>
         <member name="M:TASK_FLOW.NET.User.Validations.UsersValidations.ValidateDuplicated(System.String)">
             <summary>
@@ -830,49 +822,49 @@
             <param name="password"></param>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="T:TASK_FLOW.NET.Utils.Exceptions.ConflictException">
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.ConflictExceptions">
             <summary>
             409
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:TASK_FLOW.NET.Utils.Exceptions.ConflictException.#ctor(System.String)">
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.ConflictExceptions.#ctor(System.String)">
             <summary>
             409
             </summary>
             <param name="message"></param>
         </member>
-        <member name="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestException">
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions">
             <summary>
             400
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:TASK_FLOW.NET.Utils.Exceptions.BadRequestException.#ctor(System.String)">
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.BadRequestExceptions.#ctor(System.String)">
             <summary>
             400
             </summary>
             <param name="message"></param>
         </member>
-        <member name="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddentExceptions">
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.ForbiddenExceptions">
             <summary>
             403
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:TASK_FLOW.NET.Utils.Exceptions.ForbiddentExceptions.#ctor(System.String)">
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.ForbiddenExceptions.#ctor(System.String)">
             <summary>
             403
             </summary>
             <param name="message"></param>
         </member>
-        <member name="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestExceptions">
+        <member name="T:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestsExceptions">
             <summary>
             429
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestExceptions.#ctor(System.String)">
+        <member name="M:TASK_FLOW.NET.Utils.Exceptions.TooManyRequestsExceptions.#ctor(System.String)">
             <summary>
             429
             </summary>

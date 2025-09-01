@@ -10,8 +10,9 @@ namespace TASK_FLOW.NET.Configuration.ConnectionsConfigurations
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            //var connectionString = configuration.GetConnectionString("Connection");
+            // var connectionString = configuration.GetConnectionString("Connection"); 
             var connectionString = configuration.GetConnectionString("Container");
+            // var connectionString = configuration.GetConnectionString("K8s");
 
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException(nameof(connectionString), "Connection String could not be null or Empty");
@@ -23,7 +24,10 @@ namespace TASK_FLOW.NET.Configuration.ConnectionsConfigurations
                 DatabaseHelper.WaitForDatabaseAsync(connectionString, logger).GetAwaiter().GetResult();
             }
 
-            services.AddDbContext<AppDBContext>(op => op.UseNpgsql(connectionString));
+            services.AddDbContextPool<AppDBContext>(op =>
+            {
+                op.UseNpgsql(connectionString, npgsqlOptions => { npgsqlOptions.CommandTimeout(15); });
+            });
 
             return services;
         }

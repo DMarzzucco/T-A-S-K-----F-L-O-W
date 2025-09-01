@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-flow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-flow
+  template:
+    metadata:
+      labels:
+        app: task-flow
+    spec:
+      containers:
+        - name: task-flow
+          image: task-flow:latest
+          imagePullPolicy: Never 
+          ports:
+            - containerPort: 5024
+          env:
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+              value: "/https/cert.pfx"
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+              value: "pass123"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: ASPNETCORE_HTTP_PORTS
+              value: "5024"
+            - name: ASPNETCORE_HTTPS_PORTS
+              value: "5024"
+            - name: ConnectionStrings__Default  
+              value: "Host=postgres;Port=5432;Database=data_base;Username=user;Password=password"
+          volumeMounts:
+            - name: cert-volume
+              mountPath: /https
+      volumes:
+        - name: cert-volume
+          secret:
+            secretName: cert-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-flow
+spec:
+  type: NodePort
+  ports:
+    - port: 5024
+      nodePort: 30080
+  selector:
+    app: task-flow

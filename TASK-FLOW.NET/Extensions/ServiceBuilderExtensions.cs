@@ -1,4 +1,5 @@
-﻿using TASK_FLOW.NET.Configuration;
+﻿using TASK_FLOW.NET.Auth.Policy;
+using TASK_FLOW.NET.Configuration;
 using TASK_FLOW.NET.Configuration.ConnectionsConfigurations;
 using TASK_FLOW.NET.Configuration.Swagger;
 
@@ -11,6 +12,8 @@ namespace TASK_FLOW.NET.Extensions
             // Add services to the container.
             services.AddDatabaseConfiguration(configuration);
             services.AddHttpContextAccessor();
+            //RL
+            services.AddRateLimitingPolicyCustom();
             //Cors Policy
             services.AddCorsPolicy();
             services.AddJWTAuthentication(configuration);

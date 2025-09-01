@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using TASK_FLOW.NET.Auth.Attributes;
 using TASK_FLOW.NET.Auth.DTO;
 using TASK_FLOW.NET.Auth.Filters;
@@ -30,6 +31,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         /// <response code="409">Conflict between repeat dates</response>
         [AllowAnonymousAccess]
         [HttpPost("register")]
+        [EnableRateLimiting("RegisterPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<UsersModel>> RegisterUser([FromBody] CreateUserDTO body)
@@ -44,6 +46,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         /// <returns></returns>
         [AllowAnonymousAccess]
         [HttpPut("verify-account")]
+        [EnableRateLimiting("VerifyAccountPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -52,42 +55,6 @@ namespace TASK_FLOW.NET.Auth.Controller
         public async Task<ActionResult<string>> VerifyEmailAccount([FromBody] VerifyDTO body)
         {
             return Ok(await this._service.VerifyAccount(body));
-        }
-
-        /// <summary>
-        /// Recuperation Account
-        /// </summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        [AllowAnonymousAccess]
-        [HttpPatch("recuperation-account")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
-        public async Task<ActionResult<string>> RecuperationAccount([FromBody] RecuperationDTO body)
-        {
-            return Ok(await this._service.RecuperatioAccount(body));
-        }
-
-        /// <summary>
-        /// Forget Account
-        /// </summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        [AllowAnonymousAccess]
-        [HttpPut("forget-account")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
-        public async Task<ActionResult<string>> ForgetAccount([FromBody] ForgetDTO body)
-        {
-            return Ok(await this._service.ForgetAccount(body));
         }
 
         /// <summary>
@@ -100,6 +67,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         [AllowAnonymousAccess]
         [ServiceFilter(typeof(LocalAuthFilter))]
         [HttpPost("login")]
+        [EnableRateLimiting("LoginPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> Login([FromBody] AuthPropsDTO body)
@@ -111,18 +79,41 @@ namespace TASK_FLOW.NET.Auth.Controller
         }
 
         /// <summary>
-        /// Get Profile
+        /// Forget Account
         /// </summary>
-        /// <returns>Return the Username of User</returns>
-        /// <response code="200">Ok</response>
-        /// <response code="401">Unauthorized</response>
-        [HttpGet("profile")]
+        /// <param name="body"></param>
+        /// <returns></returns>
+        [AllowAnonymousAccess]
+        [HttpPut("forget-account")]
+        [EnableRateLimiting("ForgetAccountPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<string>> GetProfile()
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
+        public async Task<ActionResult<string>> ForgetAccount([FromBody] ForgetDTO body)
         {
-            var user = await this._service.GetProfile();
-            return Ok(user);
+            return Ok(await this._service.ForgetAccount(body));
+        }
+
+        /// <summary>
+        /// Recuperation Account
+        /// </summary>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        [AllowAnonymousAccess]
+        [HttpPatch("recuperation-account")]
+        [EnableRateLimiting("RecuperationAccountPolicy")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
+        public async Task<ActionResult<string>> RecuperationAccount([FromBody] RecuperationDTO body)
+        {
+            return Ok(await this._service.RecuperatioAccount(body));
         }
 
         /// <summary>
@@ -146,6 +137,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         /// <returns></returns>
         [Roles(ROLES.BASIC)]
         [HttpPatch("update-email")]
+        [EnableRateLimiting("UpdateEmailPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -163,6 +155,7 @@ namespace TASK_FLOW.NET.Auth.Controller
         /// <returns></returns>
         [Roles(ROLES.BASIC)]
         [HttpDelete("remove-own-account")]
+        [EnableRateLimiting("RemoveOwnAccountPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

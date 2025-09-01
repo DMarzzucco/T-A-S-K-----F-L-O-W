@@ -24,5 +24,6 @@ if (app.Environment.IsDevelopment())
 }
 app.UseApllicationBuilderExtension();
 app.ApplyMigration();
+app.UseRateLimiter(); 
 app.MapControllers();
 app.Run();

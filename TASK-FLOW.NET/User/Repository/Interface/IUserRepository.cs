@@ -12,6 +12,6 @@ namespace TASK_FLOW.NET.User.Repository.Interface
         Task AddChangeAsync(UsersModel user);
         Task<bool>UpdateAsync(UsersModel user);
         Task<UsersModel?> FindByKey(string key, object value);
-        Task<UsersModel> FindByEmail(string email);
+        Task<UsersModel?> FindByEmail(string email);
     }
 }

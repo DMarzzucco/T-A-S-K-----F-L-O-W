@@ -33,3 +33,48 @@ status:
 # stand up all system
 rebuild:
 	docker-compose up --build -d
+
+test-metric:
+	locust -f locust.py
+
+## kubernetes
+
+
+## init kube
+kube-start:
+	minikube start
+
+## add TSL ceritificate 
+tsl-cert:
+	kubectl create secret generic cert-secret --from-file=./certs/cert.pfx
+
+# desplegar postgresql 
+kube-sql:
+	kubectl apply -f postgres.yaml
+
+# deploy container in  minikube 
+init-server:
+	docker build -t task-flow:latest -f Dockerfile . 
+
+# load image to minikube
+load-image:
+	minikube image load task-flow:latest
+
+# desplegar server
+kube-server:
+	kubectl apply -f server.yaml
+
+# deploy minikube
+start:
+	minikube service task-flow
+
+# log status in minikube 
+status:
+	minikube status
+
+#stop production
+stop-production:
+	minikube stop
+
+rem-nodos:
+	minikube delete

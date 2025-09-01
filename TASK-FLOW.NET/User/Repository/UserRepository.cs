@@ -55,22 +55,24 @@ namespace TASK_FLOW.NET.User.Repository
         /// <returns></returns>
         public async Task<IEnumerable<UsersModel>> ToListAsync()
         {
-            return await this._context.UserModel.Select(u => new UsersModel
-            {
-                Id = u.Id,
-                First_name = u.First_name,
-                Last_name = u.Last_name,
-                Age = u.Age,
-                Username = u.Username,
-                Email = u.Email,
-                VerifyEmail = u.VerifyEmail,
-                VerifyCode = u.VerifyCode,
-                CodeExpiration = u.CodeExpiration,
-                Password = u.Password,
-                Roles = u.Roles,
-                RefreshToken = u.RefreshToken,
-                ProjectIncludes = new List<UserProjectModel>()
-            }).ToListAsync();
+            return await this._context.UserModel
+                .AsNoTracking()
+                .Select(u => new UsersModel
+                {
+                    Id = u.Id,
+                    First_name = u.First_name,
+                    Last_name = u.Last_name,
+                    Age = u.Age,
+                    Username = u.Username,
+                    Email = u.Email,
+                    VerifyEmail = u.VerifyEmail,
+                    VerifyCode = u.VerifyCode,
+                    CodeExpiration = u.CodeExpiration,
+                    Password = u.Password,
+                    Roles = u.Roles,
+                    RefreshToken = u.RefreshToken,
+                    ProjectIncludes = new List<UserProjectModel>()
+                }).ToListAsync();
         }
 
         /// <summary>
@@ -82,8 +84,8 @@ namespace TASK_FLOW.NET.User.Repository
         {
             var user = await this._context.UserModel
                 .Include(u => u.ProjectIncludes)
-                .ThenInclude(pi => pi.Project)
-                .ThenInclude(pi=> pi.Tasks)
+                    .ThenInclude(pi => pi.Project)
+                        .ThenInclude(pi=> pi.Tasks)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
 
@@ -98,10 +100,11 @@ namespace TASK_FLOW.NET.User.Repository
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<UsersModel> FindByEmail(string email) 
+        public async Task<UsersModel?> FindByEmail(string email) 
         {
-            var user = await this._context.UserModel.FirstOrDefaultAsync(u => u.Email == email);
-            return user;
+            return await this._context.UserModel
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         /// <summary>
