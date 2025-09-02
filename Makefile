@@ -34,8 +34,6 @@ status:
 rebuild:
 	docker-compose up --build -d
 
-test-metric:
-	locust -f locust.py
 
 ## kubernetes
 

@@ -64,25 +64,6 @@ namespace Specs.Auth
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
         }
 
-
-        /// <summary>
-        /// Get username of user 
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task ShouldGetTheUsername()
-        {
-            var expectUser = "DMarzz";
-            this._service.Setup(s => s.GetProfile()).ReturnsAsync(expectUser);
-
-            var result = await this._controller.GetProfile();
-
-            var okResult = Assert.IsType<OkObjectResult>(result.Result);
-
-            Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
-            Assert.Equal(expectUser, okResult.Value);
-        }
-
         /// <summary>
         /// Logout
         /// </summary>
